@@ -2,15 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button, Form} from 'react-bootstrap';
 import React, { useState } from 'react';
 
-function AuthenticationModal({show, handleClose, type}) {
-    function handleSubmit(e){
-        console.log(email)
-        console.log(password)
-    }
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
+function AuthenticationModal({show, handleClose, type, email, password, setEmail, setPassword, handleSubmit}) {
+ 
     return (
         <Modal
         size="lg"

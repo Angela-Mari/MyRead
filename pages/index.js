@@ -5,14 +5,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthenticationModal from './_authenticationModal';
 import React, { useState } from 'react';
 
-
 export default function Home() {
 
   const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [authentication, setAuthentication] = useState("Register");
 
   function handleClose(){
     setShow(false)
+  }
+
+  function handleSubmit(e){
+    // send to backend??
+    console.log(email)
+    console.log(password)
   }
 
   function handleClick(name){
@@ -50,7 +57,7 @@ export default function Home() {
               onClick={(e) => handleClick(e.currentTarget.name)}>
               Log in
             </Button>
-            <AuthenticationModal show={show} handleClose={handleClose} type={authentication}></AuthenticationModal>
+            <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} handleSubmit={handleSubmit} type={authentication}></AuthenticationModal>
         </Col>
         </Row> 
       </main>
