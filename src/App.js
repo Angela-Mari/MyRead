@@ -1,7 +1,6 @@
 import { Button, Col, Row, Container, Navbar} from 'react-bootstrap';
 import AuthenticationModal from './AuthenticationModal';
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
