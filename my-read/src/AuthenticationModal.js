@@ -1,6 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button, Form} from 'react-bootstrap';
-import React, { useState } from 'react';
+import React from 'react';
 
 function AuthenticationModal({show, handleClose, type, email, password, setEmail, setPassword, handleSubmit}) {
  
@@ -30,7 +29,7 @@ function AuthenticationModal({show, handleClose, type, email, password, setEmail
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    {type == "Register"? <Form.Check type="checkbox" label="I accept the terms and conditions"/> : <></> }
+                    {type === "Register"? <Form.Check type="checkbox" label="I accept the terms and conditions"/> : <></> }
                 </Form.Group>
 
                 <Button variant="primary" type="submit" onClick={(e)=>handleSubmit(e.currentTarget)}>
