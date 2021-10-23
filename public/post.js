@@ -109,3 +109,4 @@ console.log(user1);
 let user2 = fuzzySearch({ age: 22, blogNum: 1 });
 console.log("line19");
 console.log(user2);
+
