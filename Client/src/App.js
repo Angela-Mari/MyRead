@@ -50,16 +50,8 @@ function App({
     setLoggedIn(true)
   }
 
-  // function handleSubmit(e){
-  //   login(email, password);
-  //   // send to backend??
-  //   console.log(email)
-  //   console.log(password)
-  // }
-
   function handleClick(name){
     console.log(name)
-    setAuthentication(name)
     setShow(true)
   }
 
@@ -71,7 +63,7 @@ function App({
           <Switch>
             <Route exact path="/">
               {
-              loggedIn ? <Redirect to={`/${alias}`} /> : 
+              isAuthenticated ? <Redirect to={`/${user.alias}`} /> : 
                 <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow}/>
               }
               </Route>

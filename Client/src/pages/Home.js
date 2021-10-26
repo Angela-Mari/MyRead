@@ -1,8 +1,8 @@
 import { Button, Col, Row, Container, Navbar} from 'react-bootstrap';
-import AuthenticationModal from './components/AuthenticationModal';
+import AuthenticationModal from '../components/AuthenticationModal';
 import React, { useState } from 'react';
-import Blog from './pages/Blog';
-import TwoFAModal from './components/TwoFAModal';
+import Blog from './Blog';
+import TwoFAModal from '../components/TwoFAModal';
 
 function Home({email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {
   
