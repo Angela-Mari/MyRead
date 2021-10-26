@@ -10,6 +10,7 @@ function AuthenticationModal({show, handleClose, type, email, password, setEmail
         show={show} 
         onHide={handleClose}
         centered
+        animation={false}
         >
         <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -18,6 +19,7 @@ function AuthenticationModal({show, handleClose, type, email, password, setEmail
         </Modal.Header>
         <Modal.Body>
             <Form>
+
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control value={email} type="email" placeholder="Enter email" onChange={(e) => setEmail(e.currentTarget.value)} />
@@ -32,9 +34,10 @@ function AuthenticationModal({show, handleClose, type, email, password, setEmail
                     {type === "Register"? <Form.Check type="checkbox" label="I accept the terms and conditions"/> : <></> }
                 </Form.Group>
 
-                <Button variant="primary" type="submit" onClick={(e)=>handleSubmit(e.currentTarget)}>
+                <Button variant="primary" type="button" onClick={(e)=>handleSubmit(e.currentTarget)}>
                     Submit
                 </Button>
+                
                 </Form>
         </Modal.Body>
         <Modal.Footer>
