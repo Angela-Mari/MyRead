@@ -1,12 +1,23 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
+import { useParams } from 'react-router';
+import Categories from '../components/Categories';
+import RecentPosts from '../components/RecentPosts';
+import Bio from '../components/Bio';
 
 function Blog() {
 
     let { username } = useParams();
 
     return(
-        <h1>My Blog! {username} </h1>
+        <Container>
+        <Row>
+            <h1>{username}'s Blog</h1>
+            <Categories></Categories>
+            <RecentPosts></RecentPosts>
+            <Bio></Bio>
+        </Row>
+        </Container>
     )
 }
 
