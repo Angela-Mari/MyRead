@@ -79,7 +79,6 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
                     {type === "Register"? 
                     <>
                     <Accordion>
-                    
                         <Accordion.Header>Privacy Policy</Accordion.Header>
                             <Accordion.Body>
                                     <h3>What We Collect</h3>
