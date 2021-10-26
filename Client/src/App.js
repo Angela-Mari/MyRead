@@ -1,8 +1,14 @@
-import { Button, Col, Row, Container, Navbar} from 'react-bootstrap';
-import AuthenticationModal from './AuthenticationModal';
+import { Container} from 'react-bootstrap';
 import React, { useState } from 'react';
+import Blog from './pages/Blog';
+import Home from './pages/Home';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import './App.css';
-
 import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,19 +21,33 @@ function App({
   auth: { user } 
 }) {
   const [show, setShow] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [authentication, setAuthentication] = useState("Register");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  function handleClose(){
-    setShow(false)
-  }
+  const [twoFA, setTwoFA] = useState(false);
+  const [pin, setPin] = useState("");
 
   async function handleSubmit(e){
     // send to backend??
+    // get username from backend
+    setShow(false)
+    console.log(firstName)
+    console.log(lastName)
+    console.log(alias)
+    console.log(phoneNumber)
     console.log(email)
     console.log(password)
     await login(email, password);
+    setTwoFA(true)
+  } 
+
+  function handle2FASubmit(){
+    setLoggedIn(true)
   }
 
   // function handleSubmit(e){
@@ -42,46 +62,26 @@ function App({
     setAuthentication(name)
     setShow(true)
   }
-  
-  return (
+
+    return(
     <Container>
-      <Row className="justify-content-md-center">
-        <Col className="text-center">
-          <h1>
-            Welcome to MyRead
-          </h1>
-          <p>
-            Register or log in to get started.
-          </p>
-          <Button 
-            variant="primary"
-            name="Register"
-            onClick={(e) => handleClick(e.currentTarget.name)}>
-            Register
-          </Button>{' '}
-          <Button variant="primary"
-            name="Log in"
-            onClick={(e) => handleClick(e.currentTarget.name)}>
-            Log in
-          </Button>
-          <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} handleSubmit={handleSubmit} type={authentication}></AuthenticationModal>
-          {isAuthenticated && user &&
-            <div>
-              <h1>Welcome, {user.firstName} {user.lastName}</h1>
-              <h2>Email: {user.email}</h2>
-              <h2>Alias: {user.alias}</h2>
-              <h2>Phone Number: {user.phoneNumber}</h2>
-            </div>
-          }
-        </Col>
-        <Navbar fixed="bottom" >
-        <Container>
-          Your own blog in seconds.
-        </Container>
-      </Navbar>
-      </Row> 
+      <Router>
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Switch>
+            <Route exact path="/">
+              {
+              loggedIn ? <Redirect to={`/${alias}`} /> : 
+                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow}/>
+              }
+              </Route>
+              <Route exact path ="/:username">
+                <Blog />
+              </Route>
+          </Switch>
+      </Router>
     </Container>
-  )
+  );
 }
 
 App.propTypes = {
