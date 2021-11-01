@@ -1,26 +1,43 @@
 import React from 'react';
-import { Col,Row } from 'react-bootstrap';
+import { Col,Row,  } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function Categories() {
+function Categories({username}) {
+
+    const backendData = [
+        {
+            id: 1,
+            name: "Recipes"
+        }, 
+        {
+            id: 2, 
+            name: "Computer Science"
+        }, 
+        {
+            id: 3, 
+            name: "Read Later"
+        }
+    ]
+    
+    
+    const MyCategories = ({categories}) => (
+        <div>
+          {categories.map(category => (
+            <Row key={category.id}>
+                <Link to={`/${username}/category/${category.name}`}>{category.name}</Link>
+            </Row>
+          ))}
+        </div>
+      ); 
+
     return(
     <Col >
     <h2>Categories</h2>
-    {/* change this to map from db user categories*/}
-    <Row>
-    <Link to="">First Category</Link>
-    </Row>
-    <Row>
-    <Link to="">Second Category</Link>
-    </Row>
-    <Row>
-    <Link to="">Third Category</Link>
-    </Row>
-    <Row>
-    <Link to="">Fourth Category</Link>
-    </Row>
+       <MyCategories categories={backendData} />
     </Col>
     )
 }
+
+
 
 export default Categories;

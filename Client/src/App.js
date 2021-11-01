@@ -1,6 +1,7 @@
 import { Container} from 'react-bootstrap';
 import React, { useState } from 'react';
 import Blog from './pages/Blog';
+import Category from './components/Category';
 import Home from './pages/Home';
 import {
   BrowserRouter as Router,
@@ -69,6 +70,9 @@ function App({
               </Route>
               <Route exact path ="/:username">
                 <Blog />
+              </Route>
+              <Route path ="/:username/category/:category">
+                <Category />
               </Route>
           </Switch>
       </Router>
