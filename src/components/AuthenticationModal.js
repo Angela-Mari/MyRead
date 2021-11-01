@@ -1,5 +1,7 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
+import GoogleBtn from '../Google/GoogleBtn';
+
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit}) {
  
@@ -18,12 +20,11 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            
             <div className="mb-2">
             <Button size="sm">{type} with Facebook</Button>
             </div>
-            <div>
-            <Button size="sm">{type} with Google</Button>
-            </div>
+            <GoogleBtn />
             <Form>
                 <Row>
                 <Col>

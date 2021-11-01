@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import Categories from '../components/Categories';
 import RecentPosts from '../components/RecentPosts';
 import Bio from '../components/Bio';
+import GoogleBtn from '../Google/GoogleBtn';
 
 function Blog() {
 
@@ -16,6 +17,7 @@ function Blog() {
             <Categories></Categories>
             <RecentPosts></RecentPosts>
             <Bio></Bio>
+            <GoogleBtn/>
         </Row>
         </Container>
     )

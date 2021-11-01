@@ -11,8 +11,6 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-
-
 export default function App() {
  
   const [show, setShow] = useState(false);
@@ -70,14 +68,11 @@ export default function App() {
 function Home({email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {
   
   console.log("home:", twoFA)
-  
 
   function handleClose(){
       setShow(false)
       setTwoFA(false)
   }
-
-  
 
   function handleClick(name){
       console.log(name)
