@@ -1,6 +1,7 @@
 import React from 'react';
-import { Col,Row,  } from 'react-bootstrap';
+import { Col,Row,Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import "./Categories.css"
 
 function Categories({username}) {
 
@@ -21,19 +22,23 @@ function Categories({username}) {
     
     
     const MyCategories = ({categories}) => (
-        <div>
+        <div className="d-grid gap-2">
           {categories.map(category => (
-            <Row key={category.id}>
-                <Link to={`/${username}/category/${category.name}`}>{category.name}</Link>
-            </Row>
+                <Link className="category-link text-secondary" to={`/${username}/category/${category.name}`}>
+                    <Row>
+                    <Button variant="light" className="category-btn" key={category.id}>
+                    {category.name}
+                    </Button>
+                    </Row>
+                </Link>
           ))}
         </div>
       ); 
 
     return(
-    <Col >
-    <h2>Categories</h2>
-       <MyCategories categories={backendData} />
+    <Col xs={2}>
+        <h2>Categories</h2>
+        <MyCategories categories={backendData} />
     </Col>
     )
 }
