@@ -24,7 +24,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             <div className="mb-2">
             <Button size="sm">{type} with Facebook</Button>
             </div>
-            <GoogleBtn />
+            <GoogleBtn/>
             <Form>
                 <Row>
                 <Col>
