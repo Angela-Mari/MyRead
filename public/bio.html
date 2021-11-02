@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>bio component</title>
+        <style type="text/css">
+            .box {
+                display: flex;
+            }
+            .bio {
+                margin: 10px;
+                width: 400px;
+                box-sizing: border-box;
+                background-color: #dddddd;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                letter-spacing: 1px;
+                padding: 30px;
+            }
+            .bioIntro {
+                font-size: 20px;
+                font-weight: 500;
+            }
+            .img_div {
+                height: 140px;
+                width: 140px;
+            }
+            .img_div img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+            .username {
+                font-size: 22px;
+                font-size: 700;
+            }
+            .introInfo {
+                text-align: center;
+            }
+            .follow {
+                padding: 10px 20px;
+                background-color: #54b9bc;
+                color: #fff;
+                box-shadow: 4px 4px 2px #888888;
+                cursor: pointer;
+            }
+            .follow:active {
+                box-shadow: none;
+            }
+            .navgitors {
+                display: flex;
+                justify-content: center;
+            }
+            .navgitors a img {
+                width: 50px;
+                height: 50px;
+                margin: 0 10px;
+            }
+            .mt20 {
+                margin-top: 20px;
+            }
+            .mt10 {
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 
+            BioList variables are data types returned by the back end that the client renders to the page through a series of operations, 
+            such as cyclic filtering of data returned by the server.
+            This is the template component of the HTML + CSS template. 
+            If there are some details in the CSS, please modify them yourself. Thank
+         -->
+        <div class="box"></div>
+        <script type="text/javascript">
+            const bioList = [
+                {
+                    name: "Leonardo DiCaprio",
+                    headerImg: "https://media.gettyimages.com/photos/leonardo-di-caprio-picture-id635926095?s=2048x2048",
+                    intro: `Leonardo DiCaprio, in full Leonardo Wilhelm DiCaprio, (born November 11, 1974, Los Angeles, California, U.S.), American actor and producer who emerged in the 1990s as one ofHollywood’s leading performers, noted for his portrayals of unconventional and complex characters.`,
+                    navigators: [
+                        { herf: "https://www.google.com/", icon: "fb.png" },
+                        { herf: "https://www.google.com/", icon: "twitter.png" },
+                        { herf: "https://www.google.com/", icon: "github.png" },
+                        { herf: "https://www.google.com/", icon: "ins.png" },
+                    ],
+                },
+                {
+                    name: "Leonardo DiCaprio2",
+                    headerImg: "https://media.gettyimages.com/photos/leonardo-di-caprio-picture-id635926095?s=2048x2048",
+                    intro: `2 Leonardo DiCaprio, in full Leonardo Wilhelm DiCaprio, (born November 11, 1974, Los Angeles, California, U.S.), American actor and producer who emerged in the 1990s as one ofHollywood’s leading performers, noted for his portrayals of unconventional and complex characters.`,
+                    navigators: [
+                        { herf: "https://www.google.com/", icon: "fb.png" },
+                        { herf: "https://www.google.com/", icon: "twitter.png" },
+                        { herf: "https://www.google.com/", icon: "github.png" },
+                        { herf: "https://www.google.com/", icon: "ins.png" },
+                    ],
+                },
+            ];
+            let biosTemplate = ``;
+            bioList.forEach((v) => {
+                biosTemplate += `
+                     <div class="bio">
+                <div class="bioIntro">${v.name}.</div>
+                <div class="img_div mt10">
+                    <img src="${v.headerImg}" />
+                </div>
+                <div class="username mt20">${v.name}</div>
+                <div class="introInfo mt20">${v.intro}</div>
+                <div class="follow mt10">Follow</div>
+                <div class="navgitors mt20">
+                   ${v.navigators
+                       .map((routers) => {
+                           return `<a href="${routers.herf}"><img src="${routers.icon}"/></a>`;
+                       })
+                       .toString()
+                       .replace(/,/g, "")}
+                </div>
+            </div>`;
+            });
+            let box = document.querySelector(".box");
+            box.innerHTML = biosTemplate;
+        </script>
+    </body>
+</html>
