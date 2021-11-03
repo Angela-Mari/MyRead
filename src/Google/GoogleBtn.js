@@ -1,10 +1,15 @@
 
 import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+// import { useState } from 'react';
+
+
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
 class GoogleBtn extends Component {
+
+
    constructor(props) {
     super(props);
 
@@ -19,23 +24,24 @@ class GoogleBtn extends Component {
     this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
-  //the response is a google user obj
-  login (response) {
-    if(response.accessToken){
+  login (googleUser) {
+    if(googleUser.accessToken){
       this.setState(state => ({
         isLogined: true,
-        accessToken: response.accessToken
+        accessToken: googleUser.accessToken
       }));
     }
-    var profile = response.getBasicProfile();
+    var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
+    console.log('First Name: ' + profile.getGivenName());
+    console.log('Last Name: ' + profile.getFamilyName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    console.log('Token: ' + response.accessToken);
+    console.log('Token: ' + googleUser.accessToken);
   }
 
-  logout (response) {
+  logout (googleUser) {
     this.setState(state => ({
       isLogined: false,
       accessToken: ''
@@ -43,11 +49,11 @@ class GoogleBtn extends Component {
     console.log('User signed out.');
   }
 
-  handleLoginFailure (response) {
+  handleLoginFailure (googleUser) {
     alert('Failed to log in')
   }
 
-  handleLogoutFailure (response) {
+  handleLogoutFailure (googleUser) {
     alert('Failed to log out')
   }
 
@@ -57,13 +63,13 @@ class GoogleBtn extends Component {
       { this.state.isLogined ?
         <GoogleLogout
           clientId={ CLIENT_ID }
-          buttonText='Logout'
+          buttonText='Log Out'
           onLogoutSuccess={ this.logout }
           onFailure={ this.handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
           clientId={ CLIENT_ID }
-          buttonText='Login'
+          buttonText='Sign in with Google'
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
@@ -71,6 +77,7 @@ class GoogleBtn extends Component {
         />
       }
     </div>
+    
     )
   }
 }

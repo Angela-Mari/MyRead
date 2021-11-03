@@ -1,10 +1,18 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../Google/GoogleBtn';
-
+// import { useState } from 'react';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit}) {
  
+    // const [googleFirstName, setGoogleFirstName] = useState('');
+    // const [googleLastName, setGoogleLastName] = useState('');
+    // const [googleEmail, setGoogleEmail] = useState('');
+    // const [googleAlias, setGoogleAlias] = useState('');
+
+    // const googleToModal = () => {
+    // }
+
     return (
         <Modal
         size="lg"
@@ -20,7 +28,6 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            
             <div className="mb-2">
             <Button size="sm">{type} with Facebook</Button>
             </div>
