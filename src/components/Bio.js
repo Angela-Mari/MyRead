@@ -26,30 +26,3 @@ function Bio(props) {
     );
 }
 export default Bio;
-
-/* 
- <div className="box">
-            {bioList.map((v,idx) => {
-                return (
-                    <div key={v.idx} className="bio">
-                        <div className="bioIntro">{v.name}.</div>
-                        <div className="img_div mt10">
-                            <img src="{v.headerImg}" />
-                        </div>
-                        <div className="username mt20">{v.name}</div>
-                        <div className="introInfo mt20">{v.intro}</div>
-                        <div className="follow mt10">Follow</div>
-                        <div className="navgitors mt20">
-                            {v.navigators.map((routers,index) => {
-                                return (
-                                    <a href={routers.herf} key={index}>
-                                        <img src={routers.icon} />
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-*/
