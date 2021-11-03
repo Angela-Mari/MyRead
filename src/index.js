@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+// import GoogleBtn from './Google/GoogleBtn';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Modal } from 'react-bootstrap';
+
 
 ReactDOM.render(
   <React.StrictMode>

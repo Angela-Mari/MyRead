@@ -1,14 +1,9 @@
-
 import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-// import { useState } from 'react';
-
-
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
 class GoogleBtn extends Component {
-
 
    constructor(props) {
     super(props);
@@ -74,8 +69,7 @@ class GoogleBtn extends Component {
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
-          // uxMode='redirect'
-          // redirectUri="https://localhost:3000/username/"
+          // googlesubmit={ App.handleGoogleSubmit } //idk about this
         />
       }
     </div>

@@ -38,6 +38,13 @@ export default function App() {
     setTwoFA(true)
   } 
 
+  function handleGoogleSubmit(g) {
+    console.log("inside handleGoogleSubmit");
+    setShow(true)
+    setTwoFA(true)
+    setLoggedIn(true)
+  }
+
   function handle2FASubmit(){
     setLoggedIn(true)
   }
@@ -53,7 +60,7 @@ export default function App() {
           <Route exact path="/">
             {
             loggedIn ? <Redirect to={`/${alias}`} /> : 
-              <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow}/>
+              <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow}/>
             }
             </Route>
             <Route exact path ="/:username">
@@ -65,7 +72,7 @@ export default function App() {
   );
 }
 
-function Home({email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {
+function Home({email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {
   
   console.log("home:", twoFA)
 
@@ -103,7 +110,7 @@ function Home({email, setEmail, password, setPassword, firstName, lastName, alia
             onClick={(e) => handleClick(e.currentTarget.name)}>
             Log in
         </Button>
-        <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} type={authentication}></AuthenticationModal>
+        <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} type={authentication}></AuthenticationModal>
         <TwoFAModal pin={pin} setPin={setPin} handleTwoFA={handle2FASubmit} show={twoFA} handleClose={handleClose}></TwoFAModal>
         </Col>
         <Navbar fixed="bottom" >

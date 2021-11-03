@@ -17,7 +17,7 @@ function Blog() {
             <Categories></Categories>
             <RecentPosts></RecentPosts>
             <Bio></Bio>
-            <GoogleBtn />
+            <GoogleBtn/>
         </Row>
         </Container>
     )
