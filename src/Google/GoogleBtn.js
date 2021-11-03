@@ -74,6 +74,8 @@ class GoogleBtn extends Component {
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
+          // uxMode='redirect'
+          // redirectUri="https://localhost:3000/username/"
         />
       }
     </div>
