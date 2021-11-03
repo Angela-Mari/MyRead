@@ -1,6 +1,5 @@
 import React from "react";
 import "../assets/css/bio.css";
-// If you pass in an array, use the code below to comment it out for you
 function Bio(props) {
     const { params: bioList } = props;
     console.log(bioList);
