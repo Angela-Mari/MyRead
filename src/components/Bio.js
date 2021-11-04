@@ -1,6 +1,5 @@
 import React from "react";
 import "../assets/css/bio.css";
-// If you pass in an array, use the code below to comment it out for you
 function Bio(props) {
     const { params: bioList } = props;
     console.log(bioList);
@@ -26,30 +25,3 @@ function Bio(props) {
     );
 }
 export default Bio;
-
-/* 
- <div className="box">
-            {bioList.map((v,idx) => {
-                return (
-                    <div key={v.idx} className="bio">
-                        <div className="bioIntro">{v.name}.</div>
-                        <div className="img_div mt10">
-                            <img src="{v.headerImg}" />
-                        </div>
-                        <div className="username mt20">{v.name}</div>
-                        <div className="introInfo mt20">{v.intro}</div>
-                        <div className="follow mt10">Follow</div>
-                        <div className="navgitors mt20">
-                            {v.navigators.map((routers,index) => {
-                                return (
-                                    <a href={routers.herf} key={index}>
-                                        <img src={routers.icon} />
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-*/
