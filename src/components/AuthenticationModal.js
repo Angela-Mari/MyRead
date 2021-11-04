@@ -23,7 +23,11 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             <Button size="sm">{type} with Facebook</Button>
             </div>
 
-            <GoogleBtn type="Button" onClick={(g)=>handleGoogleSubmit(g.currentTarget)}/>
+            <div>
+                <GoogleBtn 
+                
+                />
+            </div>
 
             <Form>
                 <Row>

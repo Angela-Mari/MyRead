@@ -4,14 +4,24 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
+var GOOGLE_EMAIL = '';
+var GOOGLE_FIRST_NAME = '';
+var GOOGLE_LAST_NAME = '';
+var GOOGLE_ALIAS = '';
+
 class GoogleBtn extends Component {
+
 
    constructor(props) {
     super(props);
 
     this.state = {
       isLogined: false,
-      accessToken: ''
+      accessToken: '',
+      fname: '',
+      lname: '',
+      gmail: '',
+      alias: ''
     };
 
     this.login = this.login.bind(this);
@@ -21,19 +31,31 @@ class GoogleBtn extends Component {
   }
 
   login (googleUser) {
+    var profile = googleUser.getBasicProfile();
     if(googleUser.accessToken){
+      //maybe put profile here. not now, so i can log easier
       this.setState(state => ({
         isLogined: true,
-        accessToken: googleUser.accessToken
+        accessToken: googleUser.accessToken,
+        // fname: profile.getGivenName(),
+        // lname: profile.getFamilyName(),
+        // gmail: profile.getEmail(),
+        // alias: GOOGLE_ALIAS
       }));
+      
     }
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
-    console.log('First Name: ' + profile.getGivenName());
-    console.log('Last Name: ' + profile.getFamilyName());
+    GOOGLE_FIRST_NAME = profile.getGivenName();
+    console.log('First Name: ' + GOOGLE_FIRST_NAME);
+    GOOGLE_LAST_NAME = profile.getFamilyName();
+    console.log('Last Name: ' + GOOGLE_LAST_NAME);
     console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    GOOGLE_EMAIL = profile.getEmail();
+    console.log('Email: ' + GOOGLE_EMAIL); // This is null if the 'email' scope is not present.
+    GOOGLE_ALIAS = GOOGLE_EMAIL.split("@")[0];;
+    GOOGLE_ALIAS = GOOGLE_ALIAS.toLowerCase();
+    console.log('Alias: ' + GOOGLE_ALIAS);
     console.log('Token: ' + googleUser.accessToken);
   }
 
@@ -64,6 +86,10 @@ class GoogleBtn extends Component {
           onFailure={ this.handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
+          // fname={ GOOGLE_FIRST_NAME }
+          // lname={ GOOGLE_LAST_NAME }
+          // gmail={ GOOGLE_EMAIL }
+          // alias={ GOOGLE_ALIAS }
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
           onSuccess={ this.login }
