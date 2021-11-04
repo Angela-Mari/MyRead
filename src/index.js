@@ -5,12 +5,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Modal } from 'react-bootstrap';
+import GoogleBtn from './Google/GoogleBtn';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Modal />
+    <Modal>
+      <GoogleBtn/>
+    </Modal>
   </React.StrictMode>,
   document.getElementById('root')
 );

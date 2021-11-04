@@ -36,12 +36,13 @@ export default function App() {
     console.log(email)
     console.log(password)
     setTwoFA(true)
+    console.log('inside handleSubmit');
   } 
 
   function handleGoogleSubmit(g) {
-    console.log("inside handleGoogleSubmit");
+    console.log('inside handleGoogleSubmit');
     setShow(true)
-    setTwoFA(true)
+    setTwoFA(false)
     setLoggedIn(true)
   }
 
