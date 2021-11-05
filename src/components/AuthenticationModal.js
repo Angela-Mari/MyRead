@@ -25,7 +25,6 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
 
                 <GoogleBtn 
                 type="button" 
-                className="g-signin2" 
                 onSuccess={console.log('Google Button')}
                 // set first & last names, email, alias
                 // go to blog page

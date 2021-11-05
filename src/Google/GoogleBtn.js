@@ -21,13 +21,19 @@ class GoogleBtn extends Component {
       fname: '',
       lname: '',
       gmail: '',
-      alias: ''
+      alias: '',
     };
+
+    this.handleClick = this.handleClick.bind(this);
 
     this.login = this.login.bind(this);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.logout = this.logout.bind(this);
     this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
+  }
+
+  handleClick() {
+    console.log('click happened');
   }
 
   login (googleUser) {
@@ -42,8 +48,9 @@ class GoogleBtn extends Component {
         // gmail: profile.getEmail(),
         // alias: GOOGLE_ALIAS
       }));
-      
+
     }
+
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     GOOGLE_FIRST_NAME = profile.getGivenName();
@@ -92,6 +99,7 @@ class GoogleBtn extends Component {
           // lname={ GOOGLE_LAST_NAME }
           // gmail={ GOOGLE_EMAIL }
           // alias={ GOOGLE_ALIAS }
+          handleClick={ this.handleClick }
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
           onSuccess={ this.login }
