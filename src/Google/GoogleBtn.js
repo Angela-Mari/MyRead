@@ -21,7 +21,7 @@ class GoogleBtn extends Component {
       fname: '',
       lname: '',
       gmail: '',
-      alias: ''
+      alias: '',
     };
 
     this.login = this.login.bind(this);
@@ -37,11 +37,13 @@ class GoogleBtn extends Component {
       this.setState(state => ({
         isLogined: true,
         accessToken: googleUser.accessToken,
+        
         // fname: profile.getGivenName(),
         // lname: profile.getFamilyName(),
         // gmail: profile.getEmail(),
         // alias: GOOGLE_ALIAS
       }));
+      this.props.handleAuthentication(googleUser);
       
     }
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
