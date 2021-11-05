@@ -23,11 +23,15 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             <Button size="sm">{type} with Facebook</Button>
             </div>
 
-            <div>
                 <GoogleBtn 
-                
+                type="button" 
+                className="g-signin2" 
+                onSuccess={console.log('Google Button')}
+                // set first & last names, email, alias
+                // go to blog page
+                // done thru handleGoogleSubmit ?
                 />
-            </div>
+           
 
             <Form>
                 <Row>

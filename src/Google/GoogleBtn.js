@@ -44,7 +44,7 @@ class GoogleBtn extends Component {
       }));
       
     }
-    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     GOOGLE_FIRST_NAME = profile.getGivenName();
     console.log('First Name: ' + GOOGLE_FIRST_NAME);
@@ -74,6 +74,8 @@ class GoogleBtn extends Component {
   handleLogoutFailure (googleUser) {
     alert('Failed to log out')
   }
+
+  //may need to add a lifecycle hook
 
   render() {
     return (
