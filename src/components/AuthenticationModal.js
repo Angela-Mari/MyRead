@@ -3,7 +3,7 @@ import React from 'react';
 import GoogleBtn from '../Google/GoogleBtn';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit}) {
-
+    
     return (
         <Modal
         size="lg"
@@ -24,11 +24,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             </div>
 
                 <GoogleBtn 
-                type="button" 
-                onSuccess={console.log('Google Button')}
-                // set first & last names, email, alias
-                // go to blog page
-                // done thru handleGoogleSubmit ?
+                handleGoogleSubmit={handleGoogleSubmit}
                 />
            
 

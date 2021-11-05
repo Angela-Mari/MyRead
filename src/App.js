@@ -41,10 +41,17 @@ export default function App() {
 
   function handleGoogleSubmit(g) {
     console.log('inside handleGoogleSubmit');
-    setShow(true)
-    setTwoFA(false)
-    setLoggedIn(true)
+    console.log("in app: ", g);
+    setFirstName(g.getGivenName());
+    setLastName(g.getFamilyName());
+    setEmail(g.getEmail());
+    setAlias(g.getEmail().split("@")[0].toLowerCase());
+    setShow(false);
+    setTwoFA(true);
+    // handleSubmit(g);
+
   }
+
 
   function handle2FASubmit(){
     setLoggedIn(true)

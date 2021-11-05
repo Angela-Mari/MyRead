@@ -24,31 +24,28 @@ class GoogleBtn extends Component {
       alias: '',
     };
 
-    this.handleClick = this.handleClick.bind(this);
-
     this.login = this.login.bind(this);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.logout = this.logout.bind(this);
     this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
-  handleClick() {
-    console.log('click happened');
-  }
-
   login (googleUser) {
+
     var profile = googleUser.getBasicProfile();
     if(googleUser.accessToken){
       //maybe put profile here. not now, so i can log easier
-      this.setState(state => ({
+        this.setState(state => ({
         isLogined: true,
         accessToken: googleUser.accessToken,
+        
         // fname: profile.getGivenName(),
         // lname: profile.getFamilyName(),
         // gmail: profile.getEmail(),
         // alias: GOOGLE_ALIAS
-      }));
-
+        }));
+        this.props.handleGoogleSubmit(profile);
+    
     }
 
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -60,10 +57,11 @@ class GoogleBtn extends Component {
     console.log('Image URL: ' + profile.getImageUrl());
     GOOGLE_EMAIL = profile.getEmail();
     console.log('Email: ' + GOOGLE_EMAIL); // This is null if the 'email' scope is not present.
-    GOOGLE_ALIAS = GOOGLE_EMAIL.split("@")[0];;
+    GOOGLE_ALIAS = GOOGLE_EMAIL.split("@")[0];
     GOOGLE_ALIAS = GOOGLE_ALIAS.toLowerCase();
     console.log('Alias: ' + GOOGLE_ALIAS);
     console.log('Token: ' + googleUser.accessToken);
+
   }
 
   logout (googleUser) {
@@ -95,10 +93,6 @@ class GoogleBtn extends Component {
           onFailure={ this.handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
-          // fname={ GOOGLE_FIRST_NAME }
-          // lname={ GOOGLE_LAST_NAME }
-          // gmail={ GOOGLE_EMAIL }
-          // alias={ GOOGLE_ALIAS }
           handleClick={ this.handleClick }
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
