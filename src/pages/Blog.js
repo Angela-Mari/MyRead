@@ -6,7 +6,8 @@ import RecentPosts from "../components/RecentPosts";
 import Bio from "../components/Bio";
 import fb from "../assets/img/fb.png";
 import twitter from "../assets/img/twitter.png";
-import github from "../assets/img/github.png";
+import ins from "../assets/img/ins.png";
+import ex from "../assets/img/external.png";
 import Edit from "../components/Edit";
 function Blog() {
     let { username } = useParams();
@@ -19,9 +20,9 @@ function Blog() {
         intro: `Leonardo DiCaprio, in full Leonardo Wilhelm DiCaprio, (born November 11, 1974, Los Angeles, California, U.S.), American actor and producer who emerged in the 1990s as one ofHollywood’s leading performers, noted for his portrayals of unconventional and complex characters.`,
         navigators: [
             { herf: "https://www.google.com/", icon: fb, linkname: "faceBook link" },
-            { herf: "https://www.google.com/", icon: twitter, linkname: "instagram link" },
-            { herf: "https://www.google.com/", icon: github, linkname: "twitter link" },
-            { herf: "https://www.google.com/", icon: github, linkname: "external link" },
+            { herf: "https://www.google.com/", icon: ins, linkname: "instagram link" },
+            { herf: "https://www.google.com/", icon: twitter, linkname: "twitter link" },
+            { herf: "https://www.google.com/", icon: ex, linkname: "external link" },
         ],
     };
     const [bioObj, setbioObj] = useState(bioObjs);
