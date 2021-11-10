@@ -2,7 +2,7 @@ import { Container} from 'react-bootstrap';
 import React, { useState } from 'react';
 import Blog from './pages/Blog';
 import Category from './components/Category';
-import Nav from './components/Nav';
+import MyNav from './components/MyNav';
 import Home from './pages/Home';
 import {
   BrowserRouter as Router,
@@ -71,7 +71,7 @@ function App({
     return(
     <Container>
       
-     {location.pathname !== "/" && <Nav/>}
+     {location.pathname !== "/" && <MyNav/>}
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
