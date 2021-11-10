@@ -92,8 +92,8 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
                      : <></> }
                 </Form.Group>
 
-                <Button variant="primary" type="button" onClick={(e)=>handleSubmit(e.currentTarget)}>
-                {type === "Register"? "Next" : "Log in"}
+                <Button variant="primary" onClick={async (e)=> { await handleSubmit(e.currentTarget); handleClose();}}>
+                    Submit
                 </Button>
                 
                 </Form>
