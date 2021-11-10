@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-//import App from '../App';
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
@@ -8,6 +7,7 @@ var GOOGLE_EMAIL = '';
 var GOOGLE_FIRST_NAME = '';
 var GOOGLE_LAST_NAME = '';
 var GOOGLE_ALIAS = '';
+
 
 class GoogleBtn extends Component {
 

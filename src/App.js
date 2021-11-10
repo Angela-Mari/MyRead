@@ -40,13 +40,13 @@ export default function App() {
   } 
 
   function handleGoogleSubmit(g) {
+    //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
     setFirstName(g.getGivenName());
     setLastName(g.getFamilyName());
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
-    setShow(false);
     setTwoFA(true);
     // handleSubmit(g);
 
