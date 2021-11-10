@@ -16,6 +16,8 @@ import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+
+
 function App({ 
   login, 
   isAuthenticated, 
@@ -38,7 +40,7 @@ function App({
 
   async function handleSubmit(e){
     setShow(false)
-    if (authenticationType == "Register"){
+    if (authenticationType === "Register"){
       
       await register(firstName,
         lastName,
@@ -61,17 +63,16 @@ function App({
     setShow(true)
   }
 
-  // const Menu = () => {
-  //   const {pathname} = useLocation();
-  //   return pathname !== "/" && <Nav />;
-  // };
+  
+  
+  const location = useLocation();
+  console.log(location);
 
     return(
     <Container>
       
-      {/* <Menu /> */}
-      <Router>
-          {/* A <Switch> looks through its children <Route>s and
+     {location.pathname !== "/" && <Nav/>}
+      {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
             <Route exact path="/">
@@ -87,7 +88,6 @@ function App({
                 <Category />
               </Route>
           </Switch>
-      </Router>
     </Container>
   );
 }

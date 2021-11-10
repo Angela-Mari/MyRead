@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
 
+
 function Nav({user, isAuthenticated}) {
     return (
     <Row>
@@ -15,7 +16,7 @@ function Nav({user, isAuthenticated}) {
             :
             <Col className="text-right">
             <Button variant="link">
-            Log in
+            Log Out
             </Button>
             </Col>
         }

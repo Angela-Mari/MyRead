@@ -24,7 +24,7 @@ function Categories({username}) {
     const MyCategories = ({categories}) => (
         <div className="d-grid gap-2">
           {categories.map(category => (
-                <Link className="category-link text-secondary" to={`/${username}/category/${category.name}`}>
+                <Link key={category.id} className="category-link text-secondary" to={`/${username}/category/${category.name}`}>
                     <Row>
                     <Button variant="light" className="category-btn" key={category.id}>
                     {category.name}
