@@ -19,7 +19,7 @@ function MyNav({user, isAuthenticated}) {
             isAuthenticated?
             <Nav.Link href="#home">Logout</Nav.Link>
             :
-            <Nav.Link href="#home">Login</Nav.Link>
+            <Nav.Link href="#home">Logout</Nav.Link>
         }
         </Navbar.Collapse>
         </Container>
