@@ -10,5 +10,5 @@
         "token": "TWILIO_TOKEN",
         "from": "TWILION_FROM"
     },
-    "jwtsecret": "JWTSECRET"
+    "jwtSecret": "JWTSECRET"
 }
