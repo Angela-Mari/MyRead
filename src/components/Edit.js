@@ -28,10 +28,10 @@ function Edit(props) {
         <Col>
             <div className="forms">
                 <div className="title mt10">
-                    <div>edit info</div>
+                    <div>Edit profile</div>
                     <img src={userinfo.headerImg} />
                     <Button className="mt10" variant="primary">
-                        upload
+                        Upload
                     </Button>
                 </div>
             </div>
@@ -72,7 +72,7 @@ function Edit(props) {
                     );
                 })}
                 <Button className="mt10" variant="primary" onClick={set}>
-                    setting
+                    Save
                 </Button>
             </Form>
         </Col>
