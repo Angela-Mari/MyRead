@@ -1,13 +1,8 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../Google/GoogleBtn';
-// import { useEffect } from 'react';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit}) {
-    
-    // useEffect(() => {
-    //     return () => {};
-    //   }, []);
 
     return (
         <Modal
@@ -30,6 +25,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
 
                 <GoogleBtn 
                 handleGoogleSubmit={handleGoogleSubmit}
+                isSignedIn={true}
                 />
 
             <Form>

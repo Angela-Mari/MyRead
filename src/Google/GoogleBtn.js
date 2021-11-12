@@ -46,7 +46,7 @@ class GoogleBtn extends Component {
     }
 
     this.props.handleGoogleSubmit(profile);
-    
+
   }
 
   logout (googleUser) {
@@ -65,7 +65,6 @@ class GoogleBtn extends Component {
     alert('Failed to log out')
   }
 
-  //may need to add a lifecycle hook
 
   render() {
     return (
