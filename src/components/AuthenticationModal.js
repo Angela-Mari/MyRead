@@ -25,8 +25,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
 
                 <GoogleBtn 
                 handleGoogleSubmit={handleGoogleSubmit}
-                isSignedIn={true}
-                />
+                /> 
 
             <Form>
                 <Row>
