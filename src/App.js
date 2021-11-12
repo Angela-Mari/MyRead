@@ -40,7 +40,7 @@ export default function App() {
   } 
 
   function handleGoogleSubmit(g) {
-    // setShow(false);
+    setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
     setFirstName(g.getGivenName());
@@ -48,8 +48,6 @@ export default function App() {
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
     setTwoFA(true);
-    // handleSubmit(g);
-
   }
 
 
@@ -94,6 +92,7 @@ function Home({email, setEmail, password, setPassword, firstName, lastName, alia
       setAuthentication(name)
       setShow(true)
   }
+
 
   const [authentication, setAuthentication] = useState("Register");
 
