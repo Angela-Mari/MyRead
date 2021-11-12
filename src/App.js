@@ -40,7 +40,7 @@ export default function App() {
   } 
 
   function handleGoogleSubmit(g) {
-    setShow(false);
+    // setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
     setFirstName(g.getGivenName());
