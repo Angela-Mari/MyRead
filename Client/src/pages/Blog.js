@@ -13,7 +13,7 @@ function Blog() {
         <Container>
         <Row>
             <h1>{username}'s Blog</h1>
-            <Categories></Categories>
+            <Categories username={username}></Categories>
             <RecentPosts></RecentPosts>
             <Bio></Bio>
         </Row>

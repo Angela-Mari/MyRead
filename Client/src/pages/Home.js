@@ -4,25 +4,20 @@ import React, { useState } from 'react';
 import Blog from './Blog';
 import TwoFAModal from '../components/TwoFAModal';
 
-function Home({email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {
-  
-    console.log("home:", twoFA)
-    
+function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
   
     function handleClose(){
         setShow(false)
         setTwoFA(false)
     }
   
-    
-  
     function handleClick(name){
         console.log(name)
-        setAuthentication(name)
+        setAuthenticationType(name)
         setShow(true)
     }
   
-    const [authentication, setAuthentication] = useState("Register");
+    
   
     return (
       <Container>
@@ -45,7 +40,7 @@ function Home({email, setEmail, password, setPassword, firstName, lastName, alia
               onClick={(e) => handleClick(e.currentTarget.name)}>
               Log in
           </Button>
-          <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} type={authentication}></AuthenticationModal>
+          <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} type={authenticationType}></AuthenticationModal>
           <TwoFAModal pin={pin} setPin={setPin} handleTwoFA={handle2FASubmit} show={twoFA} handleClose={handleClose}></TwoFAModal>
           </Col>
           <Navbar fixed="bottom" >
