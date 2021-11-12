@@ -1,13 +1,13 @@
 {
     "database": {
-        "mongoURI": "process.env.MONGOURI"
+        "mongoURI": "MONGOURI"
     },
     "server": {
-        "port": "process.env.PORT"
+        "port": "PORT"
     },
     "twilio": {
-        "sid": "process.env.TWILIO_SID",
-        "token": "process.env.TWILIO_TOKEN",
-        "from": "process.env.TWILION_FROM"
+        "sid": "TWILIO_SID",
+        "token": "TWILIO_TOKEN",
+        "from": "TWILION_FROM"
     }
 }

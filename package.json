@@ -22,7 +22,7 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node ./Server.js",
     "server": "nodemon server",
     "client": "npm start --prefix Client",
     "build": "npm run build",
