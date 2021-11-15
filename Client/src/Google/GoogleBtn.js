@@ -28,7 +28,7 @@ class GoogleBtn extends Component {
 
   login (googleUser) {
 
-    
+    console.log('Signing In Via GOOGLE');
     if(googleUser.accessToken){
       var profile = googleUser.getBasicProfile();
       this.isLogined = true;
