@@ -58,11 +58,11 @@ class GoogleBtn extends Component {
   }
 
   handleLoginFailure (googleUser) {
-    alert('Failed to log in')
+    alert('Failed to log in with Google')
   }
 
   handleLogoutFailure (googleUser) {
-    alert('Failed to log out')
+    alert('Failed to log out with Google')
   }
 
 
@@ -71,17 +71,18 @@ class GoogleBtn extends Component {
     <div>
       { this.state.isLogined ?
         <GoogleLogout
+          handleClick={ this.logout }
           clientId={ CLIENT_ID }
           buttonText='Log Out'
-          onLogoutSuccess={ this.logout }
+          //onLogoutSuccess={ this.logout }
           onFailure={ this.handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
-          handleClick={ this.handleClick }
+          handleClick={ this.login }
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
-          onSuccess={ this.login }
-          onFailure={ this.handleLoginFailure }
+          //onSuccess={ this.login }
+          //onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
           />
