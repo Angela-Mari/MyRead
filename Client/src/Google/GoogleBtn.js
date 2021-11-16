@@ -82,7 +82,7 @@ class GoogleBtn extends Component {
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
           //onSuccess={ this.login }
-          //onFailure={ this.handleLoginFailure }
+          onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
           />
