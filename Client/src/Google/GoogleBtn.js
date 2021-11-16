@@ -74,14 +74,14 @@ class GoogleBtn extends Component {
           handleClick={ this.logout }
           clientId={ CLIENT_ID }
           buttonText='Log Out'
-          //onLogoutSuccess={ this.logout }
+          onLogoutSuccess={ this.logout }
           onFailure={ this.handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
           handleClick={ this.login }
           clientId={ CLIENT_ID }
           buttonText='Sign in with Google'
-          //onSuccess={ this.login }
+          onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
