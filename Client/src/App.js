@@ -62,14 +62,14 @@ function App({
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
 
-    // if(authenticationType == "Register") {
-    //   await register(firstName,
-    //     lastName,
-    //     email,
-    //     alias)
-    // } else {
-    //   await login(email);
-    // }
+    if(authenticationType == "Register") {
+      await register(firstName,
+        lastName,
+        email,
+        alias)
+    } else {
+      await login(email);
+    }
 
     //handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
