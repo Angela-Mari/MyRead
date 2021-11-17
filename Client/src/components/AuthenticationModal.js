@@ -2,6 +2,7 @@ import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
 import { useState } from 'react';
 import validator from 'validator';
+import { Link } from 'react-router-dom';
 import { ExportConfigurationInstance } from 'twilio/lib/rest/bulkexports/v1/exportConfiguration';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit}) {
@@ -140,15 +141,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     {type === "Register"? 
                     <>
-                    <Accordion>
-                        <Accordion.Header>Privacy Policy</Accordion.Header>
-                            <Accordion.Body>
-                                    <h3>What We Collect</h3>
-                                    We collect and store your name, email, and phone number to authenticate you. We do not share these items with any third parties.
-                                    <h3>Contact Us</h3>
-                                    You may contact us with questions regarding the use of your name, email, and phone number at /contact
-                            </Accordion.Body>
-                    </Accordion>
+                    <Link to="privacy-policy">Privacy Policy</Link>
                     <Form.Check type="checkbox" label="I have read the Privacy Policy and I accept the terms and conditions." onChange = {(e) => setChecked(e.target.checked)} isInvalid={ !!errors.checked }/>
                     <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                     </>
