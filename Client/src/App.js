@@ -15,6 +15,7 @@ import './App.css';
 import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Privacy from './pages/Privacy';
 
 function App({ 
   login, 
@@ -69,6 +70,9 @@ function App({
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
+          <Route path = "/privacy-policy"> 
+                <Privacy />
+              </Route>
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
@@ -80,7 +84,7 @@ function App({
               </Route>
               <Route path ="/:username/category/:category">
                 <Category />
-              </Route>
+              </Route>    
           </Switch>
     </Container>
   );
