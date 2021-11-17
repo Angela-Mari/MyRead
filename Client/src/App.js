@@ -54,7 +54,7 @@ function App({
   } 
 
   function handleGoogleSubmit(g) {
-    setShow(false);
+    //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
     setFirstName(g.getGivenName());
@@ -62,7 +62,7 @@ function App({
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
 
-    handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    //handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
     // setTwoFA(true);
   }
