@@ -1,14 +1,12 @@
 .form {
-    width: 400px;
+    width: 100%;
     border: 1px solid #ccc;
     text-align: center;
     padding: 5px 20px;
-    margin-top: -30px;
 }
 .forms {
-    width: 400px;
+    width: 100%;
     border: 1px solid #ccc;
-    margin-bottom: 30px;
 }
 
 .title {
