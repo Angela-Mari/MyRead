@@ -62,7 +62,7 @@ function App({
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
 
-    handleSubmit(g);
+    handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
     // setTwoFA(true);
   }
