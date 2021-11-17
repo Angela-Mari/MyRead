@@ -64,18 +64,18 @@ function App({
     setPassword("password12345");
     setPhoneNumber("111-222-3333");
 
-    if(authenticationType == "Register") {
-      await register(firstName,
-        lastName,
-        email,
-        alias,
-        password,
-        phoneNumber)
-    } else {
-      await login(email, password);
-    }
+    // if(authenticationType == "Register") {
+    //   await register(firstName,
+    //     lastName,
+    //     email,
+    //     alias,
+    //     password,
+    //     phoneNumber)
+    // } else {
+    //   await login(email, password);
+    // }
 
-    //handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
     setTwoFA(true);
   }
