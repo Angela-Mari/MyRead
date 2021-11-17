@@ -61,7 +61,10 @@ function App({
     setLastName(g.getFamilyName());
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
-    setTwoFA(true);
+
+    handleSubmit(g);
+
+    // setTwoFA(true);
   }
 
   function handle2FASubmit(){
