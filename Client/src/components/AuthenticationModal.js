@@ -14,7 +14,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
         const newErrors = {}
         // keywords errors
         if ( password.length < 6) {
-        newErrors.password = 'Password must be at least 6 characters long.'
+        newErrors.password = 'Password must be at longer than 6 characters.'
         }
         if ( email.length == 0 ){
             newErrors.email = "Email cannot be blank."

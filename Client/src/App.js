@@ -42,14 +42,14 @@ function App({
     setShow(false)
     if (authenticationType === "Register"){
       
-      await register(firstName,
+      let result = await register(firstName,
         lastName,
         email,
         alias,
         password,
-        phoneNumber)
+        phoneNumber).then(console.log(result));
     } else{
-      await login(email, password);
+      let result = await login(email, password).then(console.log(result));
     } 
     setTwoFA(true)
   } 
@@ -62,8 +62,6 @@ function App({
     setShow(true)
   }
 
-  
-  
   const location = useLocation();
 
     return(
