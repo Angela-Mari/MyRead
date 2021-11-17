@@ -16,8 +16,6 @@ import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-
-
 function App({ 
   login, 
   isAuthenticated, 
