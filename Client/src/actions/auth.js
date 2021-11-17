@@ -102,13 +102,12 @@ export const login = (email, password) => async (dispatch) => {
       dispatch(loadUser());
     } catch (err) {
       const errors = err.response.data.errors;
-  
+      return errors;
       if (errors) {
-        return errors;
-        // errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
       }
   
-      dispatch({
+      dispatch({ 
         type: LOGIN_FAIL,
       });
     }
