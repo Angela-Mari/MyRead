@@ -12,7 +12,6 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
     }
   
     function handleClick(name){
-        console.log(name)
         setAuthenticationType(name)
         setShow(true)
     }

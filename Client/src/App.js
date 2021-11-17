@@ -59,14 +59,12 @@ function App({
   }
 
   function handleClick(name){
-    console.log(name)
     setShow(true)
   }
 
   
   
   const location = useLocation();
-  console.log(location);
 
     return(
     <Container>

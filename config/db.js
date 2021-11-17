@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = process.env.MONGOURI;
+const db = config.MONGOURI;
 
 // We are using async await...
 const connectDB = async () => {
