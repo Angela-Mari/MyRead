@@ -41,25 +41,24 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
         return newErrors
     }
 
-    async function validate(e){
+    function validate(e){
         if (type == "Register"){
             const newErrors = findFormErrors();
         if ( Object.keys(newErrors).length > 0 ) {
             // We got errors!
             setErrors(newErrors)
             setValidated(false)
-            return
+            return false
           }
           else {
             setErrors({})
             setValidated(true)
-            
+            return true
           }
         }
-        else {
-            await handleSubmit(e.currentTarget); handleClose();
-        }
+        return true;
     }
+
     return (
         <Modal
         size="lg"
@@ -156,7 +155,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
                      : <></> }
                 </Form.Group>
 
-                <Button variant="primary" onClick={validate}>
+                <Button variant="primary" onClick={async (e)=> {if (validate()) {await handleSubmit(e.currentTarget); handleClose();}}}>
                     Submit
                 </Button>
                 
