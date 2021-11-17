@@ -61,8 +61,8 @@ function App({
     setLastName(g.getFamilyName());
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
-    setPassword(' ');
-    setPhoneNumber(' ');
+    setPassword("password12345");
+    setPhoneNumber("111-222-3333");
 
     if(authenticationType == "Register") {
       await register(firstName,
