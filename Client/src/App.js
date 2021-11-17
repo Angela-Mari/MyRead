@@ -67,10 +67,10 @@ function App({
         lastName,
         email,
         alias,
-        null,
-        null)
+        password,
+        phoneNumber)
     } else {
-      await login(email);
+      await login(email, password);
     }
 
     //handleSubmit(g); //need password and phone before signing up. save them and use when using google
