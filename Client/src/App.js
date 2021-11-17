@@ -66,7 +66,9 @@ function App({
       await register(firstName,
         lastName,
         email,
-        alias)
+        alias,
+        null,
+        null)
     } else {
       await login(email);
     }
