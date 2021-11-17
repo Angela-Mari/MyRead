@@ -45,7 +45,7 @@ class GoogleBtn extends Component {
       this.accessToken = '';
     }
 
-    await this.props.handleGoogleSubmit(profile);
+    this.props.handleGoogleSubmit(profile);
 
   }
 
