@@ -24,7 +24,9 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             </div>
 
                 <GoogleBtn 
-                handleGoogleSubmit={handleGoogleSubmit}
+                //handleGoogleSubmit={handleGoogleSubmit}
+                handleGoogleSubmit={ async (g)=> { await handleGoogleSubmit} }
+
                 /> 
 
             <Form>

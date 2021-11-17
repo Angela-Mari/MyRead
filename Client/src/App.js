@@ -75,7 +75,7 @@ function App({
     //   await login(email, password);
     // }
 
-    await handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
     //setTwoFA(true);
   }
