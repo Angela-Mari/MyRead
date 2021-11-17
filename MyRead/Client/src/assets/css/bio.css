@@ -1,0 +1,62 @@
+.box {
+    display: flex;
+}
+.bio {
+    margin: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #dddddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    letter-spacing: 1px;
+    padding: 30px;
+}
+.bioIntro {
+    font-size: 20px;
+    font-weight: 500;
+}
+.img_div {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+}
+.img_div img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.username {
+    font-size: 22px;
+    font-size: 700;
+}
+.introInfo {
+    text-align: center;
+}
+.follow {
+    padding: 10px 20px;
+    background-color: #54b9bc;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.follow:active {
+    box-shadow: none;
+}
+.navgitors {
+    display: flex;
+    justify-content: center;
+}
+.navgitors a img {
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mt10 {
+    margin-top: 10px;
+}
