@@ -61,7 +61,7 @@ function App({
     setLastName(g.getFamilyName());
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
-    setPassword("password12345");
+    setPassword("_4RebQ!");
     setPhoneNumber("1112223333");
 
     // if(authenticationType == "Register") {
@@ -77,7 +77,7 @@ function App({
 
     handleSubmit(g); //need password and phone before signing up. save them and use when using google
 
-    setTwoFA(true);
+    //setTwoFA(true);
   }
 
   function handle2FASubmit(){
