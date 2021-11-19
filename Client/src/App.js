@@ -62,7 +62,7 @@ function App({
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
     setPassword("_4RebQ!");
-    //setPhoneNumber("1112223333");
+    setPhoneNumber("11112223333");
 
     // if(authenticationType == "Register") {
     //   await register(firstName,
