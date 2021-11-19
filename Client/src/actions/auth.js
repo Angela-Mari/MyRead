@@ -13,6 +13,15 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
+var isDev = process.env.NODE_ENV == null; 
+var devPrefix = "";
+
+if(isDev) {
+  devPrefix = "http://localhost:5000";
+} else {
+  devPrefix = "";
+}
+
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
   headers: {
@@ -27,7 +36,7 @@ export const loadUser = () => async (dispatch) => {
     }
   
     try {
-      const res = await axios.get('http://localhost:5000/api/auth');
+      const res = await axios.get(devPrefix + '/api/auth');
   
       dispatch({
         type: USER_LOADED,
@@ -57,7 +66,7 @@ export const register = (
     var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
   
     try {
-      const res = await axios.post('http://localhost:5000/api/users', body, config);
+      const res = await axios.post(devPrefix + '/api/users', body, config);
   
       dispatch({
         type: REGISTER_SUCCESS,
@@ -91,7 +100,7 @@ export const login = (email, password) => async (dispatch) => {
     };
   
     try {
-      const res = await axios.post('http://localhost:5000/api/auth', body, config);
+      const res = await axios.post(devPrefix + '/api/auth', body, config);
       // const res = await axios.post('/api/auth', body);
       console.log(res);
       dispatch({
