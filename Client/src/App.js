@@ -62,7 +62,7 @@ function App({
     setEmail(g.getEmail());
     setAlias(g.getEmail().split("@")[0].toLowerCase());
     setPassword("_4RebQ!"); // will change later
-    setPhoneNumber("11112223333"); //change later
+    setPhoneNumber("1112223333"); //change later
     handleClick(firstName);
 
     handleSubmit(g); //need password and phone before signing up. save them and use when using google
