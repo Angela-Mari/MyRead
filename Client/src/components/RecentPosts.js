@@ -1,8 +1,17 @@
 import React, { useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import Post from './Post';
+import { getPosts } from '../actions/post';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function RecentPosts() {
+function RecentPosts({getPosts}) {
+    async function backendPosts(){
+        const backendPosts = await getPosts();
+        console.log(backendPosts) // this is getting a return!
+    }
+    
+    useEffect(()=>backendPosts())
 
     const posts = [
         {
@@ -28,4 +37,17 @@ function RecentPosts() {
     </Col>
     )
 }
-export default RecentPosts;
+
+RecentPosts.propTypes = {
+    getPosts: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
+  
+  const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+  
+  export default connect(mapStateToProps, {
+    getPosts,
+  })(RecentPosts);

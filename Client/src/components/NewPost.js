@@ -1,47 +1,59 @@
 import React, {useState} from "react";
-import {Container, Form} from "react-bootstrap"
+import {Container, Form, Button} from "react-bootstrap"
+import Select from "react-select"
+import {addPost} from "../actions/post"
+
 function NewPost({isAuthenticated}){
     
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
+    const options = [ //get from backend
+        { value: 'new reads', label: 'New Reads' },
+        { value: 'cs', label: 'Computer Science' },
+        { value: 'helpful tips', label: 'Helpful Tips' },
       ];
 
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [url, setUrl] = useState("")
     const [selectedOptions, setSelectedOptions] = useState([])
-    handleChange = (newOption) => {
+    function handleChange(newOption) {
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
-        console.log(`Option selected:`, newOption);
-      };
+    }
+
+    async function submit(event){
+        event.preventDefault();
+        console.log(title, description, url, selectedOptions)
+        await addPost(title, description, selectedOptions, url)
+    }
 
     return(
         <>
         {
-            isAuthenticated ?
+            isAuthenticated ? 
             <Container>
+                <h2>Create a New Post</h2>
                 <Form>
-                <Form.Group>
+                <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Title</Form.Label>
-                    <Form.Control placeholder="Enter Title" />
+                    <Form.Control placeholder="Enter Title" onChange={e => setTitle(e.value)}/>
                 </Form.Group>
-                <Form.Group>
+                <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" placeholder="Enter Description" />
+                    <Form.Control as="textarea" placeholder="Enter Description" onChange={e => setDescription(e.value)}/>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" placeholder="Enter Description" />
+                <Form.Group style={{marginTop:"0.5rem"}}>
+                    <Form.Label>Link</Form.Label>
+                    <Form.Control type="url" placeholder="Enter URL" onChange={e => setUrl(e.value)}/>
                 </Form.Group>
-                <Select
-                    value={selectedOption}
-                    onChange={handleChange}
-                    options={options}
-                />
+                <Form.Group style={{marginTop:"0.5rem"}}>
+                    <Form.Label>Category</Form.Label>
+                    <Select
+                        isMulti
+                        onChange={handleChange}
+                        options={options}
+                    />
+                </Form.Group>
                 
-                <Form.Group controlId="formFileSm" className="mb-3">
-                    <Form.Label>image upload</Form.Label>
-                    <Form.Control type="image" size="sm" />
-                </Form.Group>
+                <Button style={{marginTop:"0.5rem"}}type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>
             </Container>
             :

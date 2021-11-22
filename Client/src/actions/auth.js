@@ -100,6 +100,7 @@ export const login = (email, password) => async (dispatch) => {
     };
   
     try {
+      console.log(devPrefix)
       const res = await axios.post(devPrefix + '/api/auth', body, config);
       // const res = await axios.post('/api/auth', body);
       console.log(res);
@@ -111,7 +112,6 @@ export const login = (email, password) => async (dispatch) => {
       dispatch(loadUser());
     } catch (err) {
       const errors = err.response.data.errors;
-      return errors;
       if (errors) {
         errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
       }

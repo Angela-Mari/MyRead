@@ -16,6 +16,7 @@ import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Privacy from './pages/Privacy';
+import NewPost from './components/NewPost';
 
 function App({ 
   login, 
@@ -40,15 +41,16 @@ function App({
   async function handleSubmit(e){
     setShow(false)
     if (authenticationType === "Register"){
-      
-      let result = await register(firstName,
+      await register(
+        firstName,
         lastName,
         email,
         alias,
         password,
-        phoneNumber).then(console.log(result));
-    } else{
-      let result = await login(email, password).then(console.log(result));
+        phoneNumber)
+    } 
+    else{
+      await login(email, password)
     } 
     setTwoFA(true)
   } 
@@ -70,9 +72,12 @@ function App({
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
-          <Route path = "/privacy-policy"> 
+            <Route path = "/privacy-policy"> 
                 <Privacy />
-              </Route>
+            </Route>
+            <Route path = "/create-post"> 
+                <NewPost />
+            </Route>
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
