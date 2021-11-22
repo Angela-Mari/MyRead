@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {Container, Form, Button} from "react-bootstrap"
 import Select from "react-select"
 import {addPost} from "../actions/post"
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loadUser } from '../actions/auth';
 
 function NewPost({isAuthenticated}){
     
@@ -63,4 +66,14 @@ function NewPost({isAuthenticated}){
     )
 }
 
-export default NewPost
+NewPost.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+
+
+export default connect(mapStateToProps,{loadUser})(NewPost);
