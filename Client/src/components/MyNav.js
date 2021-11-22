@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 
-function MyNav({user, isAuthenticated}) {
+function MyNav({auth: { user } , isAuthenticated}) {
     return (
     <Navbar bg="light" expand="lg">
         <Container>
