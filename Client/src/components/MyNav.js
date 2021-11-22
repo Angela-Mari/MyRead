@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar,Nav, Button, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadUser } from '../actions/auth';
 
 function MyNav({user, isAuthenticated}) {
     return (
@@ -39,4 +40,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps)(MyNav);
+export default connect(mapStateToProps,{loadUser})(MyNav);
