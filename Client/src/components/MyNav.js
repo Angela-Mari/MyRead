@@ -15,11 +15,13 @@ function MyNav({auth: { user } , isAuthenticated}) {
         {
             isAuthenticated ? //change to a route to post builder form
             <> 
-            <Link to="/create-post">
-            <Nav.Link>Create New Post</Nav.Link> 
+            <Nav.Link>
+            <Link to="/create-post" style={{textDecoration:"none"}}>
+            Create New Post
             </Link>
+            </Nav.Link> 
             <Navbar.Text>
-                Signed in as: {user.firstName} {user.lastName}
+                {/* Signed in as: {user.firstName} {user.lastName} */}
             </Navbar.Text>
             <Nav.Link href="#home">Logout</Nav.Link> 
             </>
