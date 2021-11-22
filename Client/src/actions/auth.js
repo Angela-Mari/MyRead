@@ -36,11 +36,7 @@ export const loadUser = () => async (dispatch) => {
     }
   
     try {
-<<<<<<< HEAD
-      const res = await axios.get('/api/auth');
-=======
       const res = await axios.get(devPrefix + '/api/auth');
->>>>>>> server-integration
   
       dispatch({
         type: USER_LOADED,
@@ -70,11 +66,7 @@ export const register = (
     var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
   
     try {
-<<<<<<< HEAD
-      const res = await axios.post('/api/users', body, config);
-=======
       const res = await axios.post(devPrefix + '/api/users', body, config);
->>>>>>> server-integration
   
       dispatch({
         type: REGISTER_SUCCESS,
