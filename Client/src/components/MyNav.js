@@ -14,7 +14,9 @@ function MyNav({auth: { user } , isAuthenticated}) {
         {
             isAuthenticated ? //change to a route to post builder form
             <> 
+            <Link to="/create-post">
             <Nav.Link>Create New Post</Nav.Link> 
+            </Link>
             <Navbar.Text>
                 Signed in as: {user.firstName} {user.lastName}
             </Navbar.Text>
