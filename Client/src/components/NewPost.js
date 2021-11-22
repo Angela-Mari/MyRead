@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Container, Form, Button} from "react-bootstrap"
 import Select from "react-select"
-import {addPost} from "../actions/post"
+import { addPost } from "../actions/post"
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 
-function NewPost({isAuthenticated}){
+function NewPost({addPost, isAuthenticated}){
     
     const options = [ //get from backend
         { value: 'new reads', label: 'New Reads' },
@@ -31,7 +31,7 @@ function NewPost({isAuthenticated}){
     return(
         <>
         {
-            isAuthenticated ? 
+            true ? 
             <Container>
                 <h2>Create a New Post</h2>
                 <Form>
@@ -67,6 +67,7 @@ function NewPost({isAuthenticated}){
 }
 
 NewPost.propTypes = {
+    addPost: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -76,4 +77,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{loadUser})(NewPost);
+export default connect(mapStateToProps,{addPost, loadUser})(NewPost);
