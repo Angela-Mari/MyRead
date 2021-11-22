@@ -3,6 +3,7 @@ import { Navbar,Nav, Button, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
+import { Link } from 'react-router-dom';
 
 function MyNav({auth: { user } , isAuthenticated}) {
     return (
