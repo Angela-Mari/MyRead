@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var config = require('config');
 
-var db = config.get("mongoURI"); // We are using async await...
+var db = process.env.MONGOURI; // We are using async await...
 
 var connectDB = function connectDB() {
   return regeneratorRuntime.async(function connectDB$(_context) {

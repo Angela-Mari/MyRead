@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar,Nav, Button, Container } from 'react-bootstrap';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 function MyNav({user, isAuthenticated}) {
     return (
@@ -27,4 +28,15 @@ function MyNav({user, isAuthenticated}) {
     </Navbar>
     )
 }
-export default MyNav;
+
+MyNav.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+
+
+export default connect(mapStateToProps)(MyNav);
