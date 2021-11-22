@@ -9,7 +9,7 @@ import twitter from "../assets/img/twitter.png";
 import ins from "../assets/img/ins.png";
 import ex from "../assets/img/external.png";
 import Edit from "../components/Edit";
-function Blog() {
+function Blog({isAuthenticated}) {
     let { username } = useParams();
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
@@ -36,17 +36,34 @@ function Blog() {
         setisshow(false);
     };
     return (
-        <Container>
-            <Row>
-                <h1>{username}'s Blog</h1>
-                <Categories></Categories>
-                <RecentPosts></RecentPosts>
-            </Row>
-            <Row>
-                {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
-                {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
-            </Row>
-        </Container>
+        <>
+        {
+        isAuthenticated?
+            <Container>
+                <Row>
+                    <h1>{username}'s Blog</h1>
+                    <Categories></Categories>
+                    <RecentPosts></RecentPosts>
+                </Row>
+                <Row>
+                    {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
+                    {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
+                </Row>
+            </Container>
+            :
+            <Container>
+                <h1>Viewing {username}'s Blog</h1>
+                <Row>
+                    <Categories></Categories>
+                    <RecentPosts></RecentPosts>
+                </Row>
+                <Row>
+                    <Bio params={bioObj} isShowEdit={isshowEdit} />
+                </Row>
+            </Container>
+        }
+        </>
+        
     );
 }
 

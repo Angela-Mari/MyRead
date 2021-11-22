@@ -5,7 +5,6 @@ import Blog from './Blog';
 import TwoFAModal from '../components/TwoFAModal';
 
 function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
-  
     function handleClose(){
         setShow(false)
         setTwoFA(false)

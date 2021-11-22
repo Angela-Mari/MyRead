@@ -8,19 +8,20 @@ function MyNav({user, isAuthenticated}) {
         <Container>
         <Navbar.Brand href="#home">MyRead</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
-        
+            <Nav className="me-auto">
         {
-            isAuthenticated &&
+            isAuthenticated ? //change to a route to post builder form
+            <> 
+            <Nav.Link>Create New Post</Nav.Link> 
             <Navbar.Text>
-                Signed in as: <a href="#login">{user.firstName} {user.lastName}</a>
+                Signed in as: {user.firstName} {user.lastName}
             </Navbar.Text>
-        }
-        {
-            isAuthenticated?
-            <Nav.Link href="#home">Logout</Nav.Link>
+            <Nav.Link href="#home">Logout</Nav.Link> 
+            </>
             :
-            <Nav.Link href="#home">Logout</Nav.Link>
+            <Nav.Link href="#home">Login</Nav.Link> // TODO: change to route back to home + logout
         }
+        </Nav>
         </Navbar.Collapse>
         </Container>
     </Navbar>
