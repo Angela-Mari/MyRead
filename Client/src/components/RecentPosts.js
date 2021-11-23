@@ -13,17 +13,19 @@ function RecentPosts({getPosts}) {
         postsArray = backendPosts.data.map((postIndex, index) => {
             console.log(postIndex)
             return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
-        
-    }
+        return (
+            <Col>
+                <h2>Recent Posts</h2>
+                {postsArray != undefined? postsArray : <></>}
+            </Col>
+            )
+        }
     
-    useEffect(()=>backendPosts());
+   return (
+       <h2>waiting...</h2>
+   )
 
-    return (
-    <Col>
-        <h2>Recent Posts</h2>
-        {postsArray != undefined? postsArray : <></>}
-    </Col>
-    )
+    
 }
 
 RecentPosts.propTypes = {
