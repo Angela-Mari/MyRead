@@ -9,7 +9,7 @@ function RecentPosts({getPosts}) {
     const [data,setData] = useState({});
 
     async function backendPosts(){
-        backendPosts = await getPosts();
+        backendPosts = await getPosts().then(data => setData(data));
         return backendPosts;
     }
     var postsArray = []
@@ -21,9 +21,7 @@ function RecentPosts({getPosts}) {
         return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
     }
     useEffect(() => {
-        const backendPosts = backendPosts()
-        .then(setData(backendPosts)
-        );
+        backendPosts()
        }, [])
 
    return (
