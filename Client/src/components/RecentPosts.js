@@ -17,12 +17,16 @@ function RecentPosts({getPosts}) {
     }
 
     useEffect(() => {
-        async function getData() {
-          let response = getPosts()
-          setData(response)
+
+        async function backendPosts(){
+            const backendPosts = await getPosts();
+            backendPosts = await getPosts();
+            console.log(backendPosts) // this is getting a return!
+            setData(backendPosts)
         }
+        
     
-        getData()
+        backendPosts()
       }, [])
 
    return (
