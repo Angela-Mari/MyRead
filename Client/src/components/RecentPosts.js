@@ -15,9 +15,15 @@ function RecentPosts({getPosts}) {
         console.log(postIndex)
         return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
     }
+    
     useEffect(() => {
-        await getPosts().then(data => setData(data))
-       }, [])
+        async function getData() {
+          let response = await getPosts()
+          setData(response)
+        }
+    
+        getData()
+      }, [])
 
    return (
             <Col>
