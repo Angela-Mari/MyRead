@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import Post from './Post';
 import { getPosts } from '../actions/post';
@@ -6,25 +6,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function RecentPosts({getPosts}) {
-    var postsArray;
+    const [data,setData] = useState({});
+
     async function backendPosts(){
         backendPosts = await getPosts();
-        console.log(backendPosts) // this is getting a return!
-        postsArray = backendPosts.data.map((postIndex, index) => {
-            console.log(postIndex)
-            return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
-        return (
+        return backendPosts;
+    }
+    var postsArray = []
+    
+    if(data!= {}){
+        postsArray = data.data.map((postIndex, index) => {
+        console.log(postIndex)
+        return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
+    }
+    useEffect(() => {
+        backendPosts()
+        .then(data =>
+          setData(data)
+        );
+       }, [])
+
+   return (
             <Col>
                 <h2>Recent Posts</h2>
-                {postsArray != undefined? postsArray : <></>}
+                {postsArray != []? postsArray : <></>}
             </Col>
             )
-        }
-    useEffect(()=>backendPosts())
-   return (
-       <h2>waiting...</h2>
-   )
-
     
 }
 
