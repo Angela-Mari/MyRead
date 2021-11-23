@@ -7,11 +7,6 @@ import PropTypes from 'prop-types';
 
 function RecentPosts({getPosts}) {
     const [data,setData] = useState({});
-
-    async function backendPosts(){
-        backendPosts = await getPosts().then(data => setData(data));
-        return backendPosts;
-    }
     var postsArray = []
     
     if(data !== {}){
@@ -21,7 +16,7 @@ function RecentPosts({getPosts}) {
         return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
     }
     useEffect(() => {
-        backendPosts()
+        getPosts().then(data => setData(data))
        }, [])
 
    return (
