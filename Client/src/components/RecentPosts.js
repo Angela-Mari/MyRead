@@ -21,9 +21,8 @@ function RecentPosts({getPosts}) {
         return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
     }
     useEffect(() => {
-        backendPosts()
-        .then(data =>
-          setData(data)
+        const backendPosts = backendPosts()
+        .then(setData(backendPosts)
         );
        }, [])
 
