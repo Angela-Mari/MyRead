@@ -25,7 +25,8 @@ function NewPost({addPost, isAuthenticated}){
     async function submit(event){
         event.preventDefault();
         console.log(title, description, url, selectedOptions)
-        await addPost(title, description, selectedOptions, url)
+        const res = await addPost({"title": title, "description":description, "categories": selectedOptions, "url":url});
+        console.log(res)
     }
 
     return(
