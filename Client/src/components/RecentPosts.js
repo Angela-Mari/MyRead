@@ -16,7 +16,7 @@ function RecentPosts({getPosts}) {
         
     }
     
-    backendPosts()
+    useEffect(()=>backendPosts());
 
     return (
     <Col>
