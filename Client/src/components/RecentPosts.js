@@ -15,7 +15,7 @@ function RecentPosts({getPosts}) {
         setData(backendPosts)
     }
 
-    useEffect(()=>backendPosts(), [backendPosts])
+    useEffect(()=>backendPosts(), [])
 
       if(data != null){
         console.log(data)
