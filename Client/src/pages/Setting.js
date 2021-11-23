@@ -6,7 +6,7 @@ function Setting() {
         <Card /* style={{ width: "18rem" }} */>
             <Card.Body>
                 <Row>
-                    <Card.Title>setting</Card.Title>
+                    <Card.Title>Setting</Card.Title>
                 </Row>
                 <Row className="line">
                     <Card.Title>Privacy</Card.Title>
@@ -20,7 +20,7 @@ function Setting() {
                 <Row className="line">
                     <Card.Title>Payment</Card.Title>
                     <Card.Text>Your are on the free tier.</Card.Text>
-                    <Button variant="primary">upgrade to prelmum</Button>
+                    <Button variant="primary">Upgrade to Premium</Button>
                 </Row>
                 <Row className="line">
                     <Card.Title>Delete Account</Card.Title>
@@ -33,26 +33,3 @@ function Setting() {
 }
 
 export default Setting;
-/* 
-
-        {/* <div className="seting">
-            <div className="title">setting</div>
-            <Row className="line">
-                <div>Privacy</div>
-                <div>Your profile is public, toggle to change.</div>
-                <Row>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                    </div>
-                </Row>
-            </Row>
-            <Row className="line">
-                <div>privacy</div>
-                <div>You are on the free tier.</div>
-                <Button variant="primary">uisqede to PrernitIn</Button>
-            </Row>
-            <Row className="line">
-                <div>Delete Account</div>
-                <div></div>
-                <Button variant="primary">Delete Account</Button>
-            </Row>  </div>*/
