@@ -16,12 +16,12 @@ function RecentPosts({getPosts}) {
         
     }
     
-    useEffect(()=>backendPosts())
+    backendPosts()
 
     return (
     <Col>
         <h2>Recent Posts</h2>
-        {postsArray}
+        {postsArray != undefined? postsArray : <></>}
     </Col>
     )
 }
