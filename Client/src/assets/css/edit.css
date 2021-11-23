@@ -1,0 +1,24 @@
+.form {
+    width: 400px;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 5px 20px;
+    margin-top: -30px;
+}
+.forms {
+    width: 400px;
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title img {
+    width: 140px;
+    height: 140px;
+    margin-top: 20px;
+    border-radius: 50%;
+}

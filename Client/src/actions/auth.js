@@ -13,12 +13,26 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
-const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+function getDevPrefix() { 
+  var devPrefix = "http://localhost:5000";
+
+  if(process === undefined) {
+    console.log(">>> Process doesnt exist, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV == null) {
+    console.log(">>> NODE_ENV is null, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV === undefined) {
+    console.log(">>> NODE_ENV undefined, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV === "development") {
+    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    return devPrefix;    
+  } else {
+    console.log(">>> No dev mode detected");
+    return "";
+  }
+}
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -27,7 +41,11 @@ export const loadUser = () => async (dispatch) => {
     }
   
     try {
+<<<<<<< HEAD
       const res = await axios.get('http://localhost:5000/api/auth');
+=======
+      const res = await axios.get(getDevPrefix() + '/api/auth');
+>>>>>>> main
   
       dispatch({
         type: USER_LOADED,
@@ -57,7 +75,11 @@ export const register = (
     var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
   
     try {
+<<<<<<< HEAD
       const res = await axios.post('http://localhost:5000/api/users', body, config);
+=======
+      const res = await axios.post(getDevPrefix() + '/api/users', body, config);
+>>>>>>> main
   
       dispatch({
         type: REGISTER_SUCCESS,
@@ -91,7 +113,7 @@ export const login = (email, password) => async (dispatch) => {
     };
   
     try {
-      const res = await axios.post('/api/auth', body, config);
+      const res = await axios.post(getDevPrefix() + '/api/auth', body, config);
       // const res = await axios.post('/api/auth', body);
       console.log(res);
       dispatch({
