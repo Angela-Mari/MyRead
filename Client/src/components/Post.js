@@ -20,7 +20,9 @@ function Post({title, text, link, likes, comments, id}) {
         e.preventDefault();
         console.log("comment")
     }
+    console.log(title, text, link)
     return (
+        
         <a className="post-link" href={link} target="_blank">
         <Container style={{marginTop:"0.5rem"}}>
             <Card syle={{padding:"0.5rem"}}>
