@@ -11,7 +11,6 @@ function RecentPosts({getPosts}) {
     
     async function backendPosts(){
         const backendPosts = await getPosts();
-        backendPosts = await getPosts();
         console.log(backendPosts) // this is getting a return!
         setData(backendPosts)
     }
