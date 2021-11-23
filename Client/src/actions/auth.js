@@ -41,11 +41,7 @@ export const loadUser = () => async (dispatch) => {
     }
   
     try {
-<<<<<<< HEAD
-      const res = await axios.get('http://localhost:5000/api/auth');
-=======
       const res = await axios.get(getDevPrefix() + '/api/auth');
->>>>>>> main
   
       dispatch({
         type: USER_LOADED,
@@ -75,11 +71,7 @@ export const register = (
     var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
   
     try {
-<<<<<<< HEAD
-      const res = await axios.post('http://localhost:5000/api/users', body, config);
-=======
       const res = await axios.post(getDevPrefix() + '/api/users', body, config);
->>>>>>> main
   
       dispatch({
         type: REGISTER_SUCCESS,
