@@ -20,7 +20,7 @@ function RecentPosts({getPosts}) {
             </Col>
             )
         }
-    
+    useEffect(()=>backendPosts())
    return (
        <h2>waiting...</h2>
    )
