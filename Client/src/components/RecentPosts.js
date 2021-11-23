@@ -11,6 +11,7 @@ function RecentPosts({getPosts}) {
         backendPosts = await getPosts();
         console.log(backendPosts) // this is getting a return!
         postsArray = backendPosts.data.map((postIndex, index) => {
+            console.log(postIndex)
             return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
         
     }
