@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function RecentPosts({getPosts}) {
-    const [data,setData] = useState({});
+    const [data,setData] = useState(null);
     var postsArray = []
     
     async function backendPosts(){
@@ -18,7 +18,7 @@ function RecentPosts({getPosts}) {
 
     useEffect(()=>backendPosts())
 
-      if(data != {}){
+      if(data != null){
         console.log(data)
         postsArray = data.data.map((postIndex, index) => {
         console.log(postIndex)
