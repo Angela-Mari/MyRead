@@ -14,7 +14,8 @@ function RecentPosts({getPosts}) {
     }
     var postsArray = []
     
-    if(data!= {}){
+    if(data != {}){
+        console.log(data)
         postsArray = data.data.map((postIndex, index) => {
         console.log(postIndex)
         return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
