@@ -9,13 +9,6 @@ function RecentPosts({getPosts}) {
     const [data,setData] = useState({});
     var postsArray = []
     
-    if(data !== {}){
-        console.log(data)
-        postsArray = data.data.map((postIndex, index) => {
-        console.log(postIndex)
-        return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
-    }
-
     useEffect(() => {
 
         async function backendPosts(){
@@ -24,10 +17,15 @@ function RecentPosts({getPosts}) {
             console.log(backendPosts) // this is getting a return!
             setData(backendPosts)
         }
-        
-    
         backendPosts()
       }, [])
+
+      if(data != {}){
+        console.log(data)
+        postsArray = data.data.map((postIndex, index) => {
+        console.log(postIndex)
+        return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
+    }
 
    return (
             <Col>
