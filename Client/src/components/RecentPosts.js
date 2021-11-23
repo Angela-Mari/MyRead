@@ -9,16 +9,14 @@ function RecentPosts({getPosts}) {
     const [data,setData] = useState({});
     var postsArray = []
     
-    useEffect(() => {
+    async function backendPosts(){
+        const backendPosts = await getPosts();
+        backendPosts = await getPosts();
+        console.log(backendPosts) // this is getting a return!
+        setData(backendPosts)
+    }
 
-        async function backendPosts(){
-            const backendPosts = await getPosts();
-            backendPosts = await getPosts();
-            console.log(backendPosts) // this is getting a return!
-            setData(backendPosts)
-        }
-        backendPosts()
-      }, [])
+    useEffect(()=>backendPosts())
 
       if(data != {}){
         console.log(data)
