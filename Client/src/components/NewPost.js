@@ -41,8 +41,8 @@ function NewPost({addPost, isAuthenticated}){
 
     async function submit(event){
         event.preventDefault();
-        console.log(title, description, url, selectedOptions)
-        await addPost(formData)
+        console.log(title, description, url, selectedOptions);
+        await addPost(formData);
     }
 
     return(
