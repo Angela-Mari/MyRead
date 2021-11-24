@@ -17,21 +17,26 @@ var _setAuthToken = _interopRequireDefault(require("../utils/setAuthToken"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var isDev = process.env.NODE_ENV == null;
-var devPrefix = "";
+function getDevPrefix() {
+  var devPrefix = "http://localhost:5000";
 
-if (isDev) {
-  devPrefix = "http://localhost:5000";
-} else {
-  devPrefix = "";
-}
-
-var api = _axios["default"].create({
-  baseURL: 'http://localhost:5000/api',
-  headers: {
-    'Content-Type': 'application/json'
+  if (process === undefined) {
+    console.log(">>> Process doesnt exist, dev mode activated");
+    return devPrefix;
+  } else if (process.env.NODE_ENV == null) {
+    console.log(">>> NODE_ENV is null, dev mode activated");
+    return devPrefix;
+  } else if (process.env.NODE_ENV === undefined) {
+    console.log(">>> NODE_ENV undefined, dev mode activated");
+    return devPrefix;
+  } else if (process.env.NODE_ENV === "development") {
+    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    return devPrefix;
+  } else {
+    console.log(">>> No dev mode detected");
+    return "";
   }
-}); // Load User
+} // Load User
 
 
 var loadUser = function loadUser() {
@@ -47,7 +52,7 @@ var loadUser = function loadUser() {
 
             _context.prev = 1;
             _context.next = 4;
-            return regeneratorRuntime.awrap(_axios["default"].get(devPrefix + '/api/auth'));
+            return regeneratorRuntime.awrap(_axios["default"].get(getDevPrefix() + '/api/auth'));
 
           case 4:
             res = _context.sent;
@@ -99,7 +104,7 @@ var register = function register(firstName, lastName, email, alias, password, ph
             });
             _context2.prev = 2;
             _context2.next = 5;
-            return regeneratorRuntime.awrap(_axios["default"].post(devPrefix + '/api/users', body, config));
+            return regeneratorRuntime.awrap(_axios["default"].post(getDevPrefix() + '/api/users', body, config));
 
           case 5:
             res = _context2.sent;
@@ -157,11 +162,10 @@ var login = function login(email, password) {
               }
             };
             _context3.prev = 2;
-            console.log(devPrefix);
-            _context3.next = 6;
-            return regeneratorRuntime.awrap(_axios["default"].post(devPrefix + '/api/auth', body, config));
+            _context3.next = 5;
+            return regeneratorRuntime.awrap(_axios["default"].post(getDevPrefix() + '/api/auth', body, config));
 
-          case 6:
+          case 5:
             res = _context3.sent;
             // const res = await axios.post('/api/auth', body);
             console.log(res);
@@ -170,11 +174,11 @@ var login = function login(email, password) {
               payload: res.data
             });
             dispatch(loadUser());
-            _context3.next = 17;
+            _context3.next = 16;
             break;
 
-          case 12:
-            _context3.prev = 12;
+          case 11:
+            _context3.prev = 11;
             _context3.t0 = _context3["catch"](2);
             errors = _context3.t0.response.data.errors;
 
@@ -188,12 +192,12 @@ var login = function login(email, password) {
               type: _types.LOGIN_FAIL
             });
 
-          case 17:
+          case 16:
           case "end":
             return _context3.stop();
         }
       }
-    }, null, null, [[2, 12]]);
+    }, null, null, [[2, 11]]);
   };
 };
 
