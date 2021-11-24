@@ -5,9 +5,11 @@ import { addPost } from "../actions/post"
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
+import {useHistory} from 'react-router';
 
-function NewPost({addPost, isAuthenticated}){
-    
+function NewPost({addPost, isAuthenticated, auth: { user }}){
+    const history = useHistory();
+
     const options = [ //get from backend
         { value: 'new reads', label: 'New Reads' },
         { value: 'cs', label: 'Computer Science' },
@@ -28,9 +30,6 @@ function NewPost({addPost, isAuthenticated}){
         category,
       } = formData;
 
-    // const [title, setTitle] = useState("")
-    // const [description, setDescription] = useState("")
-    // const [url, setUrl] = useState("")
     const [selectedOptions, setSelectedOptions] = useState([])
     function handleChange(newOption) {
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
@@ -41,8 +40,9 @@ function NewPost({addPost, isAuthenticated}){
 
     async function submit(event){
         event.preventDefault();
-        console.log(title, description, url, selectedOptions);
+        //console.log(title, description, url, selectedOptions);
         await addPost(formData);
+        history.push(`/${user.alias}`);
     }
 
     return(
