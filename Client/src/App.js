@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Privacy from './pages/Privacy';
 import NewPost from './components/NewPost';
 
+
 function App({ 
   login, 
   isAuthenticated, 
@@ -55,6 +56,22 @@ function App({
     setTwoFA(true)
   } 
 
+  function handleGoogleSubmit(g) {
+    //setShow(false);
+    console.log('inside handleGoogleSubmit');
+    console.log("in app: ", g);
+    setFirstName(g.getGivenName());
+    setLastName(g.getFamilyName());
+    setEmail(g.getEmail());
+    setAlias(g.getEmail().split("@")[0].toLowerCase());
+    setPassword("_4RebQ!"); // will change later
+    setPhoneNumber("1112223333"); //change later
+
+    handleSubmit(g); //need password and phone before signing up. save them and use when using google
+
+    //setTwoFA(true);
+  }
+
   function handle2FASubmit(){
     setLoggedIn(true)
   }
@@ -81,7 +98,7 @@ function App({
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
-                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
+                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
               }
               </Route>
               <Route exact path ="/:username">
