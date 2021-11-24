@@ -8,7 +8,7 @@ function Bio(props) {
         return isShowEdit();
     };
     return (
-        <Col>
+        <Col md={4}>
             <div key={bioList.id} className="bio">
                 <div className="bioIntro">{bioList.name}.</div>
                 <div className="img_div mt10">

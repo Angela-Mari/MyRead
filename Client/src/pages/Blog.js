@@ -41,8 +41,6 @@ function Blog() {
                 <h1>{username}'s Blog</h1>
                 <Categories></Categories>
                 <RecentPosts></RecentPosts>
-            </Row>
-            <Row>
                 {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
                 {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
             </Row>
