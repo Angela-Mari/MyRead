@@ -18,7 +18,7 @@ function NewPost({addPost, isAuthenticated}){
         title: '',
         description: '',
         url: '',
-        category: '',
+        category: 'Computer Science',
       });
 
       const {
@@ -68,8 +68,8 @@ function NewPost({addPost, isAuthenticated}){
                     <Form.Label>Category</Form.Label>
                     <Select
                         value={category}
+                        name="category"
                         isMulti
-                        onChange={(e) => onChange(e)}
                         options={options}
                     />
                 </Form.Group>
