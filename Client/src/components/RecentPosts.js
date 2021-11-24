@@ -31,7 +31,7 @@ function RecentPosts({getPosts}) {
                 <div>
                 {
                   posts.map((post) => (
-                    <Post title = {post.title} text = {post.description} link = {post.url} key = {1} id={post.id}> </Post>
+                    <Post title = {post.title} text = {post.description} link = {post.url} key = {1} id={post._id}> </Post>
                   ))
                 }
                 </div>
