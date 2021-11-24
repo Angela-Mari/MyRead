@@ -5,24 +5,38 @@ import { getPosts } from '../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function RecentPosts({getPosts}) {
-    const [data,setData] = useState({});
+function RecentPosts({getPosts}) { 
+  useEffect(() => {
+    getPosts().then(posts => setPosts(posts))
+   }, [])
+
+    const [posts,setPosts] = useState();
     var postsArray = []
     
-    if(data !== {}){
-        console.log(data)
-        postsArray = data.data.map((postIndex, index) => {
-        console.log(postIndex)
-        return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
+    // if(data){
+    //     console.log(data)
+    //     postsArray = data.data.map((postIndex, index) => {
+    //     console.log(postIndex)
+    //     return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
+    // }
+
+    if (posts) {
+      console.log(posts)
     }
-    useEffect(() => {
-        getPosts().then(data => setData(data))
-       }, [])
 
    return (
             <Col>
-                <h2>Recent Posts</h2>
-                {postsArray != []? postsArray : <></>}
+              <h2>Recent Posts</h2>
+                {posts && posts.length > 0 &&
+                <div>
+                {
+                  posts.map((post) => (
+                    <Post title = {post.title} text = {post.description} link = {post.url} key = {1} id={post.id}> </Post>
+                  ))
+                }
+                </div>
+                }
+                {/* {postsArray != []? postsArray : <></>} */}
             </Col>
             )
     

@@ -14,18 +14,35 @@ function NewPost({addPost, isAuthenticated}){
         { value: 'helpful tips', label: 'Helpful Tips' },
       ];
 
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [url, setUrl] = useState("")
+      const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        url: '',
+        category: '',
+      });
+
+      const {
+        title,
+        description,
+        url,
+        category,
+      } = formData;
+
+    // const [title, setTitle] = useState("")
+    // const [description, setDescription] = useState("")
+    // const [url, setUrl] = useState("")
     const [selectedOptions, setSelectedOptions] = useState([])
     function handleChange(newOption) {
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
     }
 
+    const onChange = (e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+
     async function submit(event){
         event.preventDefault();
         console.log(title, description, url, selectedOptions)
-        await addPost(title, description, selectedOptions, url)
+        await addPost(formData)
     }
 
     return(
@@ -37,21 +54,22 @@ function NewPost({addPost, isAuthenticated}){
                 <Form>
                 <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Title</Form.Label>
-                    <Form.Control placeholder="Enter Title" onChange={e => setTitle(e.value)}/>
+                    <Form.Control name="title" value={title} placeholder="Enter Title" onChange={(e) => onChange(e)}/>
                 </Form.Group>
                 <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" placeholder="Enter Description" onChange={e => setDescription(e.value)}/>
+                    <Form.Control name="description" value={description} as="textarea" placeholder="Enter Description" onChange={(e) => onChange(e)}/>
                 </Form.Group>
                 <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Link</Form.Label>
-                    <Form.Control type="url" placeholder="Enter URL" onChange={e => setUrl(e.value)}/>
+                    <Form.Control name="url" value={url} type="url" placeholder="Enter URL" onChange={(e) => onChange(e)}/>
                 </Form.Group>
                 <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Category</Form.Label>
                     <Select
+                        value={category}
                         isMulti
-                        onChange={handleChange}
+                        onChange={(e) => onChange(e)}
                         options={options}
                     />
                 </Form.Group>
