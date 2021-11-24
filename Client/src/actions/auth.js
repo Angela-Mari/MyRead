@@ -13,20 +13,8 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
-
-
-const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
 function getDevPrefix() { 
   var devPrefix = "http://localhost:5000";
-
-  console.log(">>> PROCESS.ENV.NODE_ENV: "+process.env.NODE_ENV);
-  console.log(">>> RESULT: "+(process.env.NODE_ENV === undefined));
 
   if(process === undefined) {
     console.log(">>> Process doesnt exist, dev mode activated");
