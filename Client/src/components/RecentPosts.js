@@ -25,7 +25,7 @@ function RecentPosts({getPosts}) {
     }
 
    return (
-            <Col>
+            <Col  xs={2} md={6}>
               <h2>Recent Posts</h2>
                 {posts && posts.length > 0 &&
                 <div>

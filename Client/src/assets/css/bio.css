@@ -2,8 +2,8 @@
     display: flex;
 }
 .bio {
-    margin: 10px;
-    width: 400px;
+    margin: 0 10px;
+    width: 100%;
     box-sizing: border-box;
     background-color: #dddddd;
     display: flex;

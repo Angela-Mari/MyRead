@@ -23,10 +23,14 @@ function MyNav({auth: { user } , isAuthenticated}) {
             <Navbar.Text>
                 {/* Signed in as: {user.firstName} {user.lastName} */}
             </Navbar.Text>
+            <Link key="setting" to="/setting">
+                        setting
+            </Link>
             <Nav.Link href="#home">Logout</Nav.Link> 
             </>
             :
             <Nav.Link href="#home">Login</Nav.Link> // TODO: change to route back to home + logout
+
         }
         </Nav>
         </Navbar.Collapse>
