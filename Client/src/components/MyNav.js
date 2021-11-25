@@ -9,7 +9,9 @@ function MyNav({auth: { user } , isAuthenticated}) {
     return (
     <Navbar bg="light" expand="lg">
         <Container>
-        <Navbar.Brand href="#home">MyRead</Navbar.Brand>
+        <Link to={`/${user.alias}`} style={{textDecoration:"none"}}>
+            <Navbar.Brand>MyRead</Navbar.Brand>
+        </Link>
         <Navbar.Collapse className="justify-content-end">
             <Nav className="me-auto">
         {
@@ -23,9 +25,11 @@ function MyNav({auth: { user } , isAuthenticated}) {
             <Navbar.Text>
                 {/* Signed in as: {user.firstName} {user.lastName} */}
             </Navbar.Text>
-            <Link key="setting" to="/setting">
-                        setting
+            <Nav.Link>
+            <Link key="setting" to="/setting" style={{textDecoration:"none"}}>
+                        Settings
             </Link>
+            </Nav.Link>
             <Nav.Link href="#home">Logout</Nav.Link> 
             </>
             :
