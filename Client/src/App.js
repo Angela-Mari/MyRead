@@ -20,6 +20,19 @@ import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
 
 function App({ login, isAuthenticated, register, loadUser, auth: { user } }) {
+    const [show, setShow] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [alias, setAlias] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [authenticationType, setAuthenticationType] = useState("Register");
+
+    const [twoFA, setTwoFA] = useState(false);
+    const [pin, setPin] = useState("");
+  
   function handle2FASubmit() {
         setLoggedIn(true);
     }
