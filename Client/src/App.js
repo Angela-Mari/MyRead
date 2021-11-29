@@ -35,6 +35,7 @@ function App({
   const [alias, setAlias] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [authenticationType, setAuthenticationType] = useState("Register");
+  const [idNum, setIdNum] = useState(null);
 
   const [twoFA, setTwoFA] = useState(false);
   const [pin, setPin] = useState("");
@@ -48,28 +49,49 @@ function App({
         email,
         alias,
         password,
-        phoneNumber)
+        phoneNumber,)
+    } else{
+      await login(email, password);
     } 
-    else{
-      await login(email, password)
-    } 
-    setTwoFA(true)
+    checkSuccess();
+    // setTwoFA(true)
   } 
 
-  function handleGoogleSubmit(g) {
+  async function handleGoogleSubmit(g) {
     //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
-    setFirstName(g.getGivenName());
-    setLastName(g.getFamilyName());
     setEmail(g.getEmail());
-    setAlias(g.getEmail().split("@")[0].toLowerCase());
-    setPassword("_4RebQ!"); // will change later
-    setPhoneNumber("1112223333"); //change later
+    setPassword(g.getId());
+    if (authenticationType == 'Register') {
+      setFirstName(g.getGivenName());
+      setLastName(g.getFamilyName());
+      setAlias(g.getEmail().split("@")[0].toLowerCase());
+      setPhoneNumber("1112223333"); //change later
+      setIdNum(g.getId());
+    }
+     // will change later
 
-    handleSubmit(g); //need password and phone before signing up. save them and use when using google
-
+    // handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    if (authenticationType === "Register"){
+      
+      await register(firstName,
+        lastName,
+        email,
+        alias,
+        password,
+        phoneNumber,)
+    } else{
+      await login(g.getEmail(), g.getId());
+    } 
+    checkSuccess();
     //setTwoFA(true);
+  }
+
+  function checkSuccess() {
+    if (isAuthenticated) {
+      setLoggedIn(true)
+    }
   }
 
   function handle2FASubmit(){
