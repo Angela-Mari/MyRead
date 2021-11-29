@@ -62,13 +62,19 @@ export const register = (
     alias,
     password,
     phoneNumber,
+    idNum
   ) => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
+    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
+    // if (idNum) {
+    //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
+    // } else {
+    //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
+    // }
   
     try {
       const res = await axios.post(getDevPrefix() + '/api/users', body, config);
@@ -93,7 +99,7 @@ export const register = (
   };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, idNum) => async (dispatch) => {
 // export async function login(email, password) {
     var body = JSON.stringify({ email: email, password: password });
     // body = { email: email, password: password };
