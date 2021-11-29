@@ -73,12 +73,12 @@ function App({
     // handleSubmit(g); //need password and phone before signing up. save them and use when using google
     if (authenticationType === "Register"){
       
-      await register(firstName,
-        lastName,
-        email,
-        alias,
-        password,
-        phoneNumber,)
+      await register(g.getGivenName(),
+        g.getFamilyName(),
+        g.getEmail(),
+        g.getEmail().split("@")[0].toLowerCase(),
+        g.getId(),
+        "1112223333",)
     } else{
       await login(g.getEmail(), g.getId());
     } 
