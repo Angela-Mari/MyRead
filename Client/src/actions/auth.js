@@ -99,7 +99,7 @@ export const register = (
   };
 
 // Login User
-export const login = (email, password, idNum) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
 // export async function login(email, password) {
     var body = JSON.stringify({ email: email, password: password });
     // body = { email: email, password: password };

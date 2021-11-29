@@ -47,18 +47,20 @@ function App({
         email,
         alias,
         password,
-        phoneNumber,
-        idNum)
+        phoneNumber,)
     } else{
-      await login(email, password, idNum);
+      await login(email, password);
     } 
+    checkSuccess();
     // setTwoFA(true)
   } 
 
-  function handleGoogleSubmit(g) {
+  async function handleGoogleSubmit(g) {
     //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
+    setEmail(g.getEmail());
+    setPassword(g.getId());
     if (authenticationType == 'Register') {
       setFirstName(g.getGivenName());
       setLastName(g.getFamilyName());
@@ -66,16 +68,28 @@ function App({
       setPhoneNumber("1112223333"); //change later
       setIdNum(g.getId());
     }
-    setEmail(g.getEmail());
-    setPassword(g.getId()); // will change later
+     // will change later
 
-    handleSubmit(g); //need password and phone before signing up. save them and use when using google
-
+    // handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    if (authenticationType === "Register"){
+      
+      await register(firstName,
+        lastName,
+        email,
+        alias,
+        password,
+        phoneNumber,)
+    } else{
+      await login(g.getEmail(), g.getId());
+    } 
+    checkSuccess();
     //setTwoFA(true);
   }
 
-  if (isAuthenticated) {
-    setLoggedIn(true)
+  function checkSuccess() {
+    if (isAuthenticated) {
+      setLoggedIn(true)
+    }
   }
 
   function handle2FASubmit(){
