@@ -65,7 +65,8 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        // config.get('jwtSecret'), //FOR LOCALHOST
+        process.env.JWTSECRET, //FOR HEROKU
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
