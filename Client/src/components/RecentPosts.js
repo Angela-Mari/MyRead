@@ -6,19 +6,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function RecentPosts({getPosts}) { 
+  const [updatePosts, setUpdatePosts] = useState({});
   useEffect(() => {
     getPosts().then(posts => setPosts(posts))
-   }, [])
+   }, [updatePosts])
 
     const [posts,setPosts] = useState();
-    var postsArray = []
     
-    // if(data){
-    //     console.log(data)
-    //     postsArray = data.data.map((postIndex, index) => {
-    //     console.log(postIndex)
-    //     return (<Post title = {postIndex['title']} text = {postIndex['description']} link = {postIndex['url']} key = {index} id={postIndex['_id']}> </Post>);})
-    // }
+    console.log(updatePosts)
 
     if (posts) {
       console.log(posts)
@@ -31,7 +26,7 @@ function RecentPosts({getPosts}) {
                 <div>
                 {
                   posts.map((post) => (
-                    <Post title = {post.title} text = {post.description} link = {post.url} key = {1} id={post._id}> </Post>
+                    <Post title = {post.title} text = {post.description} link = {post.url} key = {1} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                   ))
                 }
                 </div>
