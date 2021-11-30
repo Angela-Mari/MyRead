@@ -18,10 +18,12 @@ function Post({deletePost, addLike, title, text, link, likes, comments, id, upda
         setUpdatePosts({})
     }
 
+    //TODO: remove like
     async function handleLike(e){
         e.preventDefault();
         console.log("like")
         await addLike(id)
+        setUpdatePosts({})
     }
 
     function handleComment(e){
@@ -43,7 +45,7 @@ function Post({deletePost, addLike, title, text, link, likes, comments, id, upda
                 
                     <Button variant="Link" style={{width:"40px"}} onClick={e => handleComment(e)}><img src="https://img.icons8.com/ios-filled/50/000000/comments.png" width="30px" height="30px"/></Button>
                 
-                    {likes} <Button variant="Link" style={{width:"40px"}} onClick={e => handleLike(e)}><img src="https://img.icons8.com/ios-filled/50/000000/like--v1.png" width="30px" height="30px"/></Button>
+                    <Button variant="Link" style={{width:"80px"}} onClick={e => handleLike(e)}><h3 style={{display:"inline"}}>{likes.length > 0? likes.length : ""}</h3><img src="https://img.icons8.com/ios-filled/50/000000/like--v1.png" width="30px" height="30px"/></Button>
                 
                     <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/ios-glyphs/30/000000/trash--v1.png" width="30px" height="30px"/></Button>
                 
