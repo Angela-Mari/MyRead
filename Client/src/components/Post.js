@@ -34,21 +34,25 @@ function Post({deletePost, addLike, title, text, link, likes, comments, id, upda
     return (
         <a className="post-link" href={link} target="_blank">
         <Container style={{marginTop:"0.5rem"}}>
-            <Card syle={{padding:"0.5rem"}}>
-            <h3>
+            <Card className="shadow-sm p-3 mb-5 bg-white rounded" syle={{padding:"0.5rem"}}>
+            <Row>
+            <Col><h3>
                 {title}
+                
             </h3>
             <div>
                 {text}
             </div>
+            </Col>
+            <Col className="text-end float-end">
+            <img src="https://img-cdn.tnwcdn.com/image?fit=1280%2C720&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2021%2F07%2Fpython-3.10-1.jpg&signature=c9d1d6710c98131fbe2e493a5b6ea092" width="120" height="80px"/>
+            </Col>
+            </Row>
+            
             <Row>
-                
                     <Button variant="Link" style={{width:"40px"}} onClick={e => handleComment(e)}><img src="https://img.icons8.com/ios-filled/50/000000/comments.png" width="30px" height="30px"/></Button>
-                
                     <Button variant="Link" style={{width:"80px"}} onClick={e => handleLike(e)}><h3 style={{display:"inline"}}>{likes.length > 0? likes.length : ""}</h3><img src="https://img.icons8.com/ios-filled/50/000000/like--v1.png" width="30px" height="30px"/></Button>
-                
-                    <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/ios-glyphs/30/000000/trash--v1.png" width="30px" height="30px"/></Button>
-                
+                    <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/ios-glyphs/30/000000/trash--v1.png" width="30px" height="30px"/></Button> 
             </Row>
             </Card> 
         </Container>

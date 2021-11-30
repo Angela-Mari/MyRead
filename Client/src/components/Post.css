@@ -1,3 +1,12 @@
 .post-link{
     text-decoration: none;
+    color: black;
+
+}
+.post-link:hover{
+    color: black;
+}
+
+.card:hover{
+    transform:scale(1.05);
 }
