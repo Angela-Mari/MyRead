@@ -19,28 +19,27 @@ import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
 
-function App({ login, isAuthenticated, register, loadUser, auth: { user } }) {
-    const [show, setShow] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [alias, setAlias] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [authenticationType, setAuthenticationType] = useState("Register");
 
-    const [twoFA, setTwoFA] = useState(false);
-    const [pin, setPin] = useState("");
-  
-  function handle2FASubmit() {
-        setLoggedIn(true);
-    }
+function App({ 
+  login, 
+  isAuthenticated, 
+  register, 
+  loadUser, 
+  auth: { user } 
+}) {
+  const [show, setShow] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [authenticationType, setAuthenticationType] = useState("Register");
+  const [idNum, setIdNum] = useState(null);
 
-    function handleClick(name) {
-        console.log(name);
-        setShow(true);
-    }
+  const [twoFA, setTwoFA] = useState(false);
+  const [pin, setPin] = useState("");
 
   async function handleSubmit(e){
     setShow(false)
@@ -51,13 +50,50 @@ function App({ login, isAuthenticated, register, loadUser, auth: { user } }) {
         email,
         alias,
         password,
-        phoneNumber)
+        phoneNumber,)
+    } else{
+      await login(email, password);
     } 
-    else{
-      await login(email, password)
-    } 
-    setTwoFA(true)
+    checkSuccess();
+    // setTwoFA(true)
   } 
+
+  async function handleGoogleSubmit(g) {
+    //setShow(false);
+    console.log('inside handleGoogleSubmit');
+    console.log("in app: ", g);
+    setEmail(g.getEmail());
+    setPassword(g.getId());
+    if (authenticationType == 'Register') {
+      setFirstName(g.getGivenName());
+      setLastName(g.getFamilyName());
+      setAlias(g.getEmail().split("@")[0].toLowerCase());
+      setPhoneNumber("1112223333"); //change later
+      setIdNum(g.getId());
+    }
+     // will change later
+
+    // handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    if (authenticationType === "Register"){
+      
+      await register(g.getGivenName(),
+        g.getFamilyName(),
+        g.getEmail(),
+        g.getEmail().split("@")[0].toLowerCase(),
+        g.getId(),
+        "1112223333",)
+    } else{
+      await login(g.getEmail(), g.getId());
+    } 
+    checkSuccess();
+    //setTwoFA(true);
+  }
+
+  function checkSuccess() {
+    if (isAuthenticated) {
+      setLoggedIn(true)
+    }
+  }
 
   function handle2FASubmit(){
     setLoggedIn(true)
@@ -92,7 +128,7 @@ function App({ login, isAuthenticated, register, loadUser, auth: { user } }) {
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
-                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
+                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
               }
               </Route>
               <Route exact path ="/:username">

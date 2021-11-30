@@ -1,5 +1,6 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
+import GoogleBtn from '../Google/GoogleBtn';
 import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
@@ -79,11 +80,11 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
             <Button size="sm">{type} with Facebook</Button>
             </div>
 
-                {/* <GoogleBtn 
+                <GoogleBtn 
                 handleGoogleSubmit={handleGoogleSubmit}
-                />  */}
+                /> 
 
-            <Form noValidate validated={validated}>
+            <Form>
                 <Row>
                 <Col>
                 <Form.Group className="mb-3" controlId="firstName">
