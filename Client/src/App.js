@@ -15,6 +15,9 @@ import './App.css';
 import { login, register, loadUser } from './actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Privacy from './pages/Privacy';
+import Setting from "./pages/Setting.js";
+import NewPost from './components/NewPost';
 
 
 function App({ 
@@ -41,8 +44,8 @@ function App({
   async function handleSubmit(e){
     setShow(false)
     if (authenticationType === "Register"){
-      
-      await register(firstName,
+      await register(
+        firstName,
         lastName,
         email,
         alias,
@@ -97,14 +100,10 @@ function App({
   }
 
   function handleClick(name){
-    console.log(name)
     setShow(true)
   }
 
-  
-  
   const location = useLocation();
-  console.log(location);
 
     return(
     <Container>
@@ -113,6 +112,19 @@ function App({
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
+            <Route path = "/privacy-policy"> 
+                <Privacy />
+            </Route>
+            <Route path = "/create-post"> 
+                <NewPost />
+            </Route>
+            {/* 
+                Do not use dynamic routes under the root path
+                It is suggested that the project routing be modified
+                 */}
+                <Route exact path="/setting">
+                    <Setting />
+                </Route>
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
@@ -124,25 +136,25 @@ function App({
               </Route>
               <Route path ="/:username/category/:category">
                 <Category />
-              </Route>
+              </Route>    
           </Switch>
     </Container>
   );
 }
 
 App.propTypes = {
-  login: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+    login: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  auth: state.auth,
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
-  login,
-  register,
-  loadUser
+    login,
+    register,
+    loadUser,
 })(App);

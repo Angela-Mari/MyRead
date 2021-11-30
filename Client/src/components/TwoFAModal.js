@@ -3,8 +3,6 @@ import React from 'react';
 
 function TwoFAModal({pin, setPin, handleTwoFA, show, handleClose}) {
  
-    console.log("two fa")
-    console.log(show)
     return (
         <Modal
         size="lg"

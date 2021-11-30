@@ -1,29 +1,56 @@
 import React from 'react';
 import { Navbar,Nav, Button, Container } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loadUser } from '../actions/auth';
+import { Link } from 'react-router-dom';
 
-
-function MyNav({user, isAuthenticated}) {
+function MyNav({auth: { user } , isAuthenticated}) {
     return (
     <Navbar bg="light" expand="lg">
         <Container>
-        <Navbar.Brand href="#home">MyRead</Navbar.Brand>
+        <Link to={`/${user.alias}`} style={{textDecoration:"none"}}>
+            <Navbar.Brand>MyRead</Navbar.Brand>
+        </Link>
         <Navbar.Collapse className="justify-content-end">
-        
+            <Nav className="me-auto">
         {
-            isAuthenticated &&
+            isAuthenticated ? //change to a route to post builder form
+            <> 
+            <Nav.Link>
+            <Link to="/create-post" style={{textDecoration:"none"}}>
+            Create New Post
+            </Link>
+            </Nav.Link> 
             <Navbar.Text>
-                Signed in as: <a href="#login">{user.firstName} {user.lastName}</a>
+                {/* Signed in as: {user.firstName} {user.lastName} */}
             </Navbar.Text>
-        }
-        {
-            isAuthenticated?
-            <Nav.Link href="#home">Logout</Nav.Link>
+            <Nav.Link>
+            <Link key="setting" to="/setting" style={{textDecoration:"none"}}>
+                        Settings
+            </Link>
+            </Nav.Link>
+            <Nav.Link href="#home">Logout</Nav.Link> 
+            </>
             :
-            <Nav.Link href="#home">Logout</Nav.Link>
+            <Nav.Link href="#home">Login</Nav.Link> // TODO: change to route back to home + logout
+
         }
+        </Nav>
         </Navbar.Collapse>
         </Container>
     </Navbar>
     )
 }
-export default MyNav;
+
+MyNav.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+
+
+export default connect(mapStateToProps,{loadUser})(MyNav);
