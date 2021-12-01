@@ -9,6 +9,10 @@ import twitter from "../assets/img/twitter.png";
 import ins from "../assets/img/ins.png";
 import ex from "../assets/img/external.png";
 import Edit from "../components/Edit";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loadUser } from '../actions/auth';
+
 function Blog({isAuthenticated}) {
     let { username } = useParams();
     // New edit.js and edit.css added some new code to blog.js
@@ -63,4 +67,14 @@ function Blog({isAuthenticated}) {
     );
 }
 
-export default Blog;
+Blog.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+
+
+export default connect(mapStateToProps,{loadUser})(Blog);
