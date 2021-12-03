@@ -83,7 +83,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
 
                 <GoogleBtn 
                 handleGoogleSubmit={handleGoogleSubmit}
-                buttonText= {typeString}
+                buttonText={typeString}
                 /> 
 
             <Form>
