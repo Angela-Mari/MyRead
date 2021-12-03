@@ -10,7 +10,7 @@ function Bio(props) {
     return (
         <Col md={4}>
             <div key={bioList.id} className="bio">
-                <div className="bioIntro">{bioList.name}.</div>
+                <div className="bioIntro">About the Currator</div>
                 <div className="img_div mt10">
                     <img src={bioList.headerImg} />
                 </div>
