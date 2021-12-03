@@ -33,12 +33,13 @@ function FacebookLoginComponent() {
     <div className="container">
       {!login && (
         <FacebookLogin
-          appId="569720507786195"
+          appId="324834482819869"
           autoLoad={false}
           fields="name,email,picture"
           scope="public_profile,email,user_friends"
           callback={responseFacebook}
           icon="fa-facebook"
+          textButton="Authenticate with Facebook"
         />
       )}
 
