@@ -10,6 +10,7 @@ import {
     AUTH_ERROR,
     SET_ALERT,
     REMOVE_ALERT,
+    LOGOUT
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -131,4 +132,41 @@ export const login = (email, password) => async (dispatch) => {
         type: LOGIN_FAIL,
       });
     }
+  };
+
+// Add a User Category
+export const addCategory = (category) => async (dispatch) => {
+    // export async function login(email, password) {
+    var body = JSON.stringify({ category: category });
+    // body = { email: email, password: password };
+
+    try {
+      const res = await axios.put(getDevPrefix() + '/api/users/category', body);
+      // const res = await axios.post('/api/auth', body);
+      console.log(res);
+
+    } catch (err) {
+      console.log(err.message);
+    }
+};
+
+// Update a User's Bio
+export const updateBio = (bio) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio });
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/bio', body);
+    const res = await axios.put(getDevPrefix() + '/api/users/bio', body);
+    // const res = await axios.post('/api/auth', body);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+  export const logout = () => async (dispatch) => {
+    dispatch({
+      type: LOGOUT,
+    });
   };

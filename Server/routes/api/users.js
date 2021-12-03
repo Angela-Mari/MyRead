@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const auth = require('../../middleware/auth');
 
 const User = require('../../models/User');
 
@@ -39,6 +40,9 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
+      var bio = "Enter a bio here";
+      var categories = ["Other"];
+
       user = new User({
         firstName,
         lastName,
@@ -46,6 +50,8 @@ router.post(
         alias,
         password,
         phoneNumber,
+        bio,
+        categories,
       });
 
       // Encrypt password
@@ -80,6 +86,42 @@ router.post(
 
     console.log(req.body);
   }
+);
+
+// @route   GET api/users/category
+// @desc    Add a category to a user
+// @access  Private
+router.put('/category', auth, async (req, res) => {
+    const newCategory = req.body.category;
+    try {
+      const user = await User.findOne({ user: req.user.id });
+      user.categories.unshift(newCategory);
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route   GET api/users/bio
+// @desc    Add or update a users bio
+// @access  Private
+router.put('/bio', auth, async (req, res) => {
+  const newBio = req.body.bio;
+  try {
+    // Using upsert option
+    let user = await User.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: { bio : newBio }},
+    );
+    return res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server Error');
+  }
+}
 );
 
 module.exports = router;

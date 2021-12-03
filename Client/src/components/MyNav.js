@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar,Nav, Button, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadUser } from '../actions/auth';
+import { loadUser, logout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 
 function MyNav({auth: { user } , isAuthenticated}) {
@@ -45,6 +45,7 @@ function MyNav({auth: { user } , isAuthenticated}) {
 
 MyNav.propTypes = {
     isAuthenticated: PropTypes.bool,
+    logout: PropTypes.func.isRequired,
   };
 
 const mapStateToProps = (state) => ({
@@ -52,5 +53,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
   });
 
-
-export default connect(mapStateToProps,{loadUser})(MyNav);
+export default connect(mapStateToProps,{loadUser, logout})(MyNav);
