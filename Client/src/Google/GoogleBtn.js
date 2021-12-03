@@ -3,6 +3,8 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
+var btnTxt = ''
+
 
 class GoogleBtn extends Component {
 
@@ -33,19 +35,13 @@ class GoogleBtn extends Component {
       var profile = googleUser.getBasicProfile();
       this.isLogined = true;
       this.accessToken = googleUser.accessToken;
-      
-      // old method, gives error
-        // this.setState(state => ({
-        // isLogined: true,
-        // accessToken: googleUser.accessToken
-        // }));
     }
     else {
       this.isLogined = false;
       this.accessToken = '';
     }
 
-    this.props.handleGoogleSubmit(profile);
+    btnTxt = this.props.handleGoogleSubmit(profile);
 
   }
 
@@ -80,7 +76,7 @@ class GoogleBtn extends Component {
         </GoogleLogout>: <GoogleLogin
           handleClick={ this.login }
           clientId={ CLIENT_ID }
-          buttonText='Sign in with Google'
+          buttonText= {btnTxt}
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }

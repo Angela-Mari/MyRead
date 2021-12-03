@@ -59,6 +59,7 @@ function App({
   } 
 
   async function handleGoogleSubmit(g) {
+    var btnTxt = '';
     //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
@@ -71,11 +72,8 @@ function App({
       setPhoneNumber("1112223333"); //change later
       setIdNum(g.getId());
     }
-     // will change later
-
-    // handleSubmit(g); //need password and phone before signing up. save them and use when using google
     if (authenticationType === "Register"){
-      
+      btnTxt = 'Register with Google';
       await register(g.getGivenName(),
         g.getFamilyName(),
         g.getEmail(),
@@ -83,10 +81,11 @@ function App({
         g.getId(),
         "1112223333",)
     } else{
+      btnTxt = 'Login with Google';
       await login(g.getEmail(), g.getId());
     } 
     checkSuccess();
-    //setTwoFA(true);
+    return btnTxt;
   }
 
   function checkSuccess() {
