@@ -54,6 +54,26 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+// Get User Posts
+export const getUserPosts = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`${getDevPrefix()}/api/posts/${userId}`)
+    // const res = await axios.get(getDevPrefix() + '/api/posts');
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data,
+    });
+    return res.data;
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+    return err;
+  }
+};
+
 // Add like
 export const addLike = (id) => async (dispatch) => {
   try {
