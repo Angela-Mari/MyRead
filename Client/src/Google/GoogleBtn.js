@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const CLIENT_ID = '771291261258-vpd233ok80266o2ndtjllv5q482h12c2.apps.googleusercontent.com';
 
-var btnTxt = ''
+var btnTxt = ""
 
 
 class GoogleBtn extends Component {
@@ -19,6 +19,7 @@ class GoogleBtn extends Component {
       lname: '',
       gmail: '',
       alias: '',
+      // isRegister: false,
     };
 
     this.login = this.login.bind(this);
@@ -41,8 +42,7 @@ class GoogleBtn extends Component {
       this.accessToken = '';
     }
 
-    btnTxt = this.props.handleGoogleSubmit(profile);
-
+    this.props.handleGoogleSubmit(profile);
   }
 
   logout (googleUser) {
@@ -61,6 +61,13 @@ class GoogleBtn extends Component {
     alert('Failed to log out with Google')
   }
 
+  googleBtnText(type) {
+    if (type == 'Register') {
+        this.isRegister = true;
+    } else {
+        this.isRegister = false;
+    }
+  }
 
   render() {
     return (
@@ -76,7 +83,7 @@ class GoogleBtn extends Component {
         </GoogleLogout>: <GoogleLogin
           handleClick={ this.login }
           clientId={ CLIENT_ID }
-          buttonText= {btnTxt}
+          buttonText= {'Authenticate with Google'}
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }

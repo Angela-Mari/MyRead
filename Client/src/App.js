@@ -59,7 +59,6 @@ function App({
   } 
 
   async function handleGoogleSubmit(g) {
-    var btnTxt = '';
     //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
@@ -73,7 +72,6 @@ function App({
       setIdNum(g.getId());
     }
     if (authenticationType === "Register"){
-      btnTxt = 'Register with Google';
       await register(g.getGivenName(),
         g.getFamilyName(),
         g.getEmail(),
@@ -81,16 +79,16 @@ function App({
         g.getId(),
         "1112223333",)
     } else{
-      btnTxt = 'Login with Google';
       await login(g.getEmail(), g.getId());
     } 
     checkSuccess();
-    return btnTxt;
   }
 
   function checkSuccess() {
     if (isAuthenticated) {
       setLoggedIn(true)
+    } else {
+      alert('Failed to Log-in or Register.')
     }
   }
 
