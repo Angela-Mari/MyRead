@@ -11,6 +11,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
     const [checked, setChecked] = useState(false);
+    const typeString = type + " with Google";
 
     const findFormErrors = () => {
         const newErrors = {}
@@ -82,6 +83,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
 
                 <GoogleBtn 
                 handleGoogleSubmit={handleGoogleSubmit}
+                buttonText= {typeString}
                 /> 
 
             <Form>
