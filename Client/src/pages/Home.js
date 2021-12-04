@@ -100,7 +100,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     </Card.Title>
                     <Card.Title >Browse the Best</Card.Title>
                     <Card.Text>
-                    Access the best content on the web currated by people like you.
+                    Access the best content on the web curated by people like you.
                     </Card.Text>
                 </Card.Body>
                 </Card>
@@ -111,12 +111,12 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     <Card.Title >
                     <img
                     src={blogging}
-                    alt="Become a Currator"
+                    alt="Become a Curator"
                     />
                     </Card.Title>
-                    <Card.Title >Become a Currator</Card.Title>
+                    <Card.Title >Become a Curator</Card.Title>
                     <Card.Text>
-                    Eliminate the tedious process of blogging by currating content from the web on your MyRead blog.
+                    Eliminate the tedious process of blogging by curating content from the web on your MyRead blog.
                     </Card.Text>
                 </Card.Body>
                 </Card>
