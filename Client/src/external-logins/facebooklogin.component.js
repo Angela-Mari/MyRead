@@ -15,6 +15,7 @@ function FacebookLoginComponent() {
       setLogin(false);
       return false;
     }
+    
     setData(response);
     setPicture(response.picture.data.url);
     if (response.accessToken) {
@@ -22,6 +23,7 @@ function FacebookLoginComponent() {
     } else {
       setLogin(false);
     }
+    console.log('FACEBOOK login successful')
   };
   const logout = () => {
     setLogin(false);
@@ -43,7 +45,7 @@ function FacebookLoginComponent() {
         />
       )}
 
-      {/* {login && (
+      {login && (
         <div className="card">
           <div className="card-body">
             <img className="rounded" src={picture} alt="Profile" />
@@ -54,7 +56,7 @@ function FacebookLoginComponent() {
             </a>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
