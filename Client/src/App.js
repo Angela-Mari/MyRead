@@ -106,8 +106,7 @@ function App({
   const location = useLocation();
 
     return(
-    <Container>
-      
+<>      
      {location.pathname !== "/" && <MyNav/>}
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -138,8 +137,7 @@ function App({
                 <Category />
               </Route>    
           </Switch>
-    </Container>
-  );
+</>  );
 }
 
 App.propTypes = {

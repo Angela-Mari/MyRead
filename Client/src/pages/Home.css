@@ -1,0 +1,94 @@
+.crop{
+    width: inherit;
+    height: 600px;
+    object-fit: cover
+}
+.reg-cont {
+    margin-top: 2rem;
+    margin-right: 1rem;
+}
+
+.reg-button{
+    background-color: rgba(255,0,0,0);
+    border-radius: 2px;
+    border-color: #6baeec;
+    color: black !important;
+    width: fit-content !important;
+}
+
+.reg-button :hover{
+    background-color: #437eb6;
+}
+
+.login-button{
+    background-color: #6baeec;
+    border-width: 0;
+    margin-left: 0.5rem;
+    width: fit-content !important;
+}
+
+.login-button :hover{
+    background-color: #6e869c;
+}
+
+.float{
+    position:absolute;
+    display: flex;
+    z-index: 400;
+    left: 0;
+    right: 0;  
+    background-image: linear-gradient(to bottom, white, rgba(255,0,0,0));
+    text-align: center;
+    height: 200px;
+    padding-top: 1rem;
+    color: white;
+    text-shadow:0px 5px 5px grey ;
+    font-weight: bold;
+}
+
+.float h1{
+    font-family: 'Yeseva One', cursive;
+    font-size: 10rem;
+    text-shadow:0px 10px 20px grey ;
+}
+
+.float h2{
+    margin-top: 0.5rem;
+    font-size: 3rem;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.carousel-item {
+    width: 100%;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.pitch {
+    position:absolute;
+    z-index: 400;
+    left: 0;
+    right: 0;  
+    margin-top: -5rem;
+    padding-left: 3rem;
+    justify-content: space-between;
+    background-image: linear-gradient(to top, white, white, white, rgba(255,0,0,0));
+    text-align: center;
+    /* background-image: linear-gradient(to top, red, rgba(255,0,0,0)); */
+}
+
+.pitch img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.pitch h2{
+    
+        margin-top: 1rem;
+        font-size: 3rem;
+        font-family: 'Josefin Sans', sans-serif;
+    
+}

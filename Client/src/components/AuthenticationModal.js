@@ -5,7 +5,6 @@ import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
 import { ExportConfigurationInstance } from 'twilio/lib/rest/bulkexports/v1/exportConfiguration';
-import GoogleBtn from '../Google/GoogleBtn';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit}) {
 

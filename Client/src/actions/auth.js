@@ -156,7 +156,6 @@ export const updateBio = (bio) => async (dispatch) => {
 
   try {
     const res = await axios.put(getDevPrefix() + '/api/users/bio', body);
-    const res = await axios.put(getDevPrefix() + '/api/users/bio', body);
     // const res = await axios.post('/api/auth', body);
     console.log(res);
 
