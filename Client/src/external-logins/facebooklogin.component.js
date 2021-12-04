@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FacebookLogin from "react-facebook-login";
-// import "./App.css";
+import "../App.css";
 
 function FacebookLoginComponent() {
   const [login, setLogin] = useState(false);
@@ -11,7 +11,7 @@ function FacebookLoginComponent() {
     console.log(response);
     // Login failed
     if (response.status === "unknown") {
-      alert("Login failed!");
+      alert("Facebook authentication failed!");
       setLogin(false);
       return false;
     }
@@ -43,7 +43,7 @@ function FacebookLoginComponent() {
         />
       )}
 
-      {login && (
+      {/* {login && (
         <div className="card">
           <div className="card-body">
             <img className="rounded" src={picture} alt="Profile" />
@@ -54,7 +54,7 @@ function FacebookLoginComponent() {
             </a>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
