@@ -59,7 +59,6 @@ function App({
   } 
 
   async function handleGoogleSubmit(g) {
-    //setShow(false);
     console.log('inside handleGoogleSubmit');
     console.log("in app: ", g);
     setEmail(g.getEmail());
@@ -83,6 +82,18 @@ function App({
     } 
     checkSuccess();
   }
+
+    async function handleFacebookSubmit(fb) {
+      console.log('inside handleFacebookSubmit');
+      console.log('in app: ', fb);
+      //set email and password
+      if (authenticationType == 'Register') {
+        //set firstname, lastname, alias, phoneNumber, idNum 
+      } else {
+        //await login(get email, get id);
+      }
+      //checkSuccess();
+    }
 
   function checkSuccess() {
     if (isAuthenticated) {
@@ -125,7 +136,7 @@ function App({
             <Route exact path="/">
               {
               isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
-                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
+                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} handleFacebookSubmit={handleFacebookSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
               }
               </Route>
               <Route exact path ="/:username">

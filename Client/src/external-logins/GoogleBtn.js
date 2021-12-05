@@ -61,13 +61,13 @@ class GoogleBtn extends Component {
     alert('Failed to log out with Google')
   }
 
-  googleBtnText(type) {
-    if (type == 'Register') {
-        this.isRegister = true;
-    } else {
-        this.isRegister = false;
-    }
-  }
+  // googleBtnText(type) {
+  //   if (type == 'Register') {
+  //       this.isRegister = true;
+  //   } else {
+  //       this.isRegister = false;
+  //   }
+  // }
 
   render() {
     return (

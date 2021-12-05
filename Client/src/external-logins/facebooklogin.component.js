@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import "../App.css";
+import App from "../App.js";
 
 function FacebookLoginComponent() {
   const [login, setLogin] = useState(false);
   const [data, setData] = useState({});
   const [picture, setPicture] = useState("");
+
 
   const responseFacebook = (response) => {
     console.log(response);
@@ -23,7 +25,8 @@ function FacebookLoginComponent() {
     } else {
       setLogin(false);
     }
-    console.log('FACEBOOK login successful')
+    console.log('FACEBOOK login successful: ', response)
+    // App.handleFacebookSubmit(response); //this is the problem child rn
   };
   const logout = () => {
     setLogin(false);
@@ -37,7 +40,7 @@ function FacebookLoginComponent() {
         <FacebookLogin
           appId="324834482819869"
           autoLoad={false}
-          fields="name,email,picture"
+          fields="first_name,last_name,email,picture"
           scope="public_profile,email,user_friends"
           callback={responseFacebook}
           icon="fa-facebook"

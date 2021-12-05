@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Blog from './Blog';
 import TwoFAModal from '../components/TwoFAModal';
 
-function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
+function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, handleFacebookSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
   
     function handleClose(){
         setShow(false)
@@ -39,7 +39,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
               onClick={(e) => handleClick(e.currentTarget.name)}>
               Log in
           </Button>
-          <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} type={authenticationType}></AuthenticationModal>
+          <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} handleFacebookSubmit={handleFacebookSubmit} type={authenticationType}></AuthenticationModal>
           <TwoFAModal pin={pin} setPin={setPin} handleTwoFA={handle2FASubmit} show={twoFA} handleClose={handleClose}></TwoFAModal>
           </Col>
           <Navbar fixed="bottom" >
