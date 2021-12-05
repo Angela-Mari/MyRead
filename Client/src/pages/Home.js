@@ -29,13 +29,14 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
     }
   
     return (
-      <Container fluid={true} style={{padding:"0"}}>
-            <Row className="reg-cont justify-content-end">
+      <Container fluid={true} style={{padding:"0", margin:"0", overflow:"hidden"}}>
+            <Row className="reg-cont justify-content-end" style={{marginTop:"0.5rem",marginRight:"0.5rem"}}>
                 <Col className="text-end" style={{marginTop:"0.50em"}}>
                     Your own blog in seconds.
                 </Col>
                 <Button 
-                    className="reg-button rounded-pill"
+                    style={{width:"fit-content", marginRight:"0.5rem"}}
+                    className="rounded-pill"
                     variant="primary"
                     name="Register"
                     onClick={(e) => handleClick(e.currentTarget.name)}>
@@ -43,7 +44,8 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Button>
                 {' '}
                 <Button 
-                    className="login-button rounded-pill"
+                    style={{width:"fit-content", marginRight:"0.5rem"}}
+                    className="rounded-pill"
                     variant="secondary"
                     name="Log in"
                     onClick={(e) => handleClick(e.currentTarget.name)}>
@@ -124,7 +126,8 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
             <Col>
                 <Card className="text-center" style={{ width: '30rem' }}>
                 <Card.Body>
-                    <Card.Title>                    <img
+                    <Card.Title>                    
+                    <img
                     src={wave}
                     alt="Blog While You Surf"
                     />

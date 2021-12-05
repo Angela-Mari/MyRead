@@ -1,34 +1,7 @@
 .crop{
-    width: inherit;
+    width: 100%;
     height: 600px;
     object-fit: cover
-}
-.reg-cont {
-    margin-top: 2rem;
-    margin-right: 1rem;
-}
-
-.reg-button{
-    background-color: rgba(255,0,0,0);
-    border-radius: 2px;
-    border-color: #6baeec;
-    color: black !important;
-    width: fit-content !important;
-}
-
-.reg-button :hover{
-    background-color: #437eb6;
-}
-
-.login-button{
-    background-color: #6baeec;
-    border-width: 0;
-    margin-left: 0.5rem;
-    width: fit-content !important;
-}
-
-.login-button :hover{
-    background-color: #6e869c;
 }
 
 .float{
@@ -67,6 +40,7 @@
     background-size: cover;
 }
 
+
 .pitch {
     position:absolute;
     z-index: 400;
@@ -86,7 +60,6 @@
 }
 
 .pitch h2{
-    
         margin-top: 1rem;
         font-size: 3rem;
         font-family: 'Josefin Sans', sans-serif;

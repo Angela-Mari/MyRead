@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Navbar} from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
 import RecentPosts from "../components/RecentPosts";
@@ -12,6 +12,9 @@ import Edit from "../components/Edit";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
+import "./Blog.css";
+import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
+
 
 function Blog({isAuthenticated}) {
     let { username } = useParams();
@@ -43,9 +46,9 @@ function Blog({isAuthenticated}) {
         <>
         {
         isAuthenticated?
-            <Container>
+            <Container fluid={true}>
                 <Row>
-                    <h1>{username}'s Blog</h1>
+                    <h1 className="my-header">{username}'s Blog</h1>
                     <Categories></Categories>
                     <RecentPosts></RecentPosts>
                     {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
@@ -54,6 +57,7 @@ function Blog({isAuthenticated}) {
             </Container>
             :
             <Container>
+                
                 <h1>Viewing {username}'s Blog</h1>
                 <Row>
                     <Categories></Categories>
@@ -62,6 +66,9 @@ function Blog({isAuthenticated}) {
                 </Row>
             </Container>
         }
+        <Navbar fixed="bottom" className="btm-nav">
+            <p>Blog as you surf</p>
+        </Navbar>
         </>
         
     );

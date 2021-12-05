@@ -106,8 +106,8 @@ function App({
   const location = useLocation();
 
     return(
-<>      
-     {location.pathname !== "/" && <MyNav/>}
+    <>      
+     {location.pathname !== "/home" && location.pathname !== "/" && <MyNav/>}
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
@@ -121,23 +121,25 @@ function App({
                 Do not use dynamic routes under the root path
                 It is suggested that the project routing be modified
                  */}
-                <Route exact path="/setting">
+                <Route exact path="/settings">
                     <Setting />
                 </Route>
-            <Route exact path="/">
+                  <Redirect exact from="/" to="/home" />
+            <Route exact path="/home">
               {
-              isAuthenticated && user ? <Redirect to={`/${user.alias}`} /> : 
+                isAuthenticated && user ? <Redirect to={`/blog/${user.alias}`} /> : 
                 <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
               }
               </Route>
-              <Route exact path ="/:username">
-                <Blog />
+              <Route exact path ="/blog/:username">
+                <Blog /> {/* TODO: fix routing when unauthenticated  */}
               </Route>
-              <Route path ="/:username/category/:category">
+              <Route path ="/blog/:username/category/:category">
                 <Category />
               </Route>    
           </Switch>
-</>  );
+    </>  
+  );
 }
 
 App.propTypes = {
