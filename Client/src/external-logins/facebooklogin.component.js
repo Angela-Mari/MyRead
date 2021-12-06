@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import "../App.css";
-import App from "../App.js";
+// import App from "../App.js";
 
 function FacebookLoginComponent() {
   const [login, setLogin] = useState(false);

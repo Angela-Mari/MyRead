@@ -55,7 +55,6 @@ function App({
       await login(email, password);
     } 
     checkSuccess();
-    // setTwoFA(true)
   } 
 
   async function handleGoogleSubmit(g) {
@@ -63,11 +62,11 @@ function App({
     console.log("in app: ", g);
     setEmail(g.getEmail());
     setPassword(g.getId());
-    if (authenticationType == 'Register') {
+    if (authenticationType === "Register") {
       setFirstName(g.getGivenName());
       setLastName(g.getFamilyName());
       setAlias(g.getEmail().split("@")[0].toLowerCase());
-      setPhoneNumber("1112223333"); //change later
+      setPhoneNumber("1234567890"); //change later
       setIdNum(g.getId());
     }
     if (authenticationType === "Register"){
@@ -76,30 +75,47 @@ function App({
         g.getEmail(),
         g.getEmail().split("@")[0].toLowerCase(),
         g.getId(),
-        "1112223333",)
+        "1234567890",)
     } else{
       await login(g.getEmail(), g.getId());
     } 
     checkSuccess();
   }
 
+  
     async function handleFacebookSubmit(fb) {
       console.log('inside handleFacebookSubmit');
       console.log('in app: ', fb);
       //set email and password
-      if (authenticationType == 'Register') {
-        //set firstname, lastname, alias, phoneNumber, idNum 
-      } else {
-        //await login(get email, get id);
+      setEmail(fb.email);
+      setPassword(fb.id);
+      if (authenticationType === "Register") {
+        setFirstName(fb.first_name);
+        setLastName(fb.last_name);
+        setAlias(fb.email.split("@")[0].toLowerCase());
+        setPhoneNumber("1234567890"); //change later
+        setIdNum(fb.id);
       }
-      //checkSuccess();
+      if (authenticationType == 'Register') {
+        //set firstname, lastname, alias, phoneNumber, idNum
+        await register(fb.first_name,
+          fb.last_name,
+          fb.email,
+          fb.email.split("@")[0].toLowerCase(),
+          fb.id,
+          "1234567890",) 
+      } else {
+        await login(fb.email, fb.id);
+      }
+      checkSuccess();
     }
+
 
   function checkSuccess() {
     if (isAuthenticated) {
       setLoggedIn(true)
     } else {
-      alert('Failed to Log-in or Register.')
+      alert('Failed to authenticate. Please try again.')
     }
   }
 
