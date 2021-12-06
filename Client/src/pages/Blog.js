@@ -66,9 +66,7 @@ function Blog({isAuthenticated}) {
                 </Row>
             </Container>
         }
-        <Navbar fixed="bottom" className="btm-nav">
-            <p>Blog as you surf</p>
-        </Navbar>
+        
         </>
         
     );
