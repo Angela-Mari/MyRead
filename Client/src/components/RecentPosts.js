@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
 
-function RecentPosts({getUserPosts}) { 
+function RecentPosts({getUserPosts, auth:{user}}) { 
   const [updatePosts, setUpdatePosts] = useState({});
   useEffect(() => {
-    getUserPosts().then(posts => setPosts(posts))
+    getUserPosts(user._id).then(posts => setPosts(posts))
    }, [updatePosts])
 
     const [posts,setPosts] = useState();

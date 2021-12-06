@@ -16,7 +16,7 @@ import "./Blog.css";
 import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
 
 
-function Blog({isAuthenticated}) {
+function Blog({isAuthenticated, auth:{user}}) {
     let { username } = useParams();
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
@@ -48,7 +48,7 @@ function Blog({isAuthenticated}) {
         isAuthenticated?
             <Container fluid={true}>
                 <Row>
-                    <h1 className="my-header">{username}'s Blog</h1>
+                    <h1 className="my-header">{user.alias}'s Blog</h1>
                     <Categories></Categories>
                     <RecentPosts></RecentPosts>
                     {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
