@@ -10,6 +10,13 @@
 .card:hover{
     transform:scale(1.05);
 }
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right:1.5rem;
+ }
+
 h3{
     font-family: 'Josefin Sans', sans-serif;
 }

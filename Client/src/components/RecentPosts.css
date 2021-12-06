@@ -4,3 +4,13 @@ h2{
 p{
     font-family: 'Josefin Sans', sans-serif;
 }
+
+.btm-nav {
+    width: inherit;
+    position: fixed;
+    bottom: 0;
+    height: 100px;
+    line-height: 10;
+    text-align: center;
+    background-image: linear-gradient(to top, white, rgba(255,0,0,0));
+}

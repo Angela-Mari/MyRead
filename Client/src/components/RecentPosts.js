@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Navbar } from 'react-bootstrap';
 import Post from './Post';
-import { getPosts } from '../actions/post';
+import { getUserPosts } from '../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
 
-function RecentPosts({getPosts}) { 
+function RecentPosts({getUserPosts}) { 
   const [updatePosts, setUpdatePosts] = useState({});
   useEffect(() => {
-    getPosts().then(posts => setPosts(posts))
+    getUserPosts().then(posts => setPosts(posts))
    }, [updatePosts])
 
     const [posts,setPosts] = useState();
 
    return (
             <Col  xs={2} md={6}>
-              <h2>Recent Posts</h2>
+              <h2 style={{marginTop:"0"}}>Recent Posts</h2>
                 {posts && posts.length > 0 &&
                 <div>
                   {
@@ -26,13 +26,17 @@ function RecentPosts({getPosts}) {
                   }
                 </div>
                 }
+              <div className="btm-nav">
+                <p>Blog as you surf</p>
+              </div>
             </Col>
+            
             )
     
 }
 
 RecentPosts.propTypes = {
-    getPosts: PropTypes.func.isRequired,
+    getUserPosts: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
   
@@ -42,5 +46,5 @@ RecentPosts.propTypes = {
   });
   
   export default connect(mapStateToProps, {
-    getPosts,
+    getUserPosts,
   })(RecentPosts);
