@@ -97,8 +97,8 @@ router.post('/', [check('firstName', 'First Name is required').not().isEmpty(), 
               id: user._id
             }
           };
-          jwt.sign(payload, // config.get('jwtSecret'), //FOR LOCALHOST
-          process.env.JWTSECRET, //FOR HEROKU
+          jwt.sign(payload, config.get('jwtSecret'), //FOR LOCALHOST
+          // process.env.JWTSECRET, //FOR HEROKU
           {
             expiresIn: 360000
           }, function (err, token) {
@@ -139,7 +139,7 @@ router.put('/category', auth, function _callee2(req, res) {
           _context2.prev = 1;
           _context2.next = 4;
           return regeneratorRuntime.awrap(User.findOne({
-            user: req.user.id
+            _id: req.user.id
           }));
 
         case 4:
