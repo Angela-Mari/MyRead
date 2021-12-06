@@ -140,8 +140,14 @@ export const addCategory = (category) => async (dispatch) => {
     var body = JSON.stringify({ category: category });
     // body = { email: email, password: password };
 
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
     try {
-      const res = await axios.put(getDevPrefix() + '/api/users/category', body);
+      const res = await axios.put(getDevPrefix() + '/api/users/category', body, config);
       // const res = await axios.post('/api/auth', body);
       console.log(res);
 
@@ -154,8 +160,14 @@ export const addCategory = (category) => async (dispatch) => {
 export const updateBio = (bio) => async (dispatch) => {
   var body = JSON.stringify({ bio: bio });
 
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
   try {
-    const res = await axios.put(getDevPrefix() + '/api/users/bio', body);
+    const res = await axios.put(getDevPrefix() + '/api/users/bio', body, config);
     // const res = await axios.post('/api/auth', body);
     console.log(res);
 

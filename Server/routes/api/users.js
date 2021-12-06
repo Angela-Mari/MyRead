@@ -94,7 +94,7 @@ router.post(
 router.put('/category', auth, async (req, res) => {
     const newCategory = req.body.category;
     try {
-      const user = await User.findOne({ user: req.user.id });
+      const user = await User.findOne({ _id: req.user.id });
       user.categories.unshift(newCategory);
       await user.save();
       res.json(user);
