@@ -10,3 +10,20 @@
 .card:hover{
     transform:scale(1.05);
 }
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right:1.5rem;
+ }
+
+.custom-bage{
+    background-color: #437eb6 !important;
+}
+
+h3{
+    font-family: 'Josefin Sans', sans-serif;
+}
+div{
+    font-family: 'Josefin Sans', sans-serif;
+}

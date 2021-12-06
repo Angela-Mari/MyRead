@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Navbar} from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
 import RecentPosts from "../components/RecentPosts";
@@ -12,9 +12,14 @@ import Edit from "../components/Edit";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
+import "./Blog.css";
+import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
 
-function Blog({isAuthenticated}) {
+
+function Blog({isAuthenticated, auth:{user}}) {
     let { username } = useParams();
+    const [updateCategories, setUpdateCategories] = useState([{}]);
+    useEffect(() => {setUpdateCategories([{}])})
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
     const bioObjs = {
@@ -43,10 +48,10 @@ function Blog({isAuthenticated}) {
         <>
         {
         isAuthenticated?
-            <Container>
+            <Container fluid={true}>
                 <Row>
-                    <h1>{username}'s Blog</h1>
-                    <Categories></Categories>
+                    <h1 className="my-header">{user.alias}'s Blog</h1>
+                    <Categories user={user}></Categories>
                     <RecentPosts></RecentPosts>
                     {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
                     {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
@@ -54,14 +59,16 @@ function Blog({isAuthenticated}) {
             </Container>
             :
             <Container>
+                
                 <h1>Viewing {username}'s Blog</h1>
                 <Row>
-                    <Categories></Categories>
+                    <Categories updateCategories={updateCategories}></Categories>
                     <RecentPosts></RecentPosts>
                     <Bio params={bioObj} isShowEdit={isshowEdit} />
                 </Row>
             </Container>
         }
+        
         </>
         
     );

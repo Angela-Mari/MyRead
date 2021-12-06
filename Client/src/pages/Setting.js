@@ -1,34 +1,33 @@
 import React from "react";
-import { Row, Button, Card } from "react-bootstrap";
+import { Row, Button, Container } from "react-bootstrap";
 import "../assets/css/setting.css";
+import "./Settings.css"
 function Setting() {
     return (
-        <Card /* style={{ width: "18rem" }} */>
-            <Card.Body>
+        <Container fluid={true}>
                 <Row>
-                    <Card.Title>Setting</Card.Title>
+                    <h2 className="my-title">Settings</h2>
                 </Row>
                 <Row className="line">
-                    <Card.Title>Privacy</Card.Title>
-                    <Card.Text>Your profile is public, toggle to change.</Card.Text>
-                    <Card.Text>
+                    <h2>Privacy</h2>
+                    <p>Your profile is public, toggle to change.</p>
+                    <p>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
                         </div>
-                    </Card.Text>
+                    </p>
                 </Row>
                 <Row className="line">
-                    <Card.Title>Payment</Card.Title>
-                    <Card.Text>Your are on the free tier.</Card.Text>
+                    <h2>Payment</h2>
+                    <p>Your are on the free tier.</p>
                     <Button variant="primary">Upgrade to Premium</Button>
                 </Row>
                 <Row className="line">
-                    <Card.Title>Delete Account</Card.Title>
-                    <Card.Text>Permanatley delete account and lose all saved posts?</Card.Text>
+                    <h2>Delete Account</h2>
+                    <p>Permanatley delete account and lose all saved posts?</p>
                     <Button variant="primary">Delete Account</Button>
                 </Row>
-            </Card.Body>
-        </Card>
+        </Container>
     );
 }
 
