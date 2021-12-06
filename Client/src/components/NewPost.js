@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from "react";
-import {Container, Form, Button} from "react-bootstrap"
-import Select from "react-select"
-import { addPost } from "../actions/post"
+import {Container, Form, Button} from "react-bootstrap";
+import Select from 'react-select'
+import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadUser } from '../actions/auth';
+import { addCategory, loadUser } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
+import CreatableSelect from 'react-select/creatable';
+import { ActionMeta, OnChangeValue } from 'react-select';
 
 import "./NewPost.css";
 
-function NewPost({addPost, isAuthenticated, auth: { user }}){
+function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     const history = useHistory();
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
@@ -30,7 +32,7 @@ function NewPost({addPost, isAuthenticated, auth: { user }}){
 
         console.log("category: " + formData.category)
         if (formData.category.length == 0){
-            newErrors.category = "Category cannot be blank."
+            newErrors.category = "Please select a category or create a new one."
         }
 
         console.log("validating url: " + formData.url)
@@ -57,21 +59,16 @@ function NewPost({addPost, isAuthenticated, auth: { user }}){
         }
     }
 
-    const options = [ //get from backend
-        { value: 'new reads', label: 'New Reads' },
-        { value: 'cs', label: 'Computer Science' },
-        { value: 'helpful tips', label: 'Helpful Tips' },
-      ];
+    const options = user.categories.length != 0? user.categories.map(category => ({value: category, label: category})): [];
+    
+    const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    url: '',
+    category: '',
+    });
 
-      const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        url: '',
-        category: '',
-      });
-
-
-    function handleSelections(newOption) {
+    function handleSelections(newOption) {  
         console.log("setting options...")
         console.log(newOption != undefined && newOption.length != 0 ? newOption[0].value : "")
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
@@ -90,6 +87,10 @@ function NewPost({addPost, isAuthenticated, auth: { user }}){
                 console.log("adding http://")
                 validForm.url = "http://" + validForm.url
             }
+            if (!user.categories.includes(validForm.category)){
+                await addCategory(validForm.category)
+            }
+            
             console.log(validForm)
             await addPost(validForm);
             history.push(`/blog/${user.alias}`);
@@ -120,7 +121,7 @@ function NewPost({addPost, isAuthenticated, auth: { user }}){
                 </Form.Group>
                 <Form.Group style={{marginTop:"0.5rem"}}>
                     <Form.Label>Category</Form.Label>
-                    <Select
+                    <CreatableSelect
                         name="category"
                         isMulti
                         options={options}
@@ -142,6 +143,7 @@ function NewPost({addPost, isAuthenticated, auth: { user }}){
 
 NewPost.propTypes = {
     addPost: PropTypes.func.isRequired,
+    addCategory: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -151,4 +153,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{addPost, loadUser})(NewPost);
+export default connect(mapStateToProps,{addPost, addCategory, loadUser})(NewPost);
