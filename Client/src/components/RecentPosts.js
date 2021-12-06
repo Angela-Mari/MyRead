@@ -20,8 +20,8 @@ function RecentPosts({getUserPosts, auth:{user}}) {
                 {posts && posts.length > 0 &&
                 <div>
                   {
-                    posts.map((post) => (
-                      <Post title = {post.title} text = {post.description} link = {post.url} likes = {post.likes} key = {1} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                    posts.slice(0).reverse().map((post) => (
+                      <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {1} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
                 </div>

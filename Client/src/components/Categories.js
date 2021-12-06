@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadUser } from '../actions/auth';
@@ -6,7 +6,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./Categories.css";
 
-function Categories({ addCategory, auth: { user } }) {
+function Categories({loadUser, auth: {user}}) {
+
+    const [updateCategories, setUpdateCategories] = useState([]);
+    useEffect(() => {
+        loadUser()
+        setUpdateCategories([... user.categories])
+    }, [])
 
     const MyCategories = ({ categories }) => (
         categories.length != 0?
@@ -29,7 +35,7 @@ function Categories({ addCategory, auth: { user } }) {
         <Col xs={2} md={2} className="sidebar">
             <h2 >Categories</h2>
             <Col>
-            <MyCategories categories={user.categories} />
+            <MyCategories categories={updateCategories} />
             </Col>
         </Col>
     );

@@ -42,3 +42,7 @@
   border-color: #437eb6;
   border-width: 2px;
 }
+
+.badge {
+  background-color: #6baeec !important;
+}

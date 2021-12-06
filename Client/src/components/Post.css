@@ -17,6 +17,10 @@
     right:1.5rem;
  }
 
+.custom-bage{
+    background-color: #437eb6 !important;
+}
+
 h3{
     font-family: 'Josefin Sans', sans-serif;
 }

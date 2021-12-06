@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, Row, Col, Button} from 'react-bootstrap';
+import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
 import { Route } from 'react-router-dom';
 import "./Post.css"
 import { deletePost } from "../actions/post"
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
-function Post({deletePost, addLike, title, text, link, likes, comments, id, updatePosts, setUpdatePosts}) {
+function Post({deletePost, addLike, title, text, link, likes, category, comments, id, updatePosts, setUpdatePosts}) {
 
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
@@ -41,9 +41,18 @@ function Post({deletePost, addLike, title, text, link, likes, comments, id, upda
             <img src={tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
-                <h3>
-                    {title}
-                </h3>
+                <Row>
+                <Col >
+                    <h3>
+                        {title}
+                    </h3>
+                </Col>
+                <Col className="col-sm-auto">
+                <Badge pill bg="primary" className="custom-badge">
+                    {category}
+                </Badge>
+                </Col>
+                </Row>
                 <div>
                     {text}
                 </div>
