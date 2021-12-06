@@ -6,19 +6,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./Categories.css";
 
-function Categories({loadUser, auth: {user}}) {
+function Categories({categories, loadUser, auth: {user}}) {
 
-    const [updateCategories, setUpdateCategories] = useState([]);
     useEffect(() => {
+        console.log("updating categories...")
         loadUser()
-        setUpdateCategories([... user.categories])
-    }, [])
+    }, [categories])
 
     const MyCategories = ({ categories }) => (
         categories.length != 0?
         <div className="d-grid gap-2">
-            {categories.map((category) => (
-                <Link key={category.id} className="category-link text-secondary" to={`/blog/${user.alias}/category/${category.name}`}>
+            {categories.map((category, idx) => (
+                <Link key={idx} className="category-link text-secondary" to={`/blog/${user.alias}/category/${category}`}>
                         <Button variant="light" className="category-btn" block key={category.id}>
                             {category}
                         </Button>
@@ -35,7 +34,7 @@ function Categories({loadUser, auth: {user}}) {
         <Col xs={2} md={2} className="sidebar">
             <h2 >Categories</h2>
             <Col>
-            <MyCategories categories={updateCategories} />
+            <MyCategories categories={user.categories} />
             </Col>
         </Col>
     );

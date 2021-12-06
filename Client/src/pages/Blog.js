@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Navbar} from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
@@ -18,7 +18,8 @@ import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
 
 function Blog({isAuthenticated, auth:{user}}) {
     let { username } = useParams();
-    
+    const [updateCategories, setUpdateCategories] = useState([{}]);
+    useEffect(() => {setUpdateCategories([{}])})
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
     const bioObjs = {
@@ -61,7 +62,7 @@ function Blog({isAuthenticated, auth:{user}}) {
                 
                 <h1>Viewing {username}'s Blog</h1>
                 <Row>
-                    <Categories></Categories>
+                    <Categories updateCategories={updateCategories}></Categories>
                     <RecentPosts></RecentPosts>
                     <Bio params={bioObj} isShowEdit={isshowEdit} />
                 </Row>
