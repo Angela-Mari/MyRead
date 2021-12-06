@@ -113,12 +113,14 @@ function App({
 
 
   function checkSuccess() {
-    console.log('isAuthenticated: ', isAuthenticated)
     if (isAuthenticated) {
       setLoggedIn(true)
+      // alert('Failed to authenticate. Please try again.')
     } else {
       alert('Failed to authenticate. Please try again.')
+      // setLoggedIn(true)
     }
+    // console.log('isAuthenticated: ', isAuthenticated)
   }
 
   function handle2FASubmit(){
