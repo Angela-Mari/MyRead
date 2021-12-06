@@ -52,9 +52,7 @@ function App({
         password,
         phoneNumber,)
     } else{
-
       await login(email, password); //.then(res => checkSuccess());
-      
     } 
   } 
 
