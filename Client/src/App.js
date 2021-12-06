@@ -52,9 +52,10 @@ function App({
         password,
         phoneNumber,)
     } else{
-      await login(email, password);
+
+      await login(email, password).then(res => checkSuccess());
+      
     } 
-    checkSuccess();
   } 
 
   async function handleGoogleSubmit(g) {
@@ -82,7 +83,7 @@ function App({
     checkSuccess();
   }
 
-  
+
     async function handleFacebookSubmit(fb) {
       console.log('inside handleFacebookSubmit');
       console.log('in app: ', fb);
@@ -112,6 +113,7 @@ function App({
 
 
   function checkSuccess() {
+    console.log('isAuthenticated: ', isAuthenticated)
     if (isAuthenticated) {
       setLoggedIn(true)
     } else {
