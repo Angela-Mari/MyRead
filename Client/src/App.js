@@ -53,7 +53,7 @@ function App({
         phoneNumber,)
     } else{
 
-      await login(email, password).then(res => checkSuccess());
+      await login(email, password); //.then(res => checkSuccess());
       
     } 
   } 
