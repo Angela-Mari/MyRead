@@ -1,56 +1,86 @@
-// for facebook ? idk what this does
-window.fbAsyncInit = function() {
-FB.init({
-    appId      : '{your-app-id}',
-    cookie     : true,
-    xfbml      : true,
-    version    : '{api-version}'
-});
-    
-FB.AppEvents.logPageView();   
-    
-};
+import React, { Component, useState } from "react";
+import FacebookLogin from "react-facebook-login";
+import "../App.css";
+// import App from "../App.js";
 
-(function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-// check login status
-
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
-
-//response to callback
-// {
-//     status: 'connected',
-//     authResponse: {
-//         accessToken: '...',
-//         expiresIn:'...',
-//         signedRequest:'...',
-//         userID:'...'
-//     }
-// }
+const APP_ID = '324834482819869';
 
 
-//the button
-<fb:login-button 
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
 
-//callback to check login status
+class FacebookBtn extends Component {
 
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      login: false,
+      data: {},
+      picture: "",
+    };
+    // this.login = this.login.bind(this);
+    this.handleLoginFailure = this.handleLoginFailure.bind(this);
+    // this.logout = this.logout.bind(this);
+    this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
+  responseFacebook(response) {
+    console.log("responseFacebook", response);
+    // Login failed
+    if (response.status === "unknown") {
+      alert("Facebook authentication failed!");
+      // setLogin(false);
+      return false;
+    }
+    
+    this.data = response;
+    this.picture = response.picture.data.url;
+    if (response.accessToken) {
+      this.login = true;
+    } else {
+      this.login = false;
+    }
+    console.log('FACEBOOK login successful: ', response)
+    // App.handleFacebookSubmit(response); //this is the problem child rn
+  }
 
+  handleLoginFailure (googleUser) {
+    alert('Failed to log in with Facebook')
+  }
 
+  handleLogoutFailure (googleUser) {
+    alert('Failed to log out with Facebook')
+  }
 
+  render() {
+    return (
+      <div className="container">
+        {!this.login && (
+          <FacebookLogin
+            appId="324834482819869"
+            autoLoad={false}
+            fields="first_name,last_name,email,picture"
+            scope="public_profile,email,user_friends"
+            callback={this.responseFacebook()}
+            icon="fa-facebook"
+            textButton="Authenticate with Facebook"
+          />
+        )}
+  
+        {/* {login && (
+          <div className="card">
+            <div className="card-body">
+              <img className="rounded" src={picture} alt="Profile" />
+              <h5 className="card-title">{data.name}</h5>
+              <p className="card-text">Email ID: {data.email}</p>
+              <a href="#" className="btn btn-danger btn-sm" onClick={this.logout()}>
+                Logout
+              </a>
+            </div>
+          </div>
+        )} */}
+      </div>
+    )
+  }
+}
+
+export default FacebookBtn;

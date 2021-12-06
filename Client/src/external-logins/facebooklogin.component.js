@@ -18,8 +18,8 @@ function FacebookLoginComponent() {
       return false;
     }
     
-    setData(response);
-    setPicture(response.picture.data.url);
+    // setData(response);
+    // setPicture(response.picture.data.url);
     if (response.accessToken) {
       setLogin(true);
     } else {
@@ -40,7 +40,7 @@ function FacebookLoginComponent() {
         <FacebookLogin
           appId="324834482819869"
           autoLoad={false}
-          fields="first_name,last_name,email,picture"
+          fields="first_name,last_name,email,picture,id"
           scope="public_profile,email,user_friends"
           callback={responseFacebook}
           icon="fa-facebook"
@@ -48,7 +48,7 @@ function FacebookLoginComponent() {
         />
       )}
 
-      {login && (
+      {/* {login && (
         <div className="card">
           <div className="card-body">
             <img className="rounded" src={picture} alt="Profile" />
@@ -59,7 +59,7 @@ function FacebookLoginComponent() {
             </a>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

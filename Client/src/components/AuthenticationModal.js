@@ -1,6 +1,7 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
+// import FacebookBtn from '../external-logins/facebook';
 import FacebookLoginComponent from '../external-logins/facebooklogin.component';
 import { useState } from 'react';
 import validator from 'validator';
@@ -85,6 +86,9 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
                 <FacebookLoginComponent 
                     handleFacebookSubmit={handleFacebookSubmit} 
                     />
+                {/* <FacebookBtn
+                    handleFacebookSubmit={handleFacebookSubmit}
+                    /> */}
                 <GoogleBtn 
                     handleGoogleSubmit={handleGoogleSubmit} 
                     /> 
