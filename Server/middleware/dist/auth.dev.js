@@ -16,8 +16,8 @@ module.exports = function (req, res, next) {
 
 
   try {
-    var decoded = jwt.verify(token, config.get('jwtSecret')); //FOR LOCALHOST
-    // const decoded = jwt.verify(token, process.env.JWTSECRET); //FOR HEROKU
+    //var decoded = jwt.verify(token, config.get('jwtSecret')); //FOR LOCALHOST
+    const decoded = jwt.verify(token, process.env.JWTSECRET); //FOR HEROKU
 
     req.user = decoded.user;
     next();

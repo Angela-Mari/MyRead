@@ -97,8 +97,8 @@ router.post('/', [check('firstName', 'First Name is required').not().isEmpty(), 
               id: user._id
             }
           };
-          jwt.sign(payload, config.get('jwtSecret'), //FOR LOCALHOST
-          // process.env.JWTSECRET, //FOR HEROKU
+          //jwt.sign(payload, config.get('jwtSecret'), //FOR LOCALHOST
+          process.env.JWTSECRET, //FOR HEROKU
           {
             expiresIn: 360000
           }, function (err, token) {
