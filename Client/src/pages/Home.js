@@ -9,7 +9,6 @@ import pic3 from "./Carousel/pexels-jess-loiterton-4784148.jpg";
 import browsing from "./Carousel/browsing.png";
 import blogging from "./Carousel/writing.png";
 import wave from "./Carousel/wave.png";
-
 import "./Home.css"
 
 

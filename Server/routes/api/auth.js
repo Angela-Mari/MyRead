@@ -23,7 +23,7 @@ router.get('/', auth, async (req, res) => {
     }
   });
 
-// @route   GET api/auth/all
+// @route   GET api/all
 // @desc    Get all users
 // @access  Public
 router.get('/all', async (req, res) => {

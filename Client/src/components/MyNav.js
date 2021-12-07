@@ -6,15 +6,14 @@ import { loadUser, logout } from '../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import "./MyNav.css"
 
-function MyNav({auth: { user } , isAuthenticated}) {
+function MyNav({logout, auth: { user }, isAuthenticated}) {
     
     let history = useHistory();
 
     async function frontlogout(e){
         e.preventDefault()
         console.log("logging out...")
-        await logout() //this is redirecting but user is not logged out thus still authenticated and redirects to here
-        history.push("/home");
+        await logout().then(history.push("/home")); //this is redirecting but user is not logged out thus still authenticated and redirects to here
     }
 
     return (
@@ -55,9 +54,11 @@ function MyNav({auth: { user } , isAuthenticated}) {
                 </Nav.Link> 
                 </>
                 :
-                <Nav.Link>
-                    Login
-                </Nav.Link> // TODO: change to route back to home + logout
+                <Link to={"/home"} style={{textDecoration:"none"}}>
+                    <Nav.Link>
+                        Login
+                    </Nav.Link> // TODO: change to route back to home + logout
+                </Link>
             }
             </Nav>
             </Navbar.Collapse>

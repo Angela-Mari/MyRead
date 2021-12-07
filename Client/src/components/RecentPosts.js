@@ -2,15 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Col, Navbar } from 'react-bootstrap';
 import Post from './Post';
 import { getUserPosts } from '../actions/post';
+import { getAllUsers } from '../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
 
-function RecentPosts({getUserPosts, auth:{user}}) { 
+function RecentPosts({getAllUsers, getUserPosts, auth:{user}}, isAuthenticated) { 
   const [updatePosts, setUpdatePosts] = useState({});
-  useEffect(() => {
-    getUserPosts(user._id).then(posts => setPosts(posts))
-   }, [updatePosts])
+  const [users, setUsers] = useState({});
+  
+  if (isAuthenticated) {
+    useEffect(() => {
+      getUserPosts(user._id).then(posts => setPosts(posts))
+     }, [updatePosts])
+  }
+  else {
+    useEffect(() => {
+      getAllUsers().then(users => setUsers(users))
+      getUserPosts(user._id).then(posts => setPosts(posts))
+     }, [updatePosts])
+  }
+  
 
     const [posts,setPosts] = useState();
 

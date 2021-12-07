@@ -56,6 +56,7 @@ function App({
         phoneNumber,)
     } else{
       await login(email, password);
+      setShow(false)
     } 
     checkSuccess();
     // setTwoFA(true)
