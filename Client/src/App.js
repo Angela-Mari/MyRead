@@ -1,9 +1,11 @@
 import { Container} from 'react-bootstrap';
+import { setAlert } from './actions/alert';
 import React, { useState } from 'react';
 import Blog from './pages/Blog';
 import Category from './components/Category';
 import MyNav from './components/MyNav';
 import Home from './pages/Home';
+import Alert from './components/Alert';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,6 +27,7 @@ function App({
   isAuthenticated, 
   register, 
   loadUser, 
+  setAlert,
   auth: { user } 
 }) {
   const [show, setShow] = useState(false);
@@ -37,12 +40,12 @@ function App({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [authenticationType, setAuthenticationType] = useState("Register");
   const [idNum, setIdNum] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const [twoFA, setTwoFA] = useState(false);
   const [pin, setPin] = useState("");
 
   async function handleSubmit(e){
-    setShow(false)
     if (authenticationType === "Register"){
       await register(
         firstName,
@@ -91,6 +94,7 @@ function App({
 
   function checkSuccess() {
     if (isAuthenticated) {
+      setShow(false)
       setLoggedIn(true)
     }
   }
@@ -108,6 +112,7 @@ function App({
     return(
     <>      
      {location.pathname !== "/home" && location.pathname !== "/" && <MyNav/>}
+     <Alert />
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
@@ -146,6 +151,7 @@ App.propTypes = {
     login: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -157,4 +163,5 @@ export default connect(mapStateToProps, {
     login,
     register,
     loadUser,
+    setAlert,
 })(App);

@@ -23,6 +23,19 @@ router.get('/', auth, async (req, res) => {
     }
   });
 
+// @route   GET api/auth/all
+// @desc    Get all users
+// @access  Public
+router.get('/all', async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
@@ -64,8 +77,8 @@ router.post(
         };
         jwt.sign(
           payload,
-          // config.get('jwtSecret'), //FOR LOCALHOST
-          process.env.JWTSECRET, //FOR HEROKU
+          config.get('jwtSecret'), //FOR LOCALHOST
+          // process.env.JWTSECRET, //FOR HEROKU
           { expiresIn: '5 days' },
           (err, token) => {
             if (err) throw err;
