@@ -16,9 +16,9 @@ import "./Blog.css";
 import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
 
 
-function Blog({isAuthenticated}) {
+function Blog({isAuthenticated, auth:{user}}) {
     let { username } = useParams();
-	const [updateCategories, setUpdateCategories] = useState([]);
+    const [updateCategories, setUpdateCategories] = useState([]);
     useEffect(() => {
         loadUser()
         setUpdateCategories(user.categories)
@@ -53,10 +53,10 @@ function Blog({isAuthenticated}) {
         <>
         {
         isAuthenticated?
-            <Container>
+            <Container fluid={true}>
                 <Row>
-                    <h1>{username}'s Blog</h1>
-                    <Categories></Categories>
+                    <h1 className="my-header">{user.alias}'s Blog</h1>
+                    <Categories user={user}></Categories>
                     <RecentPosts></RecentPosts>
                     {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
                     {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
@@ -64,14 +64,16 @@ function Blog({isAuthenticated}) {
             </Container>
             :
             <Container>
+                
                 <h1>Viewing {username}'s Blog</h1>
                 <Row>
-                    <Categories></Categories>
+                    <Categories updateCategories={updateCategories}></Categories>
                     <RecentPosts></RecentPosts>
                     <Bio params={bioObj} isShowEdit={isshowEdit} />
                 </Row>
             </Container>
         }
+        
         </>
         
     );
