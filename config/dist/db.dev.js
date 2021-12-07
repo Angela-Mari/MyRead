@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 
 var config = require('config');
 
-var db = config.get('mongoURI'); //FOR LOCALHOST
-// const db = process.env.MONGOURI; //FOR HEROKU
+// var db = config.get('mongoURI'); //FOR LOCALHOST
+const db = process.env.MONGOURI; //FOR HEROKU
 // We are using async await...
 
 var connectDB = function connectDB() {
