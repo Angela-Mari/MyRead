@@ -178,8 +178,18 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-  export const logout = () => async (dispatch) => {
-    dispatch({
-      type: LOGOUT,
-    });
-  };
+// Get Posts
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};

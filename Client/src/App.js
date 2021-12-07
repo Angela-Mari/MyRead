@@ -98,14 +98,6 @@ function App({
       setShow(false)
       setLoggedIn(true)
     }
-    else{
-    setEmail("");
-    setPassword("");
-    setFirstName("");
-    setLastName("");
-    setAlias("");
-    setPhoneNumber("");
-    }
   }
 
   function handle2FASubmit(){
