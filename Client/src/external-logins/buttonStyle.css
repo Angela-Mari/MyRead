@@ -1,0 +1,15 @@
+.app-button{
+    list-style: none;
+    text-align: center;
+    width: 600px;
+    height: 30px;
+    margin:0;
+    /* line-height: 60px; */
+    float: left;
+  }
+.row{
+  text-align:center;
+  /*the same margin which is every button have, it is for small screen, and if you have many buttons.*/
+  margin-left:-20px;
+  margin-right:-20px;
+}
