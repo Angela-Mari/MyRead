@@ -11,17 +11,22 @@ function RecentPosts({getAllUsers, getUserPosts, auth:{user}}, isAuthenticated) 
   const [updatePosts, setUpdatePosts] = useState({});
   const [users, setUsers] = useState({});
   
-  if (isAuthenticated) {
+  
     useEffect(() => {
+      var userId;
+      if (isAuthenticated) {
+        userId = user._id
+        getAllUsers().then(users => console.log(users))
+      }
+      else{
+        var users = []
+        
+        
+      }
+
       getUserPosts(user._id).then(posts => setPosts(posts))
      }, [updatePosts])
-  }
-  else {
-    useEffect(() => {
-      getAllUsers().then(users => setUsers(users))
-      getUserPosts(user._id).then(posts => setPosts(posts))
-     }, [updatePosts])
-  }
+  
   
 
     const [posts,setPosts] = useState();
@@ -49,6 +54,7 @@ function RecentPosts({getAllUsers, getUserPosts, auth:{user}}, isAuthenticated) 
 
 RecentPosts.propTypes = {
     getUserPosts: PropTypes.func.isRequired,
+    getAllUsers: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
   
@@ -59,4 +65,5 @@ RecentPosts.propTypes = {
   
   export default connect(mapStateToProps, {
     getUserPosts,
+    getAllUsers,
   })(RecentPosts);
