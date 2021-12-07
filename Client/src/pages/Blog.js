@@ -11,17 +11,32 @@ import ex from "../assets/img/external.png";
 import Edit from "../components/Edit";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadUser } from '../actions/auth';
+import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
 import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
 
-
-function Blog({isAuthenticated, auth:{user}}) {
+function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
+    console.log("in blog")
     let { username } = useParams();
-    const [updateCategories, setUpdateCategories] = useState([]);
+    const [dataUser, setDataUser] = useState({});
+    const [show, setShow] = useState(false);
+
     useEffect(() => {
-        loadUser()
-        setUpdateCategories(user.categories)
+        if (isAuthenticated){
+            loadUser()
+            setDataUser(user)
+            setShow(true);
+        }
+        else{
+            getAllUsers().then(res => {
+                res.forEach(element => {
+                    if (element.alias == username){
+                        setDataUser(element);
+                    }
+                });
+                setShow(true);
+            }) //todo filter for actual user
+        }
     }, [])
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
@@ -49,35 +64,22 @@ function Blog({isAuthenticated, auth:{user}}) {
     };
     return (
         <>
-        {
-        isAuthenticated?
             <Container fluid={true}>
                 <Row>
-                    <h1 className="my-header">{user.alias}'s Blog</h1>
-                    <Categories user={user}></Categories>
-                    <RecentPosts></RecentPosts>
+                    <h1 className="my-header">{dataUser.alias}'s Blog</h1>
+                    <Categories categories={dataUser.categories} username={dataUser.alias}></Categories>
+                    {show && <RecentPosts dataUser={dataUser}></RecentPosts>}
                     {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
                     {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
                 </Row>
             </Container>
-            :
-            <Container>
-                
-                <h1>Viewing {username}'s Blog</h1>
-                <Row>
-                    <Categories updateCategories={updateCategories}></Categories>
-                    <RecentPosts></RecentPosts>
-                    <Bio params={bioObj} isShowEdit={isshowEdit} />
-                </Row>
-            </Container>
-        }
-        
         </>
         
     );
 }
 
 Blog.propTypes = {
+    getAllUsers: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -87,4 +89,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{loadUser})(Blog);
+export default connect(mapStateToProps,{loadUser, getAllUsers})(Blog);

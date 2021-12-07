@@ -64,8 +64,8 @@ function App({
 
   async function handleGoogleSubmit(g) {
     //setShow(false);
-    console.log('inside handleGoogleSubmit');
-    console.log("in app: ", g);
+    // console.log('inside handleGoogleSubmit');
+    // console.log("in app: ", g);
     setEmail(g.getEmail());
     setPassword(g.getId());
     if (authenticationType == 'Register') {

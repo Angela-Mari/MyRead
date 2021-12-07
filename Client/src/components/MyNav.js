@@ -16,6 +16,10 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
         await logout().then(history.push("/home")); //this is redirecting but user is not logged out thus still authenticated and redirects to here
     }
 
+    function login(){
+        history.push("/home")
+    }
+
     return (
     <Navbar className="my-nav" expand="lg">
         {
@@ -54,11 +58,9 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                 </Nav.Link> 
                 </>
                 :
-                <Link to={"/home"} style={{textDecoration:"none"}}>
-                    <Nav.Link>
-                        Login
-                    </Nav.Link> // TODO: change to route back to home + logout
-                </Link>
+                <Nav.Link onClick={login}>
+                    Login
+                </Nav.Link>
             }
             </Nav>
             </Navbar.Collapse>

@@ -6,43 +6,38 @@ import { getAllUsers } from '../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
+import { useParams } from 'react-router';
 
-function RecentPosts({getAllUsers, getUserPosts, auth:{user}}, isAuthenticated) { 
+function RecentPosts({getUserPosts, dataUser, show}) { 
   const [updatePosts, setUpdatePosts] = useState({});
-  const [users, setUsers] = useState({});
+  const [showPosts, setShowPosts] = useState(false);
+  let { username } = useParams();
   
-  
-    useEffect(() => {
-      var userId;
-      if (isAuthenticated) {
-        userId = user._id
-        getAllUsers().then(users => console.log(users))
+  useEffect(() => {
+    if (dataUser != undefined){
+    getUserPosts(dataUser._id).then(
+        res => {
+          setPosts(res)
+          setShowPosts(true)
+        }
+      )
       }
-      else{
-        var users = []
-        
-        
-      }
+    }, [updatePosts])
 
-      getUserPosts(user._id).then(posts => setPosts(posts))
-     }, [updatePosts])
-  
-  
-
-    const [posts,setPosts] = useState();
+  const [posts,setPosts] = useState();
 
    return (
             <Col  xs={2} md={6}>
               <h2 style={{marginTop:"0"}}>Recent Posts</h2>
-                {posts && posts.length > 0 &&
-                <div>
+                {showPosts && posts && posts.length > 0 &&
+              <div>
                   {
                     posts.slice(0).reverse().map((post) => (
                       <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {1} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
-                </div>
-                }
+                </div>}
+                
               <div className="btm-nav">
                 <p>Blog as you surf</p>
               </div>
