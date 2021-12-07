@@ -31,13 +31,15 @@ function Blog({isAuthenticated}) {
     };
     const [bioObj, setbioObj] = useState(bioObjs);
     let [isshow, setisshow] = React.useState(false);
+    let [isEditing, setEditing] = React.useState(true);
     const isshowEdit = () => {
         setisshow(true);
+        setEditing(false);
     };
     const resetbioObj = (obj) => {
-        console.log(obj);
         setbioObj(obj);
         setisshow(false);
+        setEditing(true);
     };
     return (
         <>
