@@ -78,7 +78,7 @@ function App({
     } else{
       await login(g.getEmail(), g.getId());
     } 
-    checkSuccess();
+    // checkSuccess();
   }
 
 
@@ -106,7 +106,7 @@ function App({
       } else {
         await login(fb.email, fb.id);
       }
-      checkSuccess();
+      // checkSuccess();
     }
 
   function handle2FASubmit(){
