@@ -86,6 +86,7 @@ export const register = (
       });
   
       dispatch(loadUser());
+      dispatch(setAlert("Successful Registration 🎉🎉🎉", 'success'));
     } catch (err) {
       const errors = err.response.data.errors;
   
@@ -119,8 +120,8 @@ export const login = (email, password) => async (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
-  
       dispatch(loadUser());
+      dispatch(setAlert("Successful Login 🎉🎉🎉", 'success'));
     } catch (err) {
       const errors = err.response.data.errors;
       // return errors;
