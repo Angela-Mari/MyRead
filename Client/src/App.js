@@ -1,104 +1,145 @@
-import { Container } from "react-bootstrap";
-import React, { useState } from "react";
-import Blog from "./pages/Blog";
-import Category from "./components/Category";
-import MyNav from "./components/MyNav";
-import Home from "./pages/Home";
-import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from "react-router-dom";
-import "./App.css";
-import { login, register, loadUser } from "./actions/auth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Container} from 'react-bootstrap';
+import React, { useState } from 'react';
+import Blog from './pages/Blog';
+import Category from './components/Category';
+import MyNav from './components/MyNav';
+import Home from './pages/Home';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  useLocation
+} from "react-router-dom";
+import './App.css';
+import { login, register, loadUser } from './actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
-function App({ login, isAuthenticated, register, loadUser, auth: { user } }) {
-    const [show, setShow] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [alias, setAlias] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [authenticationType, setAuthenticationType] = useState("Register");
+import NewPost from './components/NewPost';
 
-    const [twoFA, setTwoFA] = useState(false);
-    const [pin, setPin] = useState("");
 
-    async function handleSubmit(e) {
-        setShow(false);
-        if (authenticationType === "Register") {
-            await register(firstName, lastName, email, alias, password, phoneNumber);
-        } else {
-            await login(email, password);
-        }
-        setTwoFA(true);
+function App({ 
+  login, 
+  isAuthenticated, 
+  register, 
+  loadUser, 
+  auth: { user } 
+}) {
+  const [show, setShow] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [authenticationType, setAuthenticationType] = useState("Register");
+  const [idNum, setIdNum] = useState(null);
+
+  const [twoFA, setTwoFA] = useState(false);
+  const [pin, setPin] = useState("");
+
+  async function handleSubmit(e){
+    setShow(false)
+    if (authenticationType === "Register"){
+      await register(
+        firstName,
+        lastName,
+        email,
+        alias,
+        password,
+        phoneNumber,)
+    } else{
+      await login(email, password);
+    } 
+    checkSuccess();
+    // setTwoFA(true)
+  } 
+
+  async function handleGoogleSubmit(g) {
+    //setShow(false);
+    console.log('inside handleGoogleSubmit');
+    console.log("in app: ", g);
+    setEmail(g.getEmail());
+    setPassword(g.getId());
+    if (authenticationType == 'Register') {
+      setFirstName(g.getGivenName());
+      setLastName(g.getFamilyName());
+      setAlias(g.getEmail().split("@")[0].toLowerCase());
+      setPhoneNumber("1112223333"); //change later
+      setIdNum(g.getId());
     }
+     // will change later
 
-    function handle2FASubmit() {
-        setLoggedIn(true);
+    // handleSubmit(g); //need password and phone before signing up. save them and use when using google
+    if (authenticationType === "Register"){
+      
+      await register(g.getGivenName(),
+        g.getFamilyName(),
+        g.getEmail(),
+        g.getEmail().split("@")[0].toLowerCase(),
+        g.getId(),
+        "1112223333",)
+    } else{
+      await login(g.getEmail(), g.getId());
+    } 
+    checkSuccess();
+    //setTwoFA(true);
+  }
+
+  function checkSuccess() {
+    if (isAuthenticated) {
+      setLoggedIn(true)
     }
+  }
 
-    function handleClick(name) {
-        console.log(name);
-        setShow(true);
-    }
+  function handle2FASubmit(){
+    setLoggedIn(true)
+  }
 
-    const location = useLocation();
-    console.log(location);
+  function handleClick(name){
+    setShow(true)
+  }
 
-    return (
-        <Container>
-            {location.pathname !== "/" && <MyNav />}
-            {/* A <Switch> looks through its children <Route>s and
+  const location = useLocation();
+
+    return(
+    <>      
+     {location.pathname !== "/home" && location.pathname !== "/" && <MyNav/>}
+      {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
-            <Switch>
-                <Route exact path="/">
-                    {isAuthenticated && user ? (
-                        <Redirect to={`/${user.alias}`} />
-                    ) : (
-                        <Home
-                            email={email}
-                            setEmail={setEmail}
-                            password={password}
-                            setPassword={setPassword}
-                            firstName={firstName}
-                            setFirstName={setFirstName}
-                            lastName={lastName}
-                            setLastName={setLastName}
-                            alias={alias}
-                            setAlias={setAlias}
-                            phoneNumber={phoneNumber}
-                            setPhoneNumber={setPhoneNumber}
-                            handleSubmit={handleSubmit}
-                            pin={pin}
-                            setPin={setPin}
-                            handle2FASubmit={handle2FASubmit}
-                            twoFA={twoFA}
-                            setTwoFA={setTwoFA}
-                            show={show}
-                            setShow={setShow}
-                            authenticationType={authenticationType}
-                            setAuthenticationType={setAuthenticationType}
-                        />
-                    )}
-                </Route>
-                {/* 
+          <Switch>
+            <Route path = "/privacy-policy"> 
+                <Privacy />
+            </Route>
+            <Route path = "/create-post"> 
+                <NewPost />
+            </Route>
+            {/* 
                 Do not use dynamic routes under the root path
                 It is suggested that the project routing be modified
                  */}
-                <Route exact path="/setting">
+                <Route exact path="/settings">
                     <Setting />
                 </Route>
-                <Route exact path="/:username">
-                    <Blog />
-                </Route>
-
-                <Route path="/:username/category/:category">
-                    <Category />
-                </Route>
-            </Switch>
-        </Container>
-    );
+                  <Redirect exact from="/" to="/home" />
+            <Route exact path="/home">
+              {
+                isAuthenticated && user ? <Redirect to={`/blog/${user.alias}`} /> : 
+                <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType}/>
+              }
+              </Route>
+              <Route exact path ="/blog/:username">
+                <Blog /> {/* TODO: fix routing when unauthenticated  */}
+              </Route>
+              <Route path ="/blog/:username/category/:category">
+                <Category />
+              </Route>    
+          </Switch>
+    </>  
+  );
 }
 
 App.propTypes = {

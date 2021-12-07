@@ -1,44 +1,53 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { loadUser } from '../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import "./Categories.css";
 
-function Categories({ username }) {
-    const backendData = [
-        {
-            id: 1,
-            name: "Recipes",
-        },
-        {
-            id: 2,
-            name: "Computer Science",
-        },
-        {
-            id: 3,
-            name: "Read Later",
-        },
-    ];
+function Categories({categories, loadUser, auth: {user}}) {
+
+    useEffect(() => {
+        console.log("updating categories...")
+        loadUser()
+    }, [categories])
 
     const MyCategories = ({ categories }) => (
-        <div className="d-grid  categories gap-2">
-            {categories.map((category) => (
-                <Link key={category.id} className="category-link text-secondary" to={`/${username}/category/${category.name}`}>
-                    <Row>
-                        <Button variant="light" className="category-btn" key={category.id}>
-                            {category.name}
+        categories.length != 0?
+        <div className="d-grid gap-2">
+            {categories.map((category, idx) => (
+                <Link key={idx} className="category-link text-secondary" to={`/blog/${user.alias}/category/${category}`}>
+                        <Button variant="light" className="category-btn" block key={idx}>
+                            {category}
                         </Button>
-                    </Row>
                 </Link>
             ))}
+        </div>
+        :
+        <div>
+            You have no categories yet!
         </div>
     );
 
     return (
-        <Col xs={2} md={2}>
-            <h2>Categories</h2>
-            <MyCategories categories={backendData} />
+        <Col xs={2} md={2} className="sidebar">
+            <h2 >Categories</h2>
+            <Col>
+            <MyCategories categories={user.categories} />
+            </Col>
         </Col>
     );
 }
 
-export default Categories;
+Categories.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  });
+
+
+export default connect(mapStateToProps,{loadUser})(Categories);

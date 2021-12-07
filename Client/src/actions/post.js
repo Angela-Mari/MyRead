@@ -11,36 +11,73 @@ import {
   REMOVE_COMMENT,
 } from './types';
 
-var isDev = process.env.NODE_ENV == null; 
-var devPrefix = "";
+function getDevPrefix() { 
+  var devPrefix = "http://localhost:5000";
 
-if(isDev) {
-  devPrefix = "http://localhost:5000";
-} else {
-  devPrefix = "";
+  console.log(">>> PROCESS.ENV.NODE_ENV: "+process.env.NODE_ENV);
+  console.log(">>> RESULT: "+(process.env.NODE_ENV === undefined));
+
+  if(process === undefined) {
+    console.log(">>> Process doesnt exist, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV == null) {
+    console.log(">>> NODE_ENV is null, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV === undefined) {
+    console.log(">>> NODE_ENV undefined, dev mode activated");
+    return devPrefix;
+  } else if(process.env.NODE_ENV === "development") {
+    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    return devPrefix;    
+  } else {
+    console.log(">>> No dev mode detected");
+    return "";
+  }
 }
 
 // Get Posts
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get(devPrefix + '/api/posts');
+    const res = await axios.get(getDevPrefix() + '/api/posts');
 
     dispatch({
       type: GET_POSTS,
       payload: res.data,
     });
+    return res.data;
   } catch (err) {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+    return err;
+  }
+};
+
+// Get User Posts
+export const getUserPosts = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`${getDevPrefix()}/api/posts/${userId}`)
+    // const res = await axios.get(getDevPrefix() + '/api/posts');
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data,
+    });
+    return res.data;
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+    return err;
   }
 };
 
 // Add like
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(devPrefix + `/api/posts/like/${id}`);
+    const res = await axios.put(getDevPrefix() + `/api/posts/like/${id}`);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -57,7 +94,7 @@ export const addLike = (id) => async (dispatch) => {
 // Remove like
 export const removeLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(devPrefix + `/api/posts/unlike/${id}`);
+    const res = await axios.put(getDevPrefix() + `/api/posts/unlike/${id}`);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -74,7 +111,7 @@ export const removeLike = (id) => async (dispatch) => {
 // Delete post
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await axios.delete(devPrefix + `/api/posts/${id}`);
+    await axios.delete(getDevPrefix() + `/api/posts/${id}`);
 
     dispatch({
       type: DELETE_POST,
@@ -99,7 +136,7 @@ export const addPost = (formData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post(devPrefix + '/api/posts', formData, config);
+    const res = await axios.post(getDevPrefix() + '/api/posts', formData, config);
 
     dispatch({
       type: ADD_POST,
@@ -118,7 +155,7 @@ export const addPost = (formData) => async (dispatch) => {
 // Get Post
 export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(devPrefix + `/api/posts/${id}`);
+    const res = await axios.get(getDevPrefix() + `/api/posts/${id}`);
 
     dispatch({
       type: GET_POST,
@@ -142,7 +179,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-        devPrefix + `/api/posts/comment/${postId}`,
+      getDevPrefix() + `/api/posts/comment/${postId}`,
       formData,
       config
     );
@@ -164,7 +201,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 // Delete comment
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
-    const res = await axios.delete(devPrefix + `/api/posts/comment/${postId}/${commentId}`);
+    const res = await axios.delete(getDevPrefix() + `/api/posts/comment/${postId}/${commentId}`);
 
     dispatch({
       type: REMOVE_COMMENT,
