@@ -19,19 +19,21 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
     function login(){
         history.push("/home")
     }
-
+    // const edit = () => {
+    //     console.log("触发");
+    //     listen.emit("isShowEdit", "");
+    // };
     return (
-    <Navbar className="my-nav" expand="lg">
-        {
-            isAuthenticated ? 
-            <Link to={`/blog/${user.alias}`} style={{textDecoration:"none"}}>
-                <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
-            </Link>
-            :
-            <Link to={"/home"} style={{textDecoration:"none"}}>
-                <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
-            </Link>
-        }
+        <Navbar className="my-nav" expand="lg">
+            {isAuthenticated ? (
+                <Link to={`/blog/${user.alias}`} style={{ textDecoration: "none" }}>
+                    <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
+                </Link>
+            ) : (
+                <Link to={"/home"} style={{ textDecoration: "none" }}>
+                    <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
+                </Link>
+            )}
             <Navbar.Collapse className="justify-content-end">
                 <Nav >
             {
@@ -46,7 +48,13 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                             Create New Post
                         </Link>
                     </NavDropdown.Item>
+                    <NavDropdown.Item>
+                        <Link to="/edit-profile" style={{textDecoration:"none",color:"black"}}>
+                            Edit Profile
+                        </Link>
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
+                    
                     <NavDropdown.Item>
                         <Link key="setting" to="/settings" style={{textDecoration:"none",color:"black"}}>
                             Settings
@@ -64,18 +72,18 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
             }
             </Nav>
             </Navbar.Collapse>
-    </Navbar>
-    )
+        </Navbar>
+    );
 }
 
 MyNav.propTypes = {
     isAuthenticated: PropTypes.bool,
     logout: PropTypes.func.isRequired,
-  };
+};
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     auth: state.auth,
-  });
+});
 
-export default connect(mapStateToProps,{loadUser, logout})(MyNav);
+export default connect(mapStateToProps, { loadUser, logout })(MyNav);
