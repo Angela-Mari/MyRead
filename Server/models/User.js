@@ -33,9 +33,14 @@ const UserSchema = new mongoose.Schema({
     picture: {
          type: String,
     },
-    idNum: {
+    bio: {
         type: String,
-    }
+    },
+    categories: [
+        {
+            type: String,
+        }
+    ]
   });
   
   module.exports = User = mongoose.model('user', UserSchema);

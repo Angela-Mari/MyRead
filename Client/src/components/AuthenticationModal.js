@@ -87,6 +87,7 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
         return true;
     }
 
+    
     return (
         <Modal
         size="lg"
@@ -97,8 +98,8 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
         animation={false}
         >
         <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-           {type}
+            <Modal.Title className="w-100 text-center" id="contained-modal-title-vcenter">
+            {type}
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -181,21 +182,21 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     {type === "Register"? 
                     <>
-                    <Link to="privacy-policy">Privacy Policy</Link>
-                    <Form.Check type="checkbox" label="I have read the Privacy Policy and I accept the terms and conditions." onChange = {(e) => setChecked(e.target.checked)} isInvalid={ !!errors.checked }/>
+                    <Link to="privacy-policy">Privacy Policy</Link>                    
+                    <Form.Check style={{marginTop:"1rem"}} type="checkbox" label="I have read the Privacy Policy and I accept the terms and conditions." onChange = {(e) => setChecked(e.target.checked)} isInvalid={ !!errors.checked }/>
                     <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                     </>
                      : <></> }
                 </Form.Group>
 
-                <Button variant="primary" onClick={async (e)=> {if (validate()) {await handleSubmit(e.currentTarget); setErrors({}); handleClose();}}}> {/*TODO: move handle close to after handleSubmit works */}
+                <Button variant="primary" className="rounded-pill" onClick={async (e)=> {if (validate()) {await handleSubmit(e.currentTarget); setErrors({}); handleClose();}}}> {/*TODO: move handle close to after handleSubmit works */}
                     Submit
                 </Button>
                 
                 </Form>
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={handleClose}>Close</Button>
+            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>Close</Button>
         </Modal.Footer>
         </Modal>
     );

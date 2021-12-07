@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = exports.register = exports.loadUser = void 0;
+exports.logout = exports.updateBio = exports.addCategory = exports.login = exports.register = exports.loadUser = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -82,7 +82,7 @@ var loadUser = function loadUser() {
 
 exports.loadUser = loadUser;
 
-var register = function register(firstName, lastName, email, alias, password, phoneNumber) {
+var register = function register(firstName, lastName, email, alias, password, phoneNumber, idNum) {
   return function _callee2(dispatch) {
     var config, body, res, errors;
     return regeneratorRuntime.async(function _callee2$(_context2) {
@@ -100,8 +100,14 @@ var register = function register(firstName, lastName, email, alias, password, ph
               alias: alias,
               email: email,
               password: password,
-              phoneNumber: phoneNumber
-            });
+              phoneNumber: phoneNumber,
+              idNum: idNum
+            }); // if (idNum) {
+            //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
+            // } else {
+            //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber });
+            // }
+
             _context2.prev = 2;
             _context2.next = 5;
             return regeneratorRuntime.awrap(_axios["default"].post(getDevPrefix() + '/api/users', body, config));
@@ -199,6 +205,105 @@ var login = function login(email, password) {
       }
     }, null, null, [[2, 11]]);
   };
-};
+}; // Add a User Category
+
 
 exports.login = login;
+
+var addCategory = function addCategory(category) {
+  return function _callee4(dispatch) {
+    var body, res;
+    return regeneratorRuntime.async(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            // export async function login(email, password) {
+            body = JSON.stringify({
+              category: category
+            }); // body = { email: email, password: password };
+
+            _context4.prev = 1;
+            _context4.next = 4;
+            return regeneratorRuntime.awrap(_axios["default"].put(getDevPrefix() + '/api/users/category', body));
+
+          case 4:
+            res = _context4.sent;
+            // const res = await axios.post('/api/auth', body);
+            console.log(res);
+            _context4.next = 11;
+            break;
+
+          case 8:
+            _context4.prev = 8;
+            _context4.t0 = _context4["catch"](1);
+            console.log(_context4.t0.message);
+
+          case 11:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, null, null, [[1, 8]]);
+  };
+}; // Update a User's Bio
+
+
+exports.addCategory = addCategory;
+
+var updateBio = function updateBio(bio) {
+  return function _callee5(dispatch) {
+    var body, res;
+    return regeneratorRuntime.async(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            body = JSON.stringify({
+              bio: bio
+            });
+            _context5.prev = 1;
+            _context5.next = 4;
+            return regeneratorRuntime.awrap(_axios["default"].put(getDevPrefix() + '/api/users/bio', body));
+
+          case 4:
+            res = _context5.sent;
+            // const res = await axios.post('/api/auth', body);
+            console.log(res);
+            _context5.next = 11;
+            break;
+
+          case 8:
+            _context5.prev = 8;
+            _context5.t0 = _context5["catch"](1);
+            console.log(_context5.t0.message);
+
+          case 11:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, null, null, [[1, 8]]);
+  };
+};
+
+exports.updateBio = updateBio;
+
+var logout = function logout() {
+  return function _callee6(dispatch) {
+    return regeneratorRuntime.async(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            dispatch({
+              type: _types.LOGOUT
+            });
+
+          case 1:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    });
+  };
+};
+
+exports.logout = logout;

@@ -1,0 +1,14 @@
+.my-nav {
+    background-color: #437eb6;
+}
+
+.my-brand {
+    font-family: 'Yeseva One', cursive;
+    font-size: 2rem;
+    margin-left: 1rem;
+    color: white !important;
+}
+
+#collasible-nav-dropdown {
+    color:white;
+}

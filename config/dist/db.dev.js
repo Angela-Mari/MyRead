@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 
 var config = require('config');
 
-var db = process.env.MONGOURI; // We are using async await...
+var db = config.get('mongoURI'); //FOR LOCALHOST
+// const db = process.env.MONGOURI; //FOR HEROKU
+// We are using async await...
 
 var connectDB = function connectDB() {
   return regeneratorRuntime.async(function connectDB$(_context) {
