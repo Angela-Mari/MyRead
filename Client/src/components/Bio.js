@@ -1,30 +1,34 @@
 import React from "react";
 import "../assets/css/bio.css";
-import { Col } from "react-bootstrap";
-// If you pass in an array, use the code below to comment it out for you
-function Bio(props) {
-    const { params: bioList } = props;
+import { Col, Row } from "react-bootstrap";
+import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
+import fb from "./static_images/icons8-facebook-50.png"
+import lk from "./static_images/icons8-link-49.png"
 
+function Bio({dataUser}) {
     return (
-        <Col>
-            <div key={bioList.id} className="bio">
-                <div className="bioIntro">About the Currator</div>
-                <div className="img_div mt10">
-                    <img src={bioList.headerImg} />
-                </div>
-                <div className="username mt10">{bioList.name}</div>
-                <div className="introInfo mt10">{bioList.intro}</div>
-
-                <div className="navgitors mt10">
-                    {bioList.navigators.map((routers, index) => {
-                        return (
-                            <a href={routers.herf} key={index}>
-                                <img src={routers.icon} alt={routers.icon} />
-                            </a>
-                        );
-                    })}
-                </div>
-            </div>
+        <Col className = "center-block">
+            <Row>
+                <Col>
+                <img style={{borderRadius:"50%", maxHeight:"100px", maxWidth:"100px"}} src={avatar} />
+            </Col>
+            </Row>            
+            <h3 className="username mt10">{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
+            <p className="introInfo mt10">{dataUser.bio}</p>
+            <Row className="justify-content-center">
+                <Col className="col-sm-auto">
+                <img src={fb} height="25px" width="25px"/>
+                </Col>
+                <Col className="col-sm-auto">
+                <img src={lk} height="25px" width="25px"/>
+                </Col>
+                <Col className="col-sm-auto">
+                <img src={fb} height="25px" width="25px"/>
+                </Col>
+                <Col className="col-sm-auto">
+                <img src={lk} height="25px" width="25px"/>
+                </Col>
+            </Row>
         </Col>
     );
 }

@@ -27,7 +27,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
   const [posts,setPosts] = useState();
 
    return (
-            <Col  xs={2} md={6}>
+            <Col  xs={9} md={9}>
               <h2 style={{marginTop:"0"}}>Recent Posts</h2>
                 {showPosts && posts && posts.length > 0 &&
               <div>
