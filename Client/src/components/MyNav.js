@@ -10,9 +10,10 @@ function MyNav({auth: { user } , isAuthenticated}) {
     
     let history = useHistory();
 
-    async function frontlogout(){
+    async function frontlogout(e){
+        e.preventDefault()
         console.log("logging out...")
-        logout() //this is redirecting but user is not logged out thus still authenticated and redirects to here
+        await logout() //this is redirecting but user is not logged out thus still authenticated and redirects to here
         history.push("/home");
     }
 
@@ -49,7 +50,7 @@ function MyNav({auth: { user } , isAuthenticated}) {
                         </Link>
                     </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link onClick={frontlogout} style={{color:"white"}}>
+                <Nav.Link onClick={(e) => {frontlogout(e)}} style={{color:"white"}}>
                         Logout
                 </Nav.Link> 
                 </>

@@ -18,7 +18,7 @@ function Categories({categories, loadUser, auth: {user}}) {
         <div className="d-grid gap-2">
             {categories.map((category, idx) => (
                 <Link key={idx} className="category-link text-secondary" to={`/blog/${user.alias}/category/${category}`}>
-                        <Button variant="light" className="category-btn" block key={idx}>
+                        <Button variant="light" className="category-btn" key={idx}>
                             {category}
                         </Button>
                 </Link>
