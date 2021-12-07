@@ -3,24 +3,19 @@ import "../assets/css/bio.css";
 import { Col } from "react-bootstrap";
 // If you pass in an array, use the code below to comment it out for you
 function Bio(props) {
-    const { params: bioList, isShowEdit: isShowEdit } = props;
-    const edit = () => {
-        return isShowEdit();
-    };
+    const { params: bioList } = props;
+
     return (
-        <Col md={4}>
+        <Col>
             <div key={bioList.id} className="bio">
                 <div className="bioIntro">About the Currator</div>
                 <div className="img_div mt10">
                     <img src={bioList.headerImg} />
                 </div>
-                <div className="username mt20">{bioList.name}</div>
-                <div className="introInfo mt20">{bioList.intro}</div>
-                <div className="follow mt10">Follow</div>
-                <div className="follow mt10" onClick={edit}>
-                    Edit
-                </div>
-                <div className="navgitors mt20">
+                <div className="username mt10">{bioList.name}</div>
+                <div className="introInfo mt10">{bioList.intro}</div>
+
+                <div className="navgitors mt10">
                     {bioList.navigators.map((routers, index) => {
                         return (
                             <a href={routers.herf} key={index}>
