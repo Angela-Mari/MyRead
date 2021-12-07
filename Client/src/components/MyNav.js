@@ -6,7 +6,7 @@ import { loadUser, logout } from '../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import "./MyNav.css"
 
-function MyNav({auth: { user } , isAuthenticated}) {
+function MyNav({auth: { user } , isAuthenticated, logout}) {
     
     let history = useHistory();
 
