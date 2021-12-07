@@ -1,20 +1,41 @@
 import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
-// import FacebookBtn from '../external-logins/facebook';
-import FacebookLoginComponent from '../external-logins/facebooklogin.component';
+import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from '../external-logins/facebooklogin.component';
+import { login } from '../actions/auth';
 import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
 import { ExportConfigurationInstance } from 'twilio/lib/rest/bulkexports/v1/exportConfiguration';
 import row from '../external-logins/buttonStyle.css';
 
-function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit, handleFacebookSubmit}) {
+function AuthenticationModal({login, show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit, handleFacebookSubmit}) {
 
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
     const [checked, setChecked] = useState(false);
     const typeString = type + " with Google";
+
+    const responseFacebook = (response) => {
+        console.log(response);
+        // Login failed
+        if (response.status === "unknown") {
+          alert("Facebook authentication failed!");
+        //   setLogin(false);
+          return false;
+        }
+        
+        // setData(response);
+        // setPicture(response.picture.data.url);
+        // if (response.accessToken) {
+        // //   setLogin(true);
+        // } else {
+        // //   setLogin(false);
+        // }
+        console.log('FACEBOOK login successful: ', response)
+        handleFacebookSubmit(response); //this is the problem child rn
+      };
 
 
     const findFormErrors = () => {
@@ -83,12 +104,20 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
         <Modal.Body>
 
             <div className="row" data-inline="true">
-                <FacebookLoginComponent 
+                {/* <FacebookLoginComponent 
                     handleFacebookSubmit={handleFacebookSubmit} 
-                    />
-                {/* <FacebookBtn
-                    handleFacebookSubmit={handleFacebookSubmit}
                     /> */}
+
+        <FacebookLogin
+          appId="324834482819869"
+          autoLoad={false}
+          fields="first_name,last_name,email,picture,id"
+          scope="public_profile,email,user_friends"
+          callback={responseFacebook}
+          icon="fa-facebook"
+          textButton="Authenticate with Facebook"
+        />
+        
                 <GoogleBtn 
                     handleGoogleSubmit={handleGoogleSubmit} 
                     /> 
@@ -171,5 +200,6 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
         </Modal>
     );
 }
+
 
 export default AuthenticationModal
