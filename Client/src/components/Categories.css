@@ -1,12 +1,14 @@
 .sidebar {
-    background-image: linear-gradient(to bottom, #6baeec, rgba(255,0,0,0));
+    background-image: linear-gradient(to bottom, #6baeec, rgba(255, 0, 0, 0));
     padding-left: 1.5rem;
+    padding-right: 1.5rem;
     margin-top: -0.5rem;
+    text-align: center;
 }
 
-.sidebar h2{
+.sidebar h2 {
     margin-top: 0.5rem;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: "Josefin Sans", sans-serif;
 }
 
 .category-link {
@@ -14,4 +16,11 @@
 }
 .category-btn {
     text-align: left !important;
+    font-size: 1.2em;
 }
+.category-btn:hover {
+    transform:scale(1.05);
+    background-color: lightgray;
+    border-color: lightgray;
+}
+

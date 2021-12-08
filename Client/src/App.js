@@ -1,11 +1,11 @@
-import { Container} from 'react-bootstrap';
+import { setAlert } from './actions/alert';
 import React, { useState } from 'react';
 import Blog from './pages/Blog';
 import Category from './components/Category';
 import MyNav from './components/MyNav';
 import Home from './pages/Home';
+import Alert from './components/Alert';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -25,10 +25,10 @@ function App({
   isAuthenticated, 
   register, 
   loadUser, 
+  setAlert,
   auth: { user } 
 }) {
   const [show, setShow] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -37,12 +37,10 @@ function App({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [authenticationType, setAuthenticationType] = useState("Register");
   const [idNum, setIdNum] = useState(null);
-
   const [twoFA, setTwoFA] = useState(false);
   const [pin, setPin] = useState("");
 
   async function handleSubmit(e){
-    setShow(false)
     if (authenticationType === "Register"){
       await register(
         firstName,
@@ -81,47 +79,54 @@ function App({
     // checkSuccess();
   }
 
-
-    async function handleFacebookSubmit(fb) {
-      console.log('inside handleFacebookSubmit');
-      console.log('in app: ', fb);
-      //set email and password
-      setEmail(fb.email);
-      setPassword(fb.id);
-      if (authenticationType === "Register") {
-        setFirstName(fb.first_name);
-        setLastName(fb.last_name);
-        setAlias(fb.email.split("@")[0].toLowerCase());
-        setPhoneNumber("1234567890"); //change later
-        setIdNum(fb.id);
-      }
-      if (authenticationType == 'Register') {
-        //set firstname, lastname, alias, phoneNumber, idNum
-        await register(fb.first_name,
-          fb.last_name,
-          fb.email,
-          fb.email.split("@")[0].toLowerCase(),
-          fb.id,
-          "1234567890",) 
-      } else {
-        await login(fb.email, fb.id);
-      }
-      // checkSuccess();
+  function checkSuccess() {
+    if (isAuthenticated){
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setAlias("");
+      setPhoneNumber("");
+      setShow(false)
     }
-
-  function handle2FASubmit(){
-    setLoggedIn(true)
+  }
+    
+  async function handleFacebookSubmit(fb) {
+    console.log('inside handleFacebookSubmit');
+    console.log('in app: ', fb);
+    //set email and password
+    setEmail(fb.email);
+    setPassword(fb.id);
+    if (authenticationType === "Register") {
+      setFirstName(fb.first_name);
+      setLastName(fb.last_name);
+      setAlias(fb.email.split("@")[0].toLowerCase());
+      setPhoneNumber("1234567890"); //change later
+      setIdNum(fb.id);
+    }
+    if (authenticationType == 'Register') {
+      //set firstname, lastname, alias, phoneNumber, idNum
+      await register(fb.first_name,
+        fb.last_name,
+        fb.email,
+        fb.email.split("@")[0].toLowerCase(),
+        fb.id,
+        "1234567890",) 
+    } else {
+      await login(fb.email, fb.id);
+    }
+    // checkSuccess();
   }
 
-  function handleClick(name){
-    setShow(true)
+  function handle2FASubmit(){
   }
 
   const location = useLocation();
 
-    return(
+  return(
     <>      
      {location.pathname !== "/home" && location.pathname !== "/" && <MyNav/>}
+     <Alert />
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
@@ -160,6 +165,7 @@ App.propTypes = {
     login: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -171,4 +177,5 @@ export default connect(mapStateToProps, {
     login,
     register,
     loadUser,
+    setAlert,
 })(App);

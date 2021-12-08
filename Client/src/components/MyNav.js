@@ -1,33 +1,36 @@
 import React from 'react';
-import { Navbar,Nav, Button, Container, Row, Col, NavDropdown} from 'react-bootstrap';
+import { Navbar,Nav, NavDropdown} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser, logout } from '../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import "./MyNav.css"
 
-function MyNav({auth: { user } , isAuthenticated}) {
+function MyNav({logout, auth: { user }, isAuthenticated}) {
     
     let history = useHistory();
 
-    async function frontlogout(){
+    async function frontlogout(e){
+        e.preventDefault()
         console.log("logging out...")
-        logout() //this is redirecting but user is not logged out thus still authenticated and redirects to here
-        history.push("/home");
+        await logout().then(history.push("/home")); //this is redirecting but user is not logged out thus still authenticated and redirects to here
     }
 
+    function login(){
+        history.push("/home")
+    }
+    
     return (
-    <Navbar className="my-nav" expand="lg">
-        {
-            isAuthenticated ? 
-            <Link to={`/blog/${user.alias}`} style={{textDecoration:"none"}}>
-                <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
-            </Link>
-            :
-            <Link to={"/home"} style={{textDecoration:"none"}}>
-                <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
-            </Link>
-        }
+        <Navbar className="my-nav" expand="lg">
+            {isAuthenticated ? (
+                <Link to={`/blog/${user.alias}`} style={{ textDecoration: "none" }}>
+                    <Navbar.Brand className="my-brand">MyRead <span style={{color:"#000000"}}><i><b>CURATOR MODE</b></i></span></Navbar.Brand>
+                </Link>
+            ) : (
+                <Link to={"/home"} style={{ textDecoration: "none" }}>
+                    <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
+                </Link>
+            )}
             <Navbar.Collapse className="justify-content-end">
                 <Nav >
             {
@@ -42,36 +45,42 @@ function MyNav({auth: { user } , isAuthenticated}) {
                             Create New Post
                         </Link>
                     </NavDropdown.Item>
+                    <NavDropdown.Item>
+                        <Link to="/edit-profile" style={{textDecoration:"none",color:"black"}}>
+                            Edit Profile
+                        </Link>
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
+                    
                     <NavDropdown.Item>
                         <Link key="setting" to="/settings" style={{textDecoration:"none",color:"black"}}>
                             Settings
                         </Link>
                     </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link onClick={frontlogout} style={{color:"white"}}>
+                <Nav.Link onClick={(e) => {frontlogout(e)}} style={{color:"white"}}>
                         Logout
                 </Nav.Link> 
                 </>
                 :
-                <Nav.Link>
+                <Nav.Link onClick={login}>
                     Login
-                </Nav.Link> // TODO: change to route back to home + logout
+                </Nav.Link>
             }
             </Nav>
             </Navbar.Collapse>
-    </Navbar>
-    )
+        </Navbar>
+    );
 }
 
 MyNav.propTypes = {
     isAuthenticated: PropTypes.bool,
     logout: PropTypes.func.isRequired,
-  };
+};
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     auth: state.auth,
-  });
+});
 
-export default connect(mapStateToProps,{loadUser, logout})(MyNav);
+export default connect(mapStateToProps, { loadUser, logout })(MyNav);

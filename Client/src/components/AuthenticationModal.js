@@ -1,14 +1,12 @@
-import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
 import FacebookLogin from "react-facebook-login";
-// import FacebookLogin from '../external-logins/facebooklogin.component';
 import { login } from '../actions/auth';
 import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
-import { ExportConfigurationInstance } from 'twilio/lib/rest/bulkexports/v1/exportConfiguration';
-import row from '../external-logins/buttonStyle.css';
+import "./AuthenticationModal.css";
 
 function AuthenticationModal({login, show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit, handleFacebookSubmit}) {
 
@@ -26,13 +24,6 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
           return false;
         }
         
-        // setData(response);
-        // setPicture(response.picture.data.url);
-        // if (response.accessToken) {
-        // //   setLogin(true);
-        // } else {
-        // //   setLogin(false);
-        // }
         console.log('FACEBOOK login successful: ', response)
         handleFacebookSubmit(response); //this is the problem child rn
       };
@@ -44,16 +35,16 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
         if ( password.length < 6) {
         newErrors.password = "Password must be at longer than 6 characters."
         }
-        if ( email.length == 0 ){
+        if ( email.length === 0 ){
             newErrors.email = "Email cannot be blank."
         }
-        if ( firstName.length == 0 ){
+        if ( firstName.length === 0 ){
             newErrors.firstName = "First name cannot be blank."
         }
-        if (lastName.length == 0){
+        if (lastName.length === 0){
             newErrors.lastName = "Last name cannot be blank."
         }
-        if (alias.length == 0){
+        if (alias.length === 0){
             newErrors.alias = "Alias cannot be blank or a space."
         }
         if (alias.includes(" ")){
@@ -70,7 +61,7 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
     }
 
     function validate(e){
-        if (type == "Register"){
+        if (type === "Register"){
             const newErrors = findFormErrors();
         if ( Object.keys(newErrors).length > 0 ) {
             // We got errors!
@@ -108,20 +99,7 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 {/* <FacebookLoginComponent 
                     handleFacebookSubmit={handleFacebookSubmit} 
                     /> */}
-
-        <FacebookLogin
-          appId="324834482819869"
-          autoLoad={false}
-          fields="first_name,last_name,email,picture,id"
-          scope="public_profile,email,user_friends"
-          callback={responseFacebook}
-          icon="fa-facebook"
-          textButton="Authenticate with Facebook"
-        />
         
-                <GoogleBtn 
-                    handleGoogleSubmit={handleGoogleSubmit} 
-                    /> 
             </div>
 
             <Form>
@@ -192,7 +170,31 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 <Button variant="primary" className="rounded-pill" onClick={async (e)=> {if (validate()) {await handleSubmit(e.currentTarget); setErrors({}); handleClose();}}}> {/*TODO: move handle close to after handleSubmit works */}
                     Submit
                 </Button>
-                
+                <Row className="justify-content-center" style={{borderTop:"1px solid #bebebe", marginTop:"1rem", paddingTop:"1rem"}}>
+                <Row className="justify-content-center" style={{marginTop:"-1.75rem"}}>
+                    <Col className="col-sm-auto" style={{backgroundColor:"white"}}>
+                    OR
+                    </Col>
+                </Row>
+                <Col className="col-sm-auto">
+                <FacebookLogin
+                appId="324834482819869"
+                autoLoad={false}
+                fields="first_name,last_name,email,picture,id"
+                scope="public_profile,email"
+                callback={responseFacebook}
+                icon="fa-facebook"
+                textButton="Authenticate with Facebook"
+                size="small"
+                cssClass="btnFacebook"
+                />
+                </Col>
+                <Col className="col-sm-auto">
+                <GoogleBtn 
+                handleGoogleSubmit={handleGoogleSubmit} 
+                /> 
+                </Col>
+                </Row>
                 </Form>
         </Modal.Body>
         <Modal.Footer>

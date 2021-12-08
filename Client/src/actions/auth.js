@@ -86,6 +86,7 @@ export const register = (
       });
   
       dispatch(loadUser());
+      dispatch(setAlert("Successful Registration 🎉🎉🎉", 'success'));
     } catch (err) {
       const errors = err.response.data.errors;
   
@@ -119,10 +120,11 @@ export const login = (email, password) => async (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
-  
       dispatch(loadUser());
+      dispatch(setAlert("Successful Login 🎉🎉🎉", 'success'));
     } catch (err) {
       const errors = err.response.data.errors;
+      // return errors;
   
       if (errors) {
         errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -176,8 +178,18 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-  export const logout = () => async (dispatch) => {
-    dispatch({
-      type: LOGOUT,
-    });
-  };
+// Get Posts
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};

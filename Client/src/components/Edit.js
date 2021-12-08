@@ -25,7 +25,7 @@ function Edit(props) {
         setbioObj(info);
     };
     return (
-        <Col md={4}>
+        <div className="edit">
             <div className="forms">
                 <div className="title mt10">
                     <div>Edit profile</div>
@@ -75,7 +75,7 @@ function Edit(props) {
                     Save
                 </Button>
             </Form>
-        </Col>
+        </div>
     );
 }
 

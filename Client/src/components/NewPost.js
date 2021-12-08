@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {Container, Form, Button} from "react-bootstrap";
-import Select from 'react-select'
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,7 +7,6 @@ import { addCategory, loadUser } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
-import { ActionMeta, OnChangeValue } from 'react-select';
 
 import "./NewPost.css";
 
@@ -23,15 +21,15 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
         const newErrors = {}
         // keywords errors
         console.log("reading title: "+ formData.title)
-        if ( formData.title.length == 0) {
+        if ( formData.title.length === 0) {
         newErrors.title = "Post must have a title."
         }
-        if ( formData.url.length == 0 ){
+        if ( formData.url.length === 0 ){
             newErrors.url = "URL cannot be blank."
         }
 
         console.log("category: " + formData.category)
-        if (formData.category.length == 0){
+        if (formData.category.length === 0){
             newErrors.category = "Please select a category or create a new one."
         }
 
@@ -59,7 +57,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
         }
     }
 
-    const options = user.categories.length != 0? user.categories.map(category => ({value: category, label: category})): [];
+    const options = user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
     
     const [formData, setFormData] = useState({
     title: '',
@@ -70,9 +68,9 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
 
     function handleSelections(newOption) {  
         console.log("setting options...")
-        console.log(newOption != undefined && newOption.length != 0 ? newOption[0].value : "")
+        console.log(newOption !== undefined && newOption.length != 0 ? newOption[0].value : "")
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
-        setFormData(formData => ({...formData, category: newOption != undefined && newOption.length != 0 ? newOption[0].value : ""}))
+        setFormData(formData => ({...formData, category: newOption != undefined && newOption.length !== 0 ? newOption[0].value : ""}))
     }
 
     async function submit(event){

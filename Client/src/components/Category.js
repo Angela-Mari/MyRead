@@ -1,40 +1,70 @@
 import React, {useState, useEffect} from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import { loadUser } from '../actions/auth';
+import { loadUser, getAllUsers } from '../actions/auth';
 import { getUserPosts } from '../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Post from './Post';
+import Categories from './Categories';
 
 
-function Category({getUserPosts, auth: {user}}) {
+function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
 
     let { username, category } = useParams();
     const [categoryPosts, updateCategoryPosts] = useState([]);
+    const [dataUser, setDataUser] = useState({});
+    const [show, setShow] = useState(false);
+
     useEffect(() => {
-        getUserPosts(user._id).then(posts => updateCategoryPosts([... posts]))
-    }, [])
+        if (isAuthenticated){
+            loadUser()
+            setDataUser(user)
+            getUserPosts(user._id).then(res=> updateCategoryPosts(res.slice(0)
+            .reverse().filter(function (post) {return post.category === category})))
+            setShow(true);
+        }
+        else{
+            getAllUsers().then(res => {
+                res.forEach(element => {
+                    if (element.alias === username){
+                        setDataUser(element)
+                        getUserPosts(element._id).then(res=> updateCategoryPosts(res.slice(0)
+                        .reverse().filter(function (post) {return post.category === category})));
+                    }
+                });
+                setShow(true);
+            }) 
+        }
+    }, [category])
 
-
+    console.log(categoryPosts)
     return (
-    <Col>
-        <h1 className="my-header">{user.alias}'s Blog</h1>
+    <>
+        <h1 className="my-header">{username}'s Blog</h1>        
+        {show &&
+        <Container fluid={true}>
+        <Row>
+        <Categories dataUser={dataUser}/>
+        <Col>
         <h2 style={{marginLeft:"1rem"}}>Category: {category}</h2>
         <div style={{marginLeft:"2rem"}}>
             {
-            categoryPosts
-            .slice(0)
-            .reverse()
-            .filter(function (post) {return post.category == category})
-            .map(function (post) {return <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {1} id={post._id} updatePosts={categoryPosts} setUpdatePosts={updateCategoryPosts}> </Post>})
+            categoryPosts.map((post, idx) => 
+                <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={categoryPosts} setUpdatePosts={updateCategoryPosts}/> )
             }
         </div>
-    </Col>
+        </Col>
+        </Row>
+
+        </Container>
+        }
+    </>
     )
 }
 
 Category.propTypes = {
+    getAllUsers: PropTypes.func.isRequired,
     getUserPosts: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
@@ -45,4 +75,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{getUserPosts, loadUser})(Category);
+export default connect(mapStateToProps,{getUserPosts, loadUser, getAllUsers})(Category);
