@@ -39,11 +39,7 @@ function Blog({ isAuthenticated, auth: { user } }) {
     const [bioObj, setbioObj] = useState(bioObjs);
     let [isshow, setisshow] = React.useState(false);
     let [isEditing, setEditing] = React.useState(true);
-    listen.addListener("isShowEdit", (msg) => {
-        console.log("收到消息", msg);
-        setisshow(true);
-        setEditing(false);
-    });
+
     const resetbioObj = (obj) => {
         setbioObj(obj);
         setisshow(false);
