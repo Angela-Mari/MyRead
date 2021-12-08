@@ -16,4 +16,11 @@
 }
 .category-btn {
     text-align: left !important;
+    font-size: 1.2em;
 }
+.category-btn:hover {
+    transform:scale(1.05);
+    background-color: lightgray;
+    border-color: lightgray;
+}
+

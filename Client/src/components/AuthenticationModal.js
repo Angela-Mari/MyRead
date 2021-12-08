@@ -1,10 +1,9 @@
-import { Modal, Button, Form, Row, Col, Accordion} from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../Google/GoogleBtn';
 import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
-import { ExportConfigurationInstance } from 'twilio/lib/rest/bulkexports/v1/exportConfiguration';
 
 function AuthenticationModal({show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit}) {
 
@@ -18,16 +17,16 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
         if ( password.length < 6) {
         newErrors.password = "Password must be at longer than 6 characters."
         }
-        if ( email.length == 0 ){
+        if ( email.length === 0 ){
             newErrors.email = "Email cannot be blank."
         }
-        if ( firstName.length == 0 ){
+        if ( firstName.length === 0 ){
             newErrors.firstName = "First name cannot be blank."
         }
-        if (lastName.length == 0){
+        if (lastName.length === 0){
             newErrors.lastName = "Last name cannot be blank."
         }
-        if (alias.length == 0){
+        if (alias.length === 0){
             newErrors.alias = "Alias cannot be blank or a space."
         }
         if (alias.includes(" ")){
@@ -44,7 +43,7 @@ function AuthenticationModal({show, handleClose, type, email, password, firstNam
     }
 
     function validate(e){
-        if (type == "Register"){
+        if (type === "Register"){
             const newErrors = findFormErrors();
         if ( Object.keys(newErrors).length > 0 ) {
             // We got errors!

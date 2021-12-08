@@ -1,7 +1,6 @@
 import { Button, Col, Row, Container, Navbar, Carousel, Card} from 'react-bootstrap';
 import AuthenticationModal from '../components/AuthenticationModal';
-import React, { useState } from 'react';
-import Blog from './Blog';
+import React from 'react';
 import TwoFAModal from '../components/TwoFAModal';
 import pic1 from "./Carousel/pexels-jess-loiterton-4319752.jpg";
 import pic2 from "./Carousel/pexels-jess-loiterton-4784090.jpg";

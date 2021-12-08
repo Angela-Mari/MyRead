@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Navbar } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
 import RecentPosts from "../components/RecentPosts";
@@ -23,7 +23,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
         else{
             getAllUsers().then(res => {
                 res.forEach(element => {
-                    if (element.alias == username){
+                    if (element.alias === username){
                         setDataUser(element);
                     }
                 });

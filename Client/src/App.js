@@ -1,4 +1,3 @@
-import { Container} from 'react-bootstrap';
 import { setAlert } from './actions/alert';
 import React, { useState } from 'react';
 import Blog from './pages/Blog';
@@ -7,7 +6,6 @@ import MyNav from './components/MyNav';
 import Home from './pages/Home';
 import Alert from './components/Alert';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -31,7 +29,6 @@ function App({
   auth: { user } 
 }) {
   const [show, setShow] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -40,8 +37,6 @@ function App({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [authenticationType, setAuthenticationType] = useState("Register");
   const [idNum, setIdNum] = useState(null);
-  const [errors, setErrors] = useState(null);
-
   const [twoFA, setTwoFA] = useState(false);
   const [pin, setPin] = useState("");
 
@@ -68,7 +63,7 @@ function App({
     // console.log("in app: ", g);
     setEmail(g.getEmail());
     setPassword(g.getId());
-    if (authenticationType == 'Register') {
+    if (authenticationType === 'Register') {
       setFirstName(g.getGivenName());
       setLastName(g.getFamilyName());
       setAlias(g.getEmail().split("@")[0].toLowerCase());
@@ -94,18 +89,18 @@ function App({
   }
 
   function checkSuccess() {
-    if (isAuthenticated) {
+    if (isAuthenticated){
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setAlias("");
+      setPhoneNumber("");
       setShow(false)
-      setLoggedIn(true)
     }
   }
 
   function handle2FASubmit(){
-    setLoggedIn(true)
-  }
-
-  function handleClick(name){
-    setShow(true)
   }
 
   const location = useLocation();

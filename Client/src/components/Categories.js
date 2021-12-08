@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Col, Row, Button } from "react-bootstrap";
+import React from "react";
+import { Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadUser } from '../actions/auth';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import Bio from "../components/Bio";
 function Categories({dataUser}) {
 
     const MyCategories = ({ categories }) => (
-        categories.length != 0?
+        categories.length !== 0?
         <div className="d-grid gap-2">
             {categories.map((category, idx) => (
                 <Link key={idx} className="category-link text-secondary" to={`/blog/${dataUser.alias}/category/${category}`}>
@@ -30,7 +30,7 @@ function Categories({dataUser}) {
             <Bio dataUser={dataUser}></Bio>
             <h2>Categories</h2>
             <Col>
-            <MyCategories categories={dataUser != undefined? dataUser.categories : []}/>
+            <MyCategories categories={dataUser !== undefined? dataUser.categories : []}/>
             </Col>
         </Col>
     );

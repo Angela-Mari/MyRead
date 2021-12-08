@@ -1,9 +1,8 @@
 import React from "react";
-import "../assets/css/bio.css";
+import "./Bio.css";
 import { Col, Row } from "react-bootstrap";
 import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
-import fb from "./static_images/icons8-facebook-50.png"
-import lk from "./static_images/icons8-link-49.png"
+import fb from "./static_images/f_logo_RGB-Blue_72.png"
 
 function Bio({dataUser}) {
     return (
@@ -13,21 +12,19 @@ function Bio({dataUser}) {
                 <img style={{borderRadius:"50%", maxHeight:"100px", maxWidth:"100px"}} src={avatar} />
             </Col>
             </Row>            
-            <h3 className="username mt10">{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
+            <h3 style={{marginTop:"1rem"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
             <p className="introInfo mt10">{dataUser.bio}</p>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
-                <img src={fb} height="25px" width="25px"/>
+                <img src={fb} height="40px" width="40px"/>
                 </Col>
                 <Col className="col-sm-auto">
-                <img src={lk} height="25px" width="25px"/>
+                <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" height="45px" width="45px"/>
                 </Col>
                 <Col className="col-sm-auto">
-                <img src={fb} height="25px" width="25px"/>
+                <img src="https://img.icons8.com/flat-round/48/000000/link--v1.png" height="40px" width="40px"/>
                 </Col>
-                <Col className="col-sm-auto">
-                <img src={lk} height="25px" width="25px"/>
-                </Col>
+                
             </Row>
         </Col>
     );

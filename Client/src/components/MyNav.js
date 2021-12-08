@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar,Nav, Button, Container, Row, Col, NavDropdown} from 'react-bootstrap';
+import { Navbar,Nav, NavDropdown} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser, logout } from '../actions/auth';
@@ -27,7 +27,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (
                 <Link to={`/blog/${user.alias}`} style={{ textDecoration: "none" }}>
-                    <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
+                    <Navbar.Brand className="my-brand">MyRead <span style={{color:"#000000"}}><i><b>CURATOR MODE</b></i></span></Navbar.Brand>
                 </Link>
             ) : (
                 <Link to={"/home"} style={{ textDecoration: "none" }}>
