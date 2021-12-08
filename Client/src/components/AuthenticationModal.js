@@ -6,6 +6,7 @@ import { login } from '../actions/auth';
 import { useState } from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
+import "./AuthenticationModal.css";
 
 function AuthenticationModal({login, show, handleClose, type, email, password, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, setEmail, setPassword, handleSubmit, handleGoogleSubmit, handleFacebookSubmit}) {
 
@@ -23,13 +24,6 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
           return false;
         }
         
-        // setData(response);
-        // setPicture(response.picture.data.url);
-        // if (response.accessToken) {
-        // //   setLogin(true);
-        // } else {
-        // //   setLogin(false);
-        // }
         console.log('FACEBOOK login successful: ', response)
         handleFacebookSubmit(response); //this is the problem child rn
       };
@@ -105,20 +99,7 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 {/* <FacebookLoginComponent 
                     handleFacebookSubmit={handleFacebookSubmit} 
                     /> */}
-
-        <FacebookLogin
-          appId="324834482819869"
-          autoLoad={false}
-          fields="first_name,last_name,email,picture,id"
-          scope="public_profile,email,user_friends"
-          callback={responseFacebook}
-          icon="fa-facebook"
-          textButton="Authenticate with Facebook"
-        />
         
-                <GoogleBtn 
-                    handleGoogleSubmit={handleGoogleSubmit} 
-                    /> 
             </div>
 
             <Form>
@@ -189,7 +170,31 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 <Button variant="primary" className="rounded-pill" onClick={async (e)=> {if (validate()) {await handleSubmit(e.currentTarget); setErrors({}); handleClose();}}}> {/*TODO: move handle close to after handleSubmit works */}
                     Submit
                 </Button>
-                
+                <Row className="justify-content-center" style={{borderTop:"1px solid #bebebe", marginTop:"1rem", paddingTop:"1rem"}}>
+                <Row className="justify-content-center" style={{marginTop:"-1.75rem"}}>
+                    <Col className="col-sm-auto" style={{backgroundColor:"white"}}>
+                    OR
+                    </Col>
+                </Row>
+                <Col className="col-sm-auto">
+                <FacebookLogin
+                appId="324834482819869"
+                autoLoad={false}
+                fields="first_name,last_name,email,picture,id"
+                scope="public_profile,email,user_friends"
+                callback={responseFacebook}
+                icon="fa-facebook"
+                textButton="Authenticate with Facebook"
+                size="small"
+                cssClass="btnFacebook"
+                />
+                </Col>
+                <Col className="col-sm-auto">
+                <GoogleBtn 
+                handleGoogleSubmit={handleGoogleSubmit} 
+                /> 
+                </Col>
+                </Row>
                 </Form>
         </Modal.Body>
         <Modal.Footer>

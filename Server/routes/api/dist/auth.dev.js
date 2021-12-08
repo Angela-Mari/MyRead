@@ -121,8 +121,8 @@ router.post('/', check('email', 'Please include a valid email').isEmail(), check
               id: user._id
             }
           };
-          //jwt.sign(payload, config.get('jwtSecret'), //FOR LOCALHOST
-          process.env.JWTSECRET, //FOR HEROKU
+          jwt.sign(payload, config.get('jwtSecret'), //FOR LOCALHOST
+          // process.env.JWTSECRET, //FOR HEROKU
           {
             expiresIn: '5 days'
           }, function (err, token) {
