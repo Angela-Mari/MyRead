@@ -13,7 +13,9 @@ function MyNav({ auth: { user }, isAuthenticated }) {
         logout(); //this is redirecting but user is not logged out thus still authenticated and redirects to here
         history.push("/home");
     }
-    
+    const edit = () => {
+        listen.emit("isShowEdit", "");
+    };
     return (
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (
