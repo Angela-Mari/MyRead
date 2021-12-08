@@ -181,7 +181,7 @@ function AuthenticationModal({login, show, handleClose, type, email, password, f
                 appId="324834482819869"
                 autoLoad={false}
                 fields="first_name,last_name,email,picture,id"
-                scope="public_profile,email,user_friends"
+                scope="public_profile,email"
                 callback={responseFacebook}
                 icon="fa-facebook"
                 textButton="Authenticate with Facebook"
