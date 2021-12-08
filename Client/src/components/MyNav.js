@@ -19,10 +19,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
     function login(){
         history.push("/home")
     }
-    // const edit = () => {
-    //     console.log("触发");
-    //     listen.emit("isShowEdit", "");
-    // };
+    
     return (
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (
