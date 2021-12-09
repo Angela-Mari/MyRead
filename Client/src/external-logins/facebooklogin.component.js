@@ -41,7 +41,7 @@ function FacebookLoginComponent() {
           appId="324834482819869"
           autoLoad={false}
           fields="first_name,last_name,email,picture,id"
-          scope="public_profile,email,user_friends"
+          scope="public_profile,email,user_friends" // take away user_friends and test on angelas branch
           callback={responseFacebook}
           icon="fa-facebook"
           textButton="Authenticate with Facebook"
