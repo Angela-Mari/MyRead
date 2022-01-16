@@ -1,0 +1,17 @@
+{
+    "name": "MyRead Chrome Extension",
+    "description": "Blog as You Surf!",
+    "version": "1.0",
+    "manifest_version": 3,
+
+    "background": {
+        "service_worker": "background.js"
+      },
+
+      "permissions": ["storage"],
+
+      "action": {
+        "default_popup": "popup.html"
+      }
+
+  }
