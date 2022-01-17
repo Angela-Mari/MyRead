@@ -193,3 +193,24 @@ export const logout = () => async (dispatch) => {
     type: LOGOUT,
   });
 };
+
+export const uploadProfilePicture = (file, id) => async (dispatch) => {
+  try {
+    var result = await axios.get('/api/image');
+    console.log(result.data);
+    const response = await fetch(result.data, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+      'Cache-Control': 'no-store max-age=0',
+      'Content-Type': file[0].type,
+      'x-ms-date': new Date().toUTCString(),
+      'x-ms-version': '2020-04-08',
+      'x-ms-blob-type': 'BlockBlob'
+      },
+      body: file[0], // body data type must match "Content-Type" header
+    });
+    await axios.post('/api/image');
+  } catch (error) {
+    console.log(error);
+  }
+};
