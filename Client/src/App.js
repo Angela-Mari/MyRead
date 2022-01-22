@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
-
+import EditBio from './pages/EditBio';
 
 function App({ 
   login, 
@@ -135,6 +135,9 @@ function App({
             </Route>
             <Route path = "/create-post"> 
                 <NewPost />
+            </Route>
+            <Route path = "/edit-profile">
+              <EditBio/>
             </Route>
             {/* 
                 Do not use dynamic routes under the root path

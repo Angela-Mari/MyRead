@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import {Container, Form, Button} from "react-bootstrap";
+import {Container, Form, Button, Row} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addCategory, loadUser } from '../actions/auth';
+import { addCategory, loadUser, uploadProfilePicture} from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
-
+import Placeholder from './static_images/image.png';
 import "./NewPost.css";
 
 function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
@@ -15,7 +15,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
     const [selectedOptions, setSelectedOptions] = useState([])
-
+    const [images, setImages] = useState([]);
     // on submit updateFormData inside useEffect dependent on cahnges from my values
     const findFormErrors = () => {
         const newErrors = {}
@@ -96,6 +96,9 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
  
     }
 
+    function onImageChange(e){
+        setImages([...e.target.files])
+    }
     return(
         <>
         {
@@ -128,7 +131,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
                     <Form.Control hidden isInvalid={ !!errors.category }/>
                     <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                 </Form.Group>
-                
+                    
                 <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>
             </Container>
@@ -143,6 +146,7 @@ NewPost.propTypes = {
     addPost: PropTypes.func.isRequired,
     addCategory: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    uploadProfilePicture: PropTypes.func.isRequired,
   };
 
 const mapStateToProps = (state) => ({
@@ -151,4 +155,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{addPost, addCategory, loadUser})(NewPost);
+export default connect(mapStateToProps,{addPost, addCategory, loadUser, uploadProfilePicture})(NewPost);
