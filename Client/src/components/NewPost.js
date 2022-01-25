@@ -7,7 +7,7 @@ import { addCategory, loadUser, uploadProfilePicture} from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
-import Placeholder from './static_images/image.png';
+// import Placeholder from './static_images/image.png';
 import "./NewPost.css";
 
 function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){

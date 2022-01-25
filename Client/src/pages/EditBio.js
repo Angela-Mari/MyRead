@@ -58,7 +58,7 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
         event.preventDefault();
         if (validate()){
             console.log(images[0])
-            // await uploadProfilePicture(images[0], 1);
+            await uploadProfilePicture(images[0], 1);
             console.log(formData.bio)
             await updateBio(formData.bio)
             // history.push(`/blog/${user.alias}`);
