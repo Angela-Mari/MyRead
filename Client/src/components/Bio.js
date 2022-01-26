@@ -9,7 +9,7 @@ function Bio({dataUser}) {
         <Col className = "center-block">
             <Row>
                 <Col>
-                <img style={{borderRadius:"50%", maxHeight:"100px", maxWidth:"100px"}} src={avatar} />
+                <img style={{borderRadius:"50%", maxHeight:"100px", maxWidth:"100px"}} src={dataUser.picture} />
             </Col>
             </Row>            
             <h3 style={{marginTop:"1rem"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h3>

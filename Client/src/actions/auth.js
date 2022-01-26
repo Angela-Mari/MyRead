@@ -196,6 +196,8 @@ export const logout = () => async (dispatch) => {
 
 export const uploadProfilePicture = (file, id) => async (dispatch) => {
   try {
+    console.log("in profile upload")
+    console.log(file)
     var result = await axios.get(getDevPrefix() + '/api/image');
     console.log(result.data);
     const response = await fetch(result.data, {
