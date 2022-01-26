@@ -3,11 +3,10 @@ import {Container, Form, Button, Row} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addCategory, loadUser, uploadProfilePicture} from '../actions/auth';
+import { addCategory, loadUser } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
-import Placeholder from './static_images/image.png';
 import "./NewPost.css";
 
 function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
@@ -146,7 +145,6 @@ NewPost.propTypes = {
     addPost: PropTypes.func.isRequired,
     addCategory: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
-    uploadProfilePicture: PropTypes.func.isRequired,
   };
 
 const mapStateToProps = (state) => ({
@@ -155,4 +153,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{addPost, addCategory, loadUser, uploadProfilePicture})(NewPost);
+export default connect(mapStateToProps,{addPost, addCategory, loadUser})(NewPost);
