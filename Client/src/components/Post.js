@@ -37,10 +37,11 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
         console.log(arr2)
         return arr2[2]
     }
+
     return (
         <a className="post-link" href={link} target="_blank">
         <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem"}}>
-            <Card className="shadow-lg p-3 mb-5 bg-white rounded custom-card" syle={{padding:"0.5rem"}}>
+            <Card className="p-3 mb-5 bg-white rounded custom-card">
             <Row>
             <Col className="col-sm-auto">
             <img src={tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
