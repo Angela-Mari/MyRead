@@ -123,12 +123,12 @@ export const login = (email, password) => async (dispatch) => {
       dispatch(loadUser());
       dispatch(setAlert("Successful Login 🎉🎉🎉", 'success'));
     } catch (err) {
-      const errors = err.response.data.errors;
-      // return errors;
+      // const errors = err.response.data.errors;
+      // // return errors;
   
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      }
+      // if (errors) {
+      //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      // }
   
       dispatch({
         type: LOGIN_FAIL,
