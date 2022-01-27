@@ -56,7 +56,8 @@ async function getAzureSignedUrl(fileName, minutesToExpiration) {
   const url = await blobClient.generateSasUrl(
     { 
       expiresOn: new Date(new Date().valueOf() + minutesToExpiration * 1000), // Required. Date type
-      permissions: BlobSASPermissions.parse("racw") // Required
+      permissions: BlobSASPermissions.parse("racw"),
+      cacheControl: "No-Cache" // Required
     }
   );
   return url;
