@@ -1,7 +1,7 @@
 .App {
   background: linear-gradient(#386998, #e0eaf3);
-  min-width: 550px;
-  max-width: 750px;
+  min-width: 600px;
+  max-width: 800px;
   min-height: 600px;
   max-height: 850px;
   text-shadow: 2px 2px 5px #2f5a81;
@@ -22,7 +22,7 @@
 }
 
 h1 {
-  font-size: 40pt;
+  font-size: 38pt;
   float: right;
 }
 

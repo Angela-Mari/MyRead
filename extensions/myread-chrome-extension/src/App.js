@@ -25,7 +25,7 @@ function App() {
           <textarea type="text" id="desc" name="description" placeholder="Enter article description..."></textarea>
 
           <label for="link">Article URL</label>
-          <input type="url" id="link" name="link" placeholder="Enter article URL..."></input>
+          <input type="url" id="link" name="link" placeholder="Enter URL here..."></input>
 
           <label for="category">Category</label>
             <select id="category" name="category" />
