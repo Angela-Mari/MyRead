@@ -9,6 +9,7 @@ const { BlobServiceClient, ContainerClient, BlobSASPermissions } = require('@azu
 
 function generateProfileFilename(userid) {
   return "profile-"+userid;
+  // return "profile-" + Math.floor(100000 + Math.random() * 900000)
 }
 
 // @route    GET api/image
@@ -17,7 +18,7 @@ function generateProfileFilename(userid) {
 router.get('/', auth, async (req, res) => {
   const url = await getAzureSignedUrl(generateProfileFilename(req.user.id), 360);
   res.send(url).end();
-  console.log(url);
+  // console.log(url);
 });
 
 // @route    POST api/image
