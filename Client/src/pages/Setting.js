@@ -2,12 +2,12 @@ import React from "react";
 import { Row, Button, Container } from "react-bootstrap";
 import "../assets/css/setting.css";
 import "./Settings.css"
-const config = require('config');
+// const config = require('config');
 
 
 function Setting() {
 
-    const payPalClientID = config.get('paypalClientID'); //FOR LOCALHOST
+    // const payPalClientID = config.get('paypalClientID'); //FOR LOCALHOST
     // const payPalClientID = process.env.PAYPAL_CLIENT_ID; //FOR HEROKU
 
     return (
