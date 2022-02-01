@@ -39,9 +39,9 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
     }
 
     return (
-        <a className="post-link" href={link} target="_blank">
-        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem"}}>
-            <Card className="p-3 mb-5 bg-white rounded custom-card">
+        // <a className="post-link" href={link} target="_blank">
+        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
+            <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
             <img src={tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
@@ -71,11 +71,10 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
                     {isAuthenticated && <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>} 
                 </Row>
             </Col>
-            
             </Row>
             </Card> 
         </Container>
-        </a>
+        // </a>
     )
 }
 

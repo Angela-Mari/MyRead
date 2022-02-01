@@ -4,6 +4,7 @@ import Blog from './pages/Blog';
 import Category from './components/Category';
 import MyNav from './components/MyNav';
 import Home from './pages/Home';
+import Explore from './pages/Explore';
 import Alert from './components/Alert';
 import {
   Switch,
@@ -132,6 +133,9 @@ function App({
           <Switch>
             <Route path = "/privacy-policy"> 
                 <Privacy />
+            </Route>
+            <Route exact path="/explore">
+                    <Explore />
             </Route>
             <Route path = "/create-post"> 
                 <NewPost />

@@ -4,9 +4,9 @@ import "../assets/css/setting.css";
 import "./Settings.css"
 function Setting() {
     return (
-        <Container fluid={true}>
+        <Container fluid={true} style={{marginLeft:"0.5rem"}}>
                 <Row>
-                    <h2 className="my-title">Settings</h2>
+                    <h1 className="my-title">Settings</h1>
                 </Row>
                 <Row className="line">
                     <h2>Privacy</h2>

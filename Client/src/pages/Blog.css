@@ -1,7 +1,6 @@
 .my-header {
-    border-bottom: 2px #6baeec solid;
-    color: #6baeec;
-    /* font-family: 'Yeseva One', cursive; */
+    border-bottom: 2px black solid;
+    color: black;
     margin-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 1.5rem;
