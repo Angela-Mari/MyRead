@@ -13,7 +13,7 @@ function Setting() {
             https://developer.paypal.com/developer/applications
         */
         // xxxxxxxxxxxxxxe
-        "client-id": "AX79_zqopT75MhpfyNSM2w3h2E8hUFWk-vxZYncKg5AWhWqxPVkUaE88b1vFWJUrteMgrl47tyNS35iL",
+        "client-id": "AfqeaVopGBI9n8-lTu9FKMjvGyXOPy5Y8oXNguHCoCs1DeuriNGKNvdbvVihp1DykjIc9oZsGai_4T0P",
     };
     const createOrder = (data, actions) => {
         return actions.order.create({
