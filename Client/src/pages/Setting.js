@@ -7,7 +7,7 @@ const config = require('config');
 function Setting() {
 
     //const paypalClientID = config.get('paypalClientID'); //FOR LOCALHOST
-    const paypalClientID = process.env.PAYPAL_CLIENT_ID; //FOR HEROKU
+    const paypalClientID = config.get.PAYPAL_CLIENT_ID; //FOR HEROKU
     const [isshowpay, setisshowpay] = useState(false);
     const paypalparams = {
         /*  Please enter your own clent-ID   
