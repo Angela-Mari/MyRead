@@ -10,5 +10,6 @@
         "token": "TWILIO_TOKEN",
         "from": "TWILION_FROM"
     },
-    "jwtSecret": "JWTSECRET"
+    "jwtSecret": "JWTSECRET",
+    "paypalClientID" : "PAYPAL_CLIENT_ID"
 }

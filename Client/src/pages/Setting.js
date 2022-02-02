@@ -3,7 +3,11 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Row, Button, Container } from "react-bootstrap";
 import "../assets/css/setting.css";
 import "./Settings.css";
+const config = require('config');
 function Setting() {
+
+    const paypalClientID = config.get('paypalClientID'); //FOR LOCALHOST
+    //const paypalClientID = process.env.PAYPAL_CLIENT_ID; //FOR HEROKU
     const [isshowpay, setisshowpay] = useState(false);
     const paypalparams = {
         /*  Please enter your own clent-ID   
@@ -11,7 +15,7 @@ function Setting() {
             https://developer.paypal.com/developer/applications
         */
         // xxxxxxxxxxxxxxe
-        "client-id": "AYTcIpoc8y_ScX8g2EhiQ-tgrDgrbKj3C6a9dHpeGL3cqy5kjHq-e3UBGb2Cq2E47B_QT-P30yivl1Tm",
+        "client-id": paypalClientID,
     };
     const createOrder = (data, actions) => {
         return actions.order.create({
