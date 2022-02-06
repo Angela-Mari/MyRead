@@ -32,15 +32,21 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
     }
 
     function getSource(){
+        if (link !== undefined) {
         let arr1 = link.split(":")
         let arr2 = arr1[1].split("/")
         console.log(arr2)
         return arr2[2]
+        }
+        else {
+            return ""
+        }
     }
+
     return (
-        <a className="post-link" href={link} target="_blank">
-        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem"}}>
-            <Card className="shadow-lg p-3 mb-5 bg-white rounded custom-card" syle={{padding:"0.5rem"}}>
+        // <a className="post-link" href={link} target="_blank">
+        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
+            <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
             <img src={tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
@@ -66,15 +72,14 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
                 </div>
                 <Row className="bottom">
                     <Button variant="Link" style={{width:"40px"}} onClick={e => handleComment(e)}><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-2.png" height="35px" weight="35px"/></Button>
-                    <Button variant="Link" style={{width:"100px"}} onClick={e => handleLike(e)}><span style={{fontSize:"2rem"}}>{likes.length > 0? likes.length : ""}</span> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="35px" weight="35px" style={{marginBottom:"0.5rem"}}/></Button>
+                    <Button variant="Link" style={{width:"100px"}} onClick={e => handleLike(e)}><span style={{fontSize:"2rem"}}>{likes !== undefined && likes.length > 0? likes.length : ""}</span> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="35px" weight="35px" style={{marginBottom:"0.5rem"}}/></Button>
                     {isAuthenticated && <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>} 
                 </Row>
             </Col>
-            
             </Row>
             </Card> 
         </Container>
-        </a>
+        // </a>
     )
 }
 

@@ -4,6 +4,7 @@ import Blog from './pages/Blog';
 import Category from './components/Category';
 import MyNav from './components/MyNav';
 import Home from './pages/Home';
+import Explore from './pages/Explore';
 import Alert from './components/Alert';
 import {
   Switch,
@@ -18,7 +19,7 @@ import PropTypes from 'prop-types';
 import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
-
+import EditBio from './pages/EditBio';
 
 function App({ 
   login, 
@@ -133,8 +134,14 @@ function App({
             <Route path = "/privacy-policy"> 
                 <Privacy />
             </Route>
+            <Route exact path="/explore">
+                    <Explore />
+            </Route>
             <Route path = "/create-post"> 
                 <NewPost />
+            </Route>
+            <Route path = "/edit-profile">
+              <EditBio/>
             </Route>
             {/* 
                 Do not use dynamic routes under the root path

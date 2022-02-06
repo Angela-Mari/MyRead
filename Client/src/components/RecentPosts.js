@@ -34,7 +34,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
                       <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
-                </div>}
+              </div>}
                 
               <div className="btm-nav">
                 <p>Blog as you surf</p>

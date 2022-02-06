@@ -38,7 +38,13 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                 <> 
                 <Navbar.Text style={{color:"white"}}>
                     Welcome {user.firstName} {user.lastName}
+                    
                 </Navbar.Text>
+                <Nav.Link>
+                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white"}}>
+                    Explore
+                </Link>
+                </Nav.Link>
                 <NavDropdown title="Curator Tools" id="collasible-nav-dropdown">
                     <NavDropdown.Item>
                         <Link to="/create-post" style={{textDecoration:"none",color:"black"}}>
@@ -63,9 +69,16 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                 </Nav.Link> 
                 </>
                 :
-                <Nav.Link onClick={login}>
+                <>
+                <Nav.Link>
+                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white"}}>
+                    Explore
+                </Link>
+                </Nav.Link>
+                <Nav.Link onClick={login} style={{textDecoration:"none",color:"white"}}>
                     Login
                 </Nav.Link>
+                </>
             }
             </Nav>
             </Navbar.Collapse>

@@ -48,7 +48,7 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
         <Categories dataUser={dataUser}/>
         <Col>
         <h2 style={{marginLeft:"1rem"}}>Category: {category}</h2>
-        <div style={{marginLeft:"2rem"}}>
+        <div style={{marginLeft:"1rem", marginRight:"1rem"}}>
             {
             categoryPosts.map((post, idx) => 
                 <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={categoryPosts} setUpdatePosts={updateCategoryPosts}/> )

@@ -1,7 +1,7 @@
 import { Modal, Button, Form, Row, Col} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin from 'react-facebook-login';
 import { login } from '../actions/auth';
 import { useState } from 'react';
 import validator from 'validator';

@@ -90,7 +90,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
             <Row className ="pitch">
             
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                 <Card.Title >
                     <img
@@ -106,7 +106,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card>
             </Col>
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                     <Card.Title >
                     <img
@@ -122,7 +122,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card>
             </Col>
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                     <Card.Title>                    
                     <img
