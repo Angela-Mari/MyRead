@@ -4,6 +4,11 @@
     text-align: center;
     padding: 5px 20px;
 }
+.edit {
+    width: 100%;
+    padding: 0;
+    background-color: #dddddd;
+}
 .forms {
     width: 100%;
     border: 1px solid #ccc;
@@ -13,6 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 20px;
 }
 .title img {
     width: 140px;

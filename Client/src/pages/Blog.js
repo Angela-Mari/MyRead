@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Navbar} from "react-bootstrap";
+import { Container, Row, Navbar } from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
 import RecentPosts from "../components/RecentPosts";
@@ -9,20 +9,19 @@ import twitter from "../assets/img/twitter.png";
 import ins from "../assets/img/ins.png";
 import ex from "../assets/img/external.png";
 import Edit from "../components/Edit";
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { loadUser } from '../actions/auth';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { loadUser } from "../actions/auth";
 import "./Blog.css";
 import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
-
-
-function Blog({isAuthenticated, auth:{user}}) {
+import listen from "../utils/eventBus";
+function Blog({ isAuthenticated, auth: { user } }) {
     let { username } = useParams();
     const [updateCategories, setUpdateCategories] = useState([]);
     useEffect(() => {
-        loadUser()
-        setUpdateCategories(user.categories)
-    }, [])
+        loadUser();
+        setUpdateCategories(user.categories);
+    }, []);
     // New edit.js and edit.css added some new code to blog.js
     // This is the data you request from the server based on the username parameter
     const bioObjs = {
@@ -39,52 +38,48 @@ function Blog({isAuthenticated, auth:{user}}) {
     };
     const [bioObj, setbioObj] = useState(bioObjs);
     let [isshow, setisshow] = React.useState(false);
-    const isshowEdit = () => {
+    let [isEditing, setEditing] = React.useState(true);
+    listen.addListener("isShowEdit", (msg) => {
         setisshow(true);
-    };
+        setEditing(false);
+    });
     const resetbioObj = (obj) => {
-        console.log(obj);
         setbioObj(obj);
         setisshow(false);
+        setEditing(true);
     };
     return (
         <>
-        {
-        isAuthenticated?
-            <Container fluid={true}>
-                <Row>
-                    <h1 className="my-header">{user.alias}'s Blog</h1>
-                    <Categories user={user}></Categories>
-                    <RecentPosts></RecentPosts>
-                    {!isshow && <Bio params={bioObj} isShowEdit={isshowEdit} />}
-                    {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
-                </Row>
-            </Container>
-            :
-            <Container>
-                
-                <h1>Viewing {username}'s Blog</h1>
-                <Row>
-                    <Categories updateCategories={updateCategories}></Categories>
-                    <RecentPosts></RecentPosts>
-                    <Bio params={bioObj} isShowEdit={isshowEdit} />
-                </Row>
-            </Container>
-        }
-        
+            {isAuthenticated ? (
+                <Container fluid={true}>
+                    <Row>
+                        {isEditing && <h1 className="my-header">{user.alias}'s Blog</h1>}
+                        {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
+                        {isEditing && <Categories params={bioObj} user={user}></Categories>}
+                        {isEditing && <RecentPosts></RecentPosts>}
+                    </Row>
+                </Container>
+            ) : (
+                <Container>
+                    <h1>Viewing {username}'s Blog</h1>
+                    <Row>
+                        <Categories updateCategories={updateCategories}></Categories>
+                        <RecentPosts></RecentPosts>
+                        <Bio params={bioObj} />
+                    </Row>
+                </Container>
+            )}
         </>
-        
     );
 }
 
 Blog.propTypes = {
     isAuthenticated: PropTypes.bool,
-  };
+};
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     auth: state.auth,
-  });
+});
 
-
-export default connect(mapStateToProps,{loadUser})(Blog);
+export default connect(mapStateToProps, { loadUser })(Blog);
