@@ -1,3 +1,5 @@
+
+
 .post-link{
     text-decoration: none;
     color: black;
@@ -19,11 +21,15 @@
 
 .custom-bage{
     background-color: #437eb6 !important;
+    visibility: hidden;
 }
 
-h3{
-    font-family: 'Josefin Sans', sans-serif;
+.custom-card h3
+{
+    font-weight: bold;
+    color: grey;
 }
-div{
+
+/* div{
     font-family: 'Josefin Sans', sans-serif;
-}
+} */

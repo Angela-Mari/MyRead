@@ -17,6 +17,7 @@ class GoogleBtn extends Component {
       lname: '',
       gmail: '',
       alias: '',
+      // isRegister: false,
     };
 
     this.login = this.login.bind(this);
@@ -33,12 +34,6 @@ class GoogleBtn extends Component {
       var profile = googleUser.getBasicProfile();
       this.isLogined = true;
       this.accessToken = googleUser.accessToken;
-      
-      // old method, gives error
-        // this.setState(state => ({
-        // isLogined: true,
-        // accessToken: googleUser.accessToken
-        // }));
     }
     else {
       this.isLogined = false;
@@ -46,7 +41,6 @@ class GoogleBtn extends Component {
     }
 
     this.props.handleGoogleSubmit(profile);
-
   }
 
   logout (googleUser) {
@@ -65,6 +59,13 @@ class GoogleBtn extends Component {
     alert('Failed to log out with Google')
   }
 
+  // googleBtnText(type) {
+  //   if (type == 'Register') {
+  //       this.isRegister = true;
+  //   } else {
+  //       this.isRegister = false;
+  //   }
+  // }
 
   render() {
     return (
@@ -80,7 +81,7 @@ class GoogleBtn extends Component {
         </GoogleLogout>: <GoogleLogin
           handleClick={ this.login }
           clientId={ CLIENT_ID }
-          buttonText='Sign in with Google'
+          buttonText= {'Authenticate with Google'}
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
