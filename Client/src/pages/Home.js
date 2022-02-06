@@ -1,7 +1,6 @@
 import { Button, Col, Row, Container, Navbar, Carousel, Card} from 'react-bootstrap';
 import AuthenticationModal from '../components/AuthenticationModal';
-import React, { useState } from 'react';
-import Blog from './Blog';
+import React from 'react';
 import TwoFAModal from '../components/TwoFAModal';
 import pic1 from "./Carousel/pexels-jess-loiterton-4319752.jpg";
 import pic2 from "./Carousel/pexels-jess-loiterton-4784090.jpg";
@@ -9,14 +8,13 @@ import pic3 from "./Carousel/pexels-jess-loiterton-4784148.jpg";
 import browsing from "./Carousel/browsing.png";
 import blogging from "./Carousel/writing.png";
 import wave from "./Carousel/wave.png";
-
 import "./Home.css"
 
 
 // Photo by Jess Loiterton from Pexels
 // <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 //https://www.flaticon.com/free-icon/blogging_6232256?term=content&page=1&position=82&page=1&position=82&related_id=6232256&origin=search
-function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
+function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, handleFacebookSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
   
     function handleClose(){
         setShow(false)
@@ -92,7 +90,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
             <Row className ="pitch">
             
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                 <Card.Title >
                     <img
@@ -108,7 +106,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card>
             </Col>
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                     <Card.Title >
                     <img
@@ -124,7 +122,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card>
             </Col>
             <Col>
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card className="text-center" style={{ maxWidth: '25rem' }}>
                 <Card.Body>
                     <Card.Title>                    
                     <img
@@ -143,7 +141,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
         </Container>
         <Row className="justify-content-md-center">
             <Col className="text-center">
-            <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} type={authenticationType}></AuthenticationModal>
+            <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} handleFacebookSubmit={handleFacebookSubmit} type={authenticationType}></AuthenticationModal>
             <TwoFAModal pin={pin} setPin={setPin} handleTwoFA={handle2FASubmit} show={twoFA} handleClose={handleClose}></TwoFAModal>
             </Col>
             <Navbar fixed="bottom">

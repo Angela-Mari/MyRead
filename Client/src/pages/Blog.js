@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Navbar } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import Categories from "../components/Categories";
 import RecentPosts from "../components/RecentPosts";
-import Bio from "../components/Bio";
-import fb from "../assets/img/fb.png";
-import twitter from "../assets/img/twitter.png";
-import ins from "../assets/img/ins.png";
-import ex from "../assets/img/external.png";
-import Edit from "../components/Edit";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { loadUser } from "../actions/auth";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
-import btmNav from "./Carousel/pexels-jess-loiterton-4784090.jpg";
-import listen from "../utils/eventBus";
-function Blog({ isAuthenticated, auth: { user } }) {
+
+function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
+    console.log("in blog")
     let { username } = useParams();
-    const [updateCategories, setUpdateCategories] = useState([]);
+    const [dataUser, setDataUser] = useState({});
+    const [show, setShow] = useState(false);
+
     useEffect(() => {
+<<<<<<< HEAD
         loadUser();
         setUpdateCategories(user.categories);
     }, []);
@@ -48,32 +45,41 @@ function Blog({ isAuthenticated, auth: { user } }) {
         setisshow(false);
         setEditing(true);
     };
+=======
+        console.log("in use effect blog")
+        if (isAuthenticated){
+            loadUser()
+            setDataUser(user)
+            setShow(true);
+        }
+        else{
+            getAllUsers().then(res => {
+                res.forEach(element => {
+                    if (element.alias === username){
+                        setDataUser(element);
+                    }
+                });
+                setShow(true);
+            }) //todo filter for actual user
+        }
+    }, [])
+
+>>>>>>> 83fa38e21ef6af9bd7ab899f1a0c04a6a46de5c9
     return (
         <>
-            {isAuthenticated ? (
-                <Container fluid={true}>
-                    <Row>
-                        {isEditing && <h1 className="my-header">{user.alias}'s Blog</h1>}
-                        {isshow && <Edit userinfo={bioObj} setbioObj={resetbioObj} />}
-                        {isEditing && <Categories params={bioObj} user={user}></Categories>}
-                        {isEditing && <RecentPosts></RecentPosts>}
-                    </Row>
-                </Container>
-            ) : (
-                <Container>
-                    <h1>Viewing {username}'s Blog</h1>
-                    <Row>
-                        <Categories updateCategories={updateCategories}></Categories>
-                        <RecentPosts></RecentPosts>
-                        <Bio params={bioObj} />
-                    </Row>
-                </Container>
-            )}
+            <Container fluid={true}>
+                <Row>
+                    <h1 className="my-header">{dataUser.alias}'s Blog</h1>
+                    {show && <Categories dataUser={dataUser}></Categories>}
+                    {show && <RecentPosts dataUser={dataUser}></RecentPosts>}
+                </Row>
+            </Container>
         </>
     );
 }
 
 Blog.propTypes = {
+    getAllUsers: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
 };
 
@@ -82,4 +88,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { loadUser })(Blog);
+export default connect(mapStateToProps,{loadUser, getAllUsers})(Blog);

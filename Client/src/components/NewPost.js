@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {Container, Form, Button} from "react-bootstrap";
-import Select from 'react-select'
+import React, {useState} from "react";
+import {Container, Form, Button, Row} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,8 +7,6 @@ import { addCategory, loadUser } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
-import { ActionMeta, OnChangeValue } from 'react-select';
-
 import "./NewPost.css";
 
 function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
@@ -17,21 +14,21 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
     const [selectedOptions, setSelectedOptions] = useState([])
-
+    const [images, setImages] = useState([]);
     // on submit updateFormData inside useEffect dependent on cahnges from my values
     const findFormErrors = () => {
         const newErrors = {}
         // keywords errors
         console.log("reading title: "+ formData.title)
-        if ( formData.title.length == 0) {
+        if ( formData.title.length === 0) {
         newErrors.title = "Post must have a title."
         }
-        if ( formData.url.length == 0 ){
+        if ( formData.url.length === 0 ){
             newErrors.url = "URL cannot be blank."
         }
 
         console.log("category: " + formData.category)
-        if (formData.category.length == 0){
+        if (formData.category.length === 0){
             newErrors.category = "Please select a category or create a new one."
         }
 
@@ -59,7 +56,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
         }
     }
 
-    const options = user.categories.length != 0? user.categories.map(category => ({value: category, label: category})): [];
+    const options = user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
     
     const [formData, setFormData] = useState({
     title: '',
@@ -70,9 +67,9 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
 
     function handleSelections(newOption) {  
         console.log("setting options...")
-        console.log(newOption != undefined && newOption.length != 0 ? newOption[0].value : "")
+        console.log(newOption !== undefined && newOption.length != 0 ? newOption[0].value : "")
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
-        setFormData(formData => ({...formData, category: newOption != undefined && newOption.length != 0 ? newOption[0].value : ""}))
+        setFormData(formData => ({...formData, category: newOption != undefined && newOption.length !== 0 ? newOption[0].value : ""}))
     }
 
     async function submit(event){
@@ -98,6 +95,9 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
  
     }
 
+    function onImageChange(e){
+        setImages([...e.target.files])
+    }
     return(
         <>
         {
@@ -130,7 +130,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
                     <Form.Control hidden isInvalid={ !!errors.category }/>
                     <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                 </Form.Group>
-                
+                    
                 <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>
             </Container>

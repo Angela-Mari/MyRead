@@ -1,30 +1,31 @@
 import React from "react";
-import "../assets/css/bio.css";
-import { Col } from "react-bootstrap";
-// If you pass in an array, use the code below to comment it out for you
-function Bio(props) {
-    const { params: bioList } = props;
+import "./Bio.css";
+import { Col, Row } from "react-bootstrap";
+import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
+import fb from "./static_images/f_logo_RGB-Blue_72.png"
 
+function Bio({dataUser}) {
     return (
-        <Col>
-            <div key={bioList.id} className="bio">
-                <div className="bioIntro">About the Currator</div>
-                <div className="img_div mt10">
-                    <img src={bioList.headerImg} />
-                </div>
-                <div className="username mt10">{bioList.name}</div>
-                <div className="introInfo mt10">{bioList.intro}</div>
-
-                <div className="navgitors mt10">
-                    {bioList.navigators.map((routers, index) => {
-                        return (
-                            <a href={routers.herf} key={index}>
-                                <img src={routers.icon} alt={routers.icon} />
-                            </a>
-                        );
-                    })}
-                </div>
-            </div>
+        <Col className = "center-block">
+            <Row>
+                <Col>
+                <img style={{borderRadius:"50%", border: "1px black solid", maxHeight:"100px", maxWidth:"100px", objectFit:"cover"}} src={dataUser.picture} />
+            </Col>
+            </Row>            
+            <h3 style={{marginTop:"1rem"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
+            <p className="introInfo mt10">{dataUser.bio}</p>
+            <Row className="justify-content-center">
+                <Col className="col-sm-auto">
+                <img src={fb} height="40px" width="40px"/>
+                </Col>
+                <Col className="col-sm-auto">
+                <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" height="45px" width="45px"/>
+                </Col>
+                <Col className="col-sm-auto">
+                <img src="https://img.icons8.com/flat-round/48/000000/link--v1.png" height="40px" width="40px"/>
+                </Col>
+                
+            </Row>
         </Col>
     );
 }

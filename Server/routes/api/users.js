@@ -113,7 +113,7 @@ router.put('/bio', auth, async (req, res) => {
   try {
     // Using upsert option
     let user = await User.findOneAndUpdate(
-      { user: req.user.id },
+      { _id: req.user.id },
       { $set: { bio : newBio }},
     );
     return res.json(user);

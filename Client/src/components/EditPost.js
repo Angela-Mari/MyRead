@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import {useHistory} from 'react-router';
 
+// dummy until edit functionality is added
 function EditPost({isAuthenticated, auth: { user }}, title, description, url, id){
     const history = useHistory();
 

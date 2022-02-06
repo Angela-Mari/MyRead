@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Row, Button, Container } from "react-bootstrap";
 import "../assets/css/setting.css";
+<<<<<<< HEAD
 import "./Settings.css";
 
 function Setting() {
@@ -66,6 +67,36 @@ function Setting() {
                 <p>Permanatley delete account and lose all saved posts?</p>
                 <Button variant="primary">Delete Account</Button>
             </Row>
+=======
+import "./Settings.css"
+
+function Setting() {
+
+    return (
+        <Container fluid={true} style={{marginLeft:"0.5rem"}}>
+                <Row>
+                    <h1 className="my-title">Settings</h1>
+                </Row>
+                <Row className="line">
+                    <h2>Privacy</h2>
+                    <p>Your profile is public, toggle to change.</p>
+                    <p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                        </div>
+                    </p>
+                </Row>
+                <Row className="line">
+                    <h2>Payment</h2>
+                    <p>Your are on the free tier.</p>
+                    <Button variant="primary">Upgrade to Premium</Button>
+                </Row>
+                <Row className="line">
+                    <h2>Delete Account</h2>
+                    <p>Permanatley delete account and lose all saved posts?</p>
+                    <Button variant="primary">Delete Account</Button>
+                </Row>
+>>>>>>> 83fa38e21ef6af9bd7ab899f1a0c04a6a46de5c9
         </Container>
     );
 }
