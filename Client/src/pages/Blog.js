@@ -15,6 +15,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
+
         console.log("in use effect blog")
         if (isAuthenticated){
             loadUser()
@@ -32,6 +33,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
             }) //todo filter for actual user
         }
     }, [])
+
 
     return (
         <>
