@@ -20,10 +20,6 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
         history.push("/home")
     }
 
-    const edit = () => {
-        listen.emit("isShowEdit", "");
-    };
-
     return (
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (

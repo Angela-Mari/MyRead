@@ -10,12 +10,5 @@
         "token": "TWILIO_TOKEN",
         "from": "TWILION_FROM"
     },
-    "jwtSecret": "JWTSECRET",
-    "profilePics": {
-        "storageUrl": "PROFILE_PIC_STORAGE_URL",
-        "connectionString": "PROFILE_PIC_CONNECTION_STRING"
-    },
-    "paypalClientID" : "PAYPAL_CLIENT_ID"
-    
+    "jwtSecret": "JWTSECRET"
 }
-
