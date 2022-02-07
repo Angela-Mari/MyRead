@@ -6,6 +6,11 @@
     margin-top: 20px;
 }
 .line {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.paybut {
     margin-top: 20px;
 }
 .form-switch {
