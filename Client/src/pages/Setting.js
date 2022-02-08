@@ -16,7 +16,7 @@ function Setting() {
             https://developer.paypal.com/developer/applications
         */
         // xxxxxxxxxxxxxxe
-        "client-id": "AX79_zqopT75MhpfyNSM2w3h2E8hUFWk-vxZYncKg5AWhWqxPVkUaE88b1vFWJUrteMgrl47tyNS35iL",
+        "client-id": "xxxxxxxxxxxxxxxx",
     };
     const createOrder = (data, actions) => {
         return actions.order.create({
@@ -55,14 +55,27 @@ function Setting() {
                 <p>Your are on the free tier.</p>
                 <Button variant="primary" onClick={payshow}>
                     Upgrade to Premium
+                    <form action="https://www.paypal.com/donate" method="post" target="_top" className="form">
+                        <input type="hidden" name="business" value="NNKY4D87YRFZC" />
+                        <input type="hidden" name="no_recurring" value="0" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input
+                            type="image"
+                            src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                            border="0"
+                            name="submit"
+                            title="PayPal - The safer, easier way to pay online!"
+                            alt="Donate with PayPal button"
+                        />
+                    </form>
                 </Button>
-                {isshowpay && (
+                {/* {isshowpay && (
                     <Button variant="primary" className="paybut">
                         <PayPalScriptProvider options={paypalparams}>
                             <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
                         </PayPalScriptProvider>
                     </Button>
-                )}
+                )} */}
             </Row>
             <Row className="line">
                 <h2>Delete Account</h2>
