@@ -12,6 +12,10 @@ function generateProfileFilename(userid) {
   // return "profile-" + Math.floor(100000 + Math.random() * 900000)
 }
 
+function generatePostFilename(postid) {
+  return "profile-"+postid;
+}
+
 // @route    GET api/image
 // @desc     Get user by token
 // @access   Private
@@ -21,13 +25,22 @@ router.get('/', auth, async (req, res) => {
   // console.log(url);
 });
 
+// @route    GET api/image/post
+// @desc     Get user by token
+// @access   Private
+router.get('/post', auth, async (req, res) => {
+  const url = await getAzureSignedUrl(generatePostFilename(req.user.id), 360);
+  res.send(url).end();
+  // console.log(url);
+});
+
 // @route    POST api/image
 // @desc     Get user by token
 // @access   Private
 router.post('/', auth, async (req, res) => {
   try {
-    // const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
-    const profileStorageUrl = process.env.PROFILE_PIC_STORAGE_URL; //for HEROKU
+    const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
+    // const profileStorageUrl = process.env.PROFILE_PIC_STORAGE_URL; //for HEROKU
 
     await User.findOneAndUpdate(
       { _id: req.user.id },
@@ -44,9 +57,32 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// @route    POST api/image/post
+// @desc     Get user by token
+// @access   Private
+router.post('/post', auth, async (req, res) => {
+  try {
+    const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
+    // const postStorageUrl = process.env.POST_PIC_STORAGE_URL; //for HEROKU
+
+    await User.findOneAndUpdate(
+      { _id: req.user.id },
+      {
+        $set: {
+          picture: postStorageUrl + generatePostFilename(req.post.id)
+        },
+      },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+    res.status(200).end();
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 async function getAzureSignedUrl(fileName, minutesToExpiration) {
-  // const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
-  const profileConnectionString = process.env.PROFILE_PIC_CONNECTION_STRING; //for HEROKU
+  const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
+  // const profileConnectionString = process.env.PROFILE_PIC_CONNECTION_STRING; //for HEROKU
 
   const containerName = 'profilepics';
   const connectionString = profileConnectionString;
