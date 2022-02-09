@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Container, Form, Button, Navbar} from "react-bootstrap";
-import CreatableSelect from 'react-select/creatable';
-import getUrl from './GetUrl.js';
+// import CreatableSelect from 'react-select/creatable';
+// import getUrl from './GetUrl.js';
 import './App.css';
 
 function App() {
