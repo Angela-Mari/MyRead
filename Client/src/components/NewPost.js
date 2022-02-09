@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Container, Form, Button, Row} from "react-bootstrap";
+import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
 import "./NewPost.css";
+import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg' 
 
 function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     const history = useHistory();
@@ -15,6 +16,8 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     const [errors, setErrors] = useState({})
     const [selectedOptions, setSelectedOptions] = useState([])
     const [images, setImages] = useState([]);
+    const [preview, setPreview] = useState(null);
+
     // on submit updateFormData inside useEffect dependent on cahnges from my values
     const findFormErrors = () => {
         const newErrors = {}
@@ -62,6 +65,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     title: '',
     description: '',
     url: '',
+    picture: '',
     category: '',
     });
 
@@ -96,8 +100,12 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     }
 
     function onImageChange(e){
-        setImages([...e.target.files])
+        console.log(e.target.files[0])
+        const url = URL.createObjectURL(e.target.files[0]);
+        setFormData(formData => ({...formData, picture: e.target.files[0]}))
+        setPreview(url);
     }
+
     return(
         <>
         {
@@ -130,7 +138,13 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
                     <Form.Control hidden isInvalid={ !!errors.category }/>
                     <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                 </Form.Group>
-                    
+                <Form.Group>
+                        <Row style={{marginTop:"0.5rem"}}><Form.Label>Upload Picture</Form.Label></Row>
+                        <Col>
+                            <img style={{height:"200px", width:"300px", objectFit:"cover", marginBottom:"1rem"}} src = {preview != null? preview : tempPic} />
+                        </Col>
+                            <input type="file" accept="image/*" onChange={onImageChange} />
+                    </Form.Group>
                 <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>
             </Container>

@@ -26,8 +26,8 @@ router.get('/', auth, async (req, res) => {
 // @access   Private
 router.post('/', auth, async (req, res) => {
   try {
-    // const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
-    const profileStorageUrl = process.env.storageUrl; //for HEROKU
+    const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
+    // const profileStorageUrl = process.env.storageUrl; //for HEROKU
 
     await User.findOneAndUpdate(
       { _id: req.user.id },
@@ -45,8 +45,8 @@ router.post('/', auth, async (req, res) => {
 });
 
 async function getAzureSignedUrl(fileName, minutesToExpiration) {
-  // const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
-  const profileConnectionString = process.env.connectionString; //for HEROKU
+  const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
+  // const profileConnectionString = process.env.connectionString; //for HEROKU
 
   const containerName = 'profilepics';
   const connectionString = profileConnectionString;

@@ -51,7 +51,7 @@
     justify-content: space-between;
     background-image: linear-gradient(to top, white, white, white, rgba(255,0,0,0));
     text-align: center;
-    /* background-image: linear-gradient(to top, red, rgba(255,0,0,0)); */
+    /* background-image: linear-gradient(to top, white, rgba(255,0,0,0)); */
 }
 
 .pitch img {
