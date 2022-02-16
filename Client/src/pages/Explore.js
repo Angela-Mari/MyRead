@@ -2,23 +2,31 @@ import React, {useState, useEffect} from "react";
 import { Row, Col,Button, Container, Dropdown, DropdownButton } from "react-bootstrap";
 import "./Explore.css"
 import { getPosts } from '../actions/post';
+import { getAllUsers } from "../actions/auth";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SmallPost from '../components/SmallPost';
+import BloggerCard from "../components/BloggerCard";
 
-function Explore({getPosts}) {
+function Explore({getPosts, getAllUsers}) {
 
     const [posts, updatePosts] = useState([]);
     const [show, setShow] = useState(false);
     const [value, setValue] = useState('All');
     const [searchPosts, updateSearchPosts] = useState([]);
     const [searchTerms, updateSearchTerms] = useState("");
+    const [currators, updateCurrators] = useState([]);
 
     useEffect(() => {
-        console.log("useEffect")
         getPosts().then(res => {
             updatePosts(res)
             updateSearchPosts(res)
+            console.log(res)
+            
+        })
+        getAllUsers().then(res => {
+            updateCurrators(res)
+            console.log("currators")
             console.log(res)
             setShow(true);
         }) 
@@ -48,7 +56,7 @@ function Explore({getPosts}) {
         });
         updateSearchPosts(searchArray)
         // console.log("done")
-        console.log(searchPosts.length)
+        console.log(searchPosts[0])
     }
 
     return (
@@ -87,11 +95,18 @@ function Explore({getPosts}) {
                 </Row>
                 <Row>
                 {show &&
-                    <Row xs={3}>
+                    <Row xs={1} sm={2} lg={3}>
                     {searchPosts.map((post, i) => {
                         return (
                         <Col>
-                            <SmallPost title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
+                            <SmallPost picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
+                        </Col>
+                        )
+                    })}
+                    {currators.map((currator, i) => {
+                        return (
+                        <Col>
+                           <BloggerCard name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
                         </Col>
                         )
                     })}
@@ -105,6 +120,7 @@ function Explore({getPosts}) {
 
 Explore.propTypes = {
     getPosts: PropTypes.func.isRequired,
+    getAllUsers: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -113,4 +129,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
   });
 
-export default connect(mapStateToProps,{getPosts})(Explore);
+export default connect(mapStateToProps,{getPosts, getAllUsers})(Explore);

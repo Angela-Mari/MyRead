@@ -1,9 +1,8 @@
 import React from 'react';
 import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
-
-function SmallPost({title, text, link, likes, key, category, comments, id}) {
-
+import "./SmallPost.css";
+function SmallPost({picture, title, text, link, likes, key, category, comments, id}) {
 
     function getSource(){
         if (link !== undefined) {
@@ -19,11 +18,11 @@ function SmallPost({title, text, link, likes, key, category, comments, id}) {
 
     return (
         // <a className="post-link" href={link} target="_blank">
-        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
-            <Card border="dark" className="p-3 mb-5 bg-white rounded ">
+        <Container>
+            <Card border="dark" className="p-2 mb-3 bg-white rounded myshadow">
             <Row>
             <Col className="col-sm-auto">
-            <img src={tempPic} width="75" height="75" style={{objectFit:"cover"}}/>
+            <img src={picture !== "" && picture !== undefined? picture: tempPic} width="75" height="75" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
                 <Row>
@@ -44,6 +43,7 @@ function SmallPost({title, text, link, likes, key, category, comments, id}) {
                 <div style={{marginTop:"0.5rem"}}>
                     Source: {getSource()}
                 </div>
+                <Row></Row>
             </Col>
             </Row>
             </Card> 

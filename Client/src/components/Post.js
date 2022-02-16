@@ -49,7 +49,7 @@ function Post({picture, deletePost, addLike, title, text, link, likes, category,
             <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
-            <img src={picture!== ""? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
+            <img src={picture!== "" && picture !== undefined? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
                 <Row>
