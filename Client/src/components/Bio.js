@@ -5,6 +5,7 @@ import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
 import fb from "./static_images/f_logo_RGB-Blue_72.png"
 
 function Bio({dataUser}) {
+    
     return (
         <Col className = "center-block">
             <Row>

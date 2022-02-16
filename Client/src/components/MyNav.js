@@ -36,10 +36,10 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
             {
                 isAuthenticated ? 
                 <> 
-                <Navbar.Text style={{color:"white"}}>
-                    Welcome {user.firstName} {user.lastName}
-                    
+                <Navbar.Text style={{color:"white", paddingRight:"1rem"}}>
+                    Welcome {user.firstName} {user.lastName}    
                 </Navbar.Text>
+                
                 <Nav.Link>
                 <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white"}}>
                     Explore

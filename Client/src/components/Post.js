@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
-function Post({deletePost, addLike, title, text, link, likes, category, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
+function Post({picture, deletePost, addLike, title, text, link, likes, category, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
 
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
@@ -35,7 +35,7 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
         if (link !== undefined) {
         let arr1 = link.split(":")
         let arr2 = arr1[1].split("/")
-        console.log(arr2)
+        // console.log(arr2)
         return arr2[2]
         }
         else {
@@ -49,7 +49,7 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
             <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
-            <img src={tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
+            <img src={picture!== ""? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
                 <Row>

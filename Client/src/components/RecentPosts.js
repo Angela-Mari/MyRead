@@ -10,19 +10,21 @@ import "./RecentPosts.css";
 function RecentPosts({getUserPosts, dataUser, show}) { 
   const [updatePosts, setUpdatePosts] = useState({});
   const [showPosts, setShowPosts] = useState(false);
+  const [posts, setPosts] = useState([])
   
   useEffect(() => {
+    
     if (dataUser !== undefined){
     getUserPosts(dataUser._id).then(
         res => {
           setPosts(res.slice(0).reverse())
+          console.log(posts)
           setShowPosts(true)
         }
       )
       }
     }, [updatePosts])
 
-  const [posts,setPosts] = useState();
   console.log(typeof posts)
    return (
             <Col  xs={9} md={9}>
@@ -31,7 +33,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
               <div>
                   {
                     posts.map((post) => (
-                      <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                      <Post picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
               </div>}

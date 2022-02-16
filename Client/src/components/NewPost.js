@@ -1,20 +1,23 @@
 import React, {useState} from "react";
-import {Container, Form, Button, Row} from "react-bootstrap";
+import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addCategory, loadUser } from '../actions/auth';
+import { addCategory, loadUser, uploadPostPicture } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
 import "./NewPost.css";
+import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg' 
 
-function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
+function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth: { user }}){
     const history = useHistory();
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
     const [selectedOptions, setSelectedOptions] = useState([])
     const [images, setImages] = useState([]);
+    const [preview, setPreview] = useState(null);
+
     // on submit updateFormData inside useEffect dependent on cahnges from my values
     const findFormErrors = () => {
         const newErrors = {}
@@ -56,12 +59,13 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
         }
     }
 
-    const options = user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
+    const options = user != undefined && user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
     
     const [formData, setFormData] = useState({
     title: '',
     description: '',
     url: '',
+    picture: '',
     category: '',
     });
 
@@ -87,17 +91,25 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
             if (!user.categories.includes(validForm.category)){
                 await addCategory(validForm.category)
             }
-            
             console.log(validForm)
-            await addPost(validForm);
-            history.push(`/blog/${user.alias}`);
+            
+            setFormData(formData => ({...formData, picture: ""}))
+            console.log(images[0])
+            await addPost(validForm).then(res => (
+                uploadPostPicture(images[0], res._id)
+            ))
+            // history.push(`/blog/${user.alias}`);
         }
  
     }
 
-    function onImageChange(e){
-        setImages([...e.target.files])
+    async function onImageChange(e){
+        console.log(e.target.files[0])
+        const url = URL.createObjectURL(e.target.files[0]);
+        await setImages([e.target.files[0]])
+        setPreview(url);
     }
+
     return(
         <>
         {
@@ -130,7 +142,13 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
                     <Form.Control hidden isInvalid={ !!errors.category }/>
                     <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                 </Form.Group>
-                    
+                <Form.Group>
+                        <Row style={{marginTop:"0.5rem"}}><Form.Label>Upload Picture</Form.Label></Row>
+                        <Col>
+                            <img style={{height:"200px", width:"300px", objectFit:"cover", marginBottom:"1rem"}} src = {preview != null? preview : tempPic} />
+                        </Col>
+                            <input type="file" accept="image/*" onChange={e=> {onImageChange(e)}} />
+                    </Form.Group>
                 <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>
             </Container>
@@ -144,6 +162,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
 NewPost.propTypes = {
     addPost: PropTypes.func.isRequired,
     addCategory: PropTypes.func.isRequired,
+    uploadPostPicture: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -153,4 +172,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{addPost, addCategory, loadUser})(NewPost);
+export default connect(mapStateToProps,{addPost, addCategory, loadUser, uploadPostPicture})(NewPost);
