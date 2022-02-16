@@ -18,12 +18,30 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
 
     useEffect(() => {
         if (isAuthenticated){
-            loadUser()
-            setDataUser(user)
-            getUserPosts(user._id).then(res=> updateCategoryPosts(res.slice(0)
-            .reverse().filter(function (post) {return post.category === category})))
-            setShow(true);
+            // loadUser()
+
+            if ( username == user.alias ){
+                setDataUser(user)
+                getUserPosts(user._id).then(res=> updateCategoryPosts(res.slice(0)
+                .reverse().filter(function (post) {return post.category === category})))
+                setShow(true);
+            }
+            else {
+                getAllUsers().then(res => {
+                    res.forEach(element => {
+                        if (element.alias === username){
+                            setDataUser(element);
+                            getUserPosts(element._id).then(res=> updateCategoryPosts(res.slice(0)
+                            .reverse().filter(function (post) {return post.category === category})))
+                            
+                        }
+                    });
+                })
+                setShow(true); //todo filter for actual user
+            }
+            
         }
+
         else{
             getAllUsers().then(res => {
                 res.forEach(element => {
