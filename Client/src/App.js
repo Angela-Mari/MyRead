@@ -1,5 +1,5 @@
 import { setAlert } from './actions/alert';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Blog from './pages/Blog';
 import Category from './components/Category';
 import MyNav from './components/MyNav';
@@ -20,6 +20,12 @@ import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
 import EditBio from './pages/EditBio';
+import setAuthToken from './utils/setAuthToken';
+import store from './store';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App({ 
   login, 
@@ -29,6 +35,9 @@ function App({
   setAlert,
   auth: { user } 
 }) {
+  useEffect(() => {
+    loadUser();
+  }, []);
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

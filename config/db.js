@@ -3,9 +3,6 @@ const config = require('config');
 const db = config.get('mongoURI'); //FOR LOCALHOST
 // const db = process.env.MONGOURI; //FOR HEROKU
 
-
-
-
 // We are using async await...
 const connectDB = async () => {
   try {
