@@ -3,14 +3,14 @@ import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addCategory, loadUser } from '../actions/auth';
+import { addCategory, loadUser, uploadPostPicture } from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
 import "./NewPost.css";
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg' 
 
-function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
+function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth: { user }}){
     const history = useHistory();
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
@@ -59,7 +59,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
         }
     }
 
-    const options = user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
+    const options = user != undefined && user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
     
     const [formData, setFormData] = useState({
     title: '',
@@ -91,10 +91,13 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
             if (!user.categories.includes(validForm.category)){
                 await addCategory(validForm.category)
             }
-            
             console.log(validForm)
-            await addPost(validForm);
-            history.push(`/blog/${user.alias}`);
+            
+            setFormData(formData => ({...formData, picture: ""}))
+            await addPost(validForm).then(res => (
+                uploadPostPicture(images[0], res._id)
+            ))
+            // history.push(`/blog/${user.alias}`);
         }
  
     }
@@ -102,7 +105,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
     function onImageChange(e){
         console.log(e.target.files[0])
         const url = URL.createObjectURL(e.target.files[0]);
-        setFormData(formData => ({...formData, picture: e.target.files[0]}))
+        setImages(e.target.files[0])
         setPreview(url);
     }
 
@@ -158,6 +161,7 @@ function NewPost({addPost, addCategory, isAuthenticated, auth: { user }}){
 NewPost.propTypes = {
     addPost: PropTypes.func.isRequired,
     addCategory: PropTypes.func.isRequired,
+    uploadPostPicture: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -167,4 +171,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{addPost, addCategory, loadUser})(NewPost);
+export default connect(mapStateToProps,{addPost, addCategory, loadUser, uploadPostPicture})(NewPost);

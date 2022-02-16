@@ -184,6 +184,9 @@ export const addPost = (formData) => async (dispatch) => {
     });
 
     dispatch(setAlert('Post Created', 'success'));
+
+    return res.data;
+    
   } catch (err) {
     dispatch({
       type: POST_ERROR,
