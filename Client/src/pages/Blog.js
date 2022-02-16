@@ -7,20 +7,35 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
+import { useLocation } from 'react-router-dom'
 
 function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
     console.log("in blog")
     let { username } = useParams();
     const [dataUser, setDataUser] = useState({});
     const [show, setShow] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
 
         console.log("in use effect blog")
         if (isAuthenticated){
             loadUser()
-            setDataUser(user)
-            setShow(true);
+            if ( username == user.alias ){
+                setDataUser(user)
+                setShow(true);
+            }
+            else {
+                getAllUsers().then(res => {
+                    res.forEach(element => {
+                        if (element.alias === username){
+                            setDataUser(element);
+                        }
+                    });
+                    setShow(true);
+                }) //todo filter for actual user
+            }
+            
         }
         else{
             getAllUsers().then(res => {

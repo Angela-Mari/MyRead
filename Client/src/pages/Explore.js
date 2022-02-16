@@ -12,7 +12,7 @@ function Explore({getPosts, getAllUsers}) {
 
     const [posts, updatePosts] = useState([]);
     const [show, setShow] = useState(false);
-    const [value, setValue] = useState('All');
+    const [value, setValue] = useState('Posts');
     const [searchPosts, updateSearchPosts] = useState([]);
     const [searchTerms, updateSearchTerms] = useState("");
     const [currators, updateCurrators] = useState([]);
@@ -72,7 +72,6 @@ function Explore({getPosts, getAllUsers}) {
                         id="dropdown-menu-align-right"
                         onSelect={handleSelect}
                         >
-                            <Dropdown.Item eventKey="All">All</Dropdown.Item>
                             <Dropdown.Item eventKey="Posts">Posts</Dropdown.Item>
                             <Dropdown.Item eventKey="Blogs">Blogs</Dropdown.Item>
                         </DropdownButton>
@@ -94,23 +93,29 @@ function Explore({getPosts, getAllUsers}) {
                     </Row>
                 </Row>
                 <Row>
-                {show &&
+                {show && value == "Posts"?
                     <Row xs={1} sm={2} lg={3}>
                     {searchPosts.map((post, i) => {
                         return (
                         <Col>
-                            <SmallPost picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
-                        </Col>
-                        )
-                    })}
-                    {currators.map((currator, i) => {
-                        return (
-                        <Col>
-                           <BloggerCard name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
+                            <SmallPost key={i} picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
                         </Col>
                         )
                     })}
                     </Row>
+                    :
+                    show && value == "Blogs"?
+                    <Row xs={1} sm={2} lg={3}>
+                    {currators.map((currator, i) => {
+                        return (
+                        <Col>
+                           <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
+                        </Col>
+                        )
+                    })}
+                    </Row>
+                    :
+                    <></>
                     }
                 </Row>
             

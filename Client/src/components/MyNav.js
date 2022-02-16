@@ -23,7 +23,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
     return (
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (
-                <Link to={`/blog/${user.alias}`} style={{ textDecoration: "none" }}>
+                <Link to={"/home"} style={{ textDecoration: "none" }}>
                     <Navbar.Brand className="my-brand">MyRead <span style={{color:"#000000"}}><i><b>CURATOR MODE</b></i></span></Navbar.Brand>
                 </Link>
             ) : (
