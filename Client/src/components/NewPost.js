@@ -94,6 +94,7 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
             console.log(validForm)
             
             setFormData(formData => ({...formData, picture: ""}))
+            console.log(images[0])
             await addPost(validForm).then(res => (
                 uploadPostPicture(images[0], res._id)
             ))
@@ -102,10 +103,10 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
  
     }
 
-    function onImageChange(e){
+    async function onImageChange(e){
         console.log(e.target.files[0])
         const url = URL.createObjectURL(e.target.files[0]);
-        setImages(e.target.files[0])
+        await setImages([e.target.files[0]])
         setPreview(url);
     }
 
@@ -146,7 +147,7 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
                         <Col>
                             <img style={{height:"200px", width:"300px", objectFit:"cover", marginBottom:"1rem"}} src = {preview != null? preview : tempPic} />
                         </Col>
-                            <input type="file" accept="image/*" onChange={onImageChange} />
+                            <input type="file" accept="image/*" onChange={e=> {onImageChange(e)}} />
                     </Form.Group>
                 <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Post</Button>
                 </Form>

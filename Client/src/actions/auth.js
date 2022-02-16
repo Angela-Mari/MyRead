@@ -234,7 +234,7 @@ export const uploadPostPicture = (file, postId) => async (dispatch) => {
       },
       body: file, // body data type must match "Content-Type" header
     });
-    await axios.post(getDevPrefix() + '/api/image/' + postId);
+    await axios.post(getDevPrefix() + '/api/postimage/' + postId);
   } catch (error) {
     console.log(error);
   }
