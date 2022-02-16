@@ -49,7 +49,7 @@ function Post({picture, deletePost, addLike, title, text, link, likes, category,
             <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
-            <img src={picture!== ""? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
+            <img src={picture!== "" && picture !== undefined? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
                 <Row>
@@ -71,7 +71,7 @@ function Post({picture, deletePost, addLike, title, text, link, likes, category,
                     Source: {getSource()}
                 </div>
                 <Row className="bottom">
-                    <Button variant="Link" style={{width:"40px"}} onClick={e => handleComment(e)}><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-2.png" height="35px" weight="35px"/></Button>
+                    <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="35px" weight="35px"/></Button>
                     <Button variant="Link" style={{width:"100px"}} onClick={e => handleLike(e)}><span style={{fontSize:"2rem"}}>{likes !== undefined && likes.length > 0? likes.length : ""}</span> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="35px" weight="35px" style={{marginBottom:"0.5rem"}}/></Button>
                     {isAuthenticated && <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>} 
                 </Row>

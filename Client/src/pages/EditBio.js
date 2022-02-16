@@ -64,12 +64,8 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
             console.log(blogUrl)
             await uploadProfilePicture(images[0], 1);
             console.log(formData.bio)
-            await updateBio(formData.bio).then(res => {
-                console.log("hi")
-                history.goBack()
-            })
-            
-            // history.replace(`/blog/${user.alias}`, [])
+            await updateBio(formData.bio)
+            // refresh
         }
     }
 

@@ -1,5 +1,7 @@
 .my-nav {
-    background-color: #437eb6;
+    background-image: url("../pages/Carousel/nav-cropped.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .my-brand {
