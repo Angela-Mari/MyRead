@@ -20,6 +20,7 @@ import Privacy from './pages/Privacy';
 import Setting from "./pages/Setting.js";
 import NewPost from './components/NewPost';
 import EditBio from './pages/EditBio';
+import PostDetail from "./components/postDetail";
 
 function App({ 
   login, 
@@ -156,6 +157,9 @@ function App({
                 isAuthenticated && user ? <Redirect to={`/blog/${user.alias}`} /> : 
                 <Home email={email} setEmail={setEmail} password= {password} setPassword={setPassword} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} pin = {pin} setPin={setPin} handle2FASubmit = {handle2FASubmit} twoFA={twoFA} setTwoFA={setTwoFA} show={show} setShow={setShow} authenticationType = {authenticationType} setAuthenticationType = {setAuthenticationType} handleFacebookSubmit={handleFacebookSubmit}/>
               }
+              </Route>
+              <Route path = "/blog/stoll/postDetail">
+                <PostDetail></PostDetail>
               </Route>
               <Route exact path ="/blog/:username">
                 <Blog /> {/* TODO: fix routing when unauthenticated  */}

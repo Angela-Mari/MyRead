@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 import "./Post.css"
 import { deletePost } from "../actions/post"
 import { addLike } from "../actions/post"
@@ -11,6 +12,7 @@ import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 function Post({deletePost, addLike, title, text, link, likes, category, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
 
     //TODO: only delete if you are authenticated
+    const history = useHistory();
     async function handleDelete(e){
         e.preventDefault();
         console.log("delete")
@@ -30,6 +32,9 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
         e.preventDefault();
         console.log("comment")
     }
+    const onNavigater = () =>{
+        history.push("/blog/stoll/postDetail?id=" + id);
+    };
 
     function getSource(){
         if (link !== undefined) {
@@ -44,7 +49,7 @@ function Post({deletePost, addLike, title, text, link, likes, category, comments
     }
 
     return (
-        // <a className="post-link" href={link} target="_blank">
+         <a className="post-link" /*href={link} target="_blank"*/ onClick={onNavigater}>
         <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
             <Card border="dark" className="p-3 mb-5 bg-white rounded ">
             <Row>
