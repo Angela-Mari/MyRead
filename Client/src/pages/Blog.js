@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
 import { useLocation } from 'react-router-dom'
+import background from './Carousel/pexels-jess-loiterton-4319752.jpg'
 
 function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
     console.log("in blog")
@@ -52,12 +53,15 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
 
     return (
         <>
-            <Container fluid={true}>
-                <Row>
+            <Container fluid={true} style={{backgroundColor:"whiteSmoke"}} >
+                <Row >
                     <h1 className="my-header">{dataUser.alias}'s Blog</h1>
                     {show && <Categories dataUser={dataUser}></Categories>}
                     {show && <RecentPosts dataUser={dataUser}></RecentPosts>}
                 </Row>
+            <div className="btm-nav">
+                <p>Blog as you surf</p>
+            </div>
             </Container>
         </>
     );

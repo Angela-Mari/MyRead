@@ -14,7 +14,7 @@ function Categories({dataUser}) {
         <div className="d-grid gap-2">
             {categories.map((category, idx) => (
                 <Link key={idx} className="category-link text-secondary" to={`/blog/${dataUser.alias}/category/${category}`}>
-                        <Button style={{width:"100%", border:"1px solid black"}} variant="light" className="category-btn" key={idx}>
+                        <Button style={{width:"100%"}} variant="light" className="category-btn" key={idx}>
                             {category}
                         </Button>
                 </Link>
@@ -30,7 +30,7 @@ function Categories({dataUser}) {
             <Bio dataUser={dataUser}></Bio>
             <h2>Categories</h2>
             <Col>
-            <MyCategories categories={dataUser !== undefined? dataUser.categories : []}/>
+            <MyCategories categories={dataUser !== undefined && dataUser.categories !== undefined? dataUser.categories : []}/>
             </Col>
         </Col>
     );

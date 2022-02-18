@@ -6,6 +6,7 @@ import { getAllUsers } from '../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
+import background from "../pages/Carousel/pexels-jess-loiterton-4319752.jpg";
 
 function RecentPosts({getUserPosts, dataUser, show}) { 
   const [updatePosts, setUpdatePosts] = useState({});
@@ -25,9 +26,10 @@ function RecentPosts({getUserPosts, dataUser, show}) {
       }
     }, [updatePosts])
 
+    //
   console.log(typeof posts)
    return (
-            <Col  xs={9} md={9}>
+            <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem"}}>
               <h2 style={{marginTop:"0"}}>Recent Posts</h2>
                 {showPosts && posts && posts.length > 0 &&
               <div>
@@ -38,11 +40,8 @@ function RecentPosts({getUserPosts, dataUser, show}) {
                   }
               </div>}
                 
-              <div className="btm-nav">
-                <p>Blog as you surf</p>
-              </div>
+              
             </Col>
-            
             )
     
 }

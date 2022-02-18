@@ -1,6 +1,6 @@
 .sidebar {
     /* background-image: linear-gradient(to bottom, #6baeec, rgba(255, 0, 0, 0)); */
-    border-right: 1px black solid;
+   
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     margin-top: -0.5rem;
@@ -18,6 +18,7 @@
 .category-btn {
     text-align: left !important;
     font-size: 1.2em;
+    background-color: white;
 }
 .category-btn:hover {
     transform:scale(1.05);

@@ -8,7 +8,7 @@ import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
 import "./NewPost.css";
-import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg' 
+import tempPic from '../pages/Carousel/placeholder-image.jpg' 
 
 function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth: { user }}){
     const history = useHistory();
@@ -70,14 +70,18 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
     description: '',
     url: '',
     picture: '',
-    category: '',
+    category: [],
     });
 
     function handleSelections(newOption) {  
         console.log("setting options...")
-        console.log(newOption !== undefined && newOption.length != 0 ? newOption[0].value : "")
+        console.log(newOption !== undefined && newOption.length !== 0 ? newOption : "")
+        const saveSel = newOption.map((x, i) => {
+            return x.value
+        })
+        console.log(saveSel)
         setSelectedOptions(selectedOptions => [...selectedOptions, newOption]);
-        setFormData(formData => ({...formData, category: newOption != undefined && newOption.length !== 0 ? newOption[0].value : ""}))
+        setFormData(formData => ({...formData, category: newOption !== undefined && newOption.length !== 0 ? saveSel : ['other']}))
     }
 
     async function submit(event){
