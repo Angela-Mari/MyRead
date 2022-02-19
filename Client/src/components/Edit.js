@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Col, Button, FloatingLabel } from "react-bootstrap";
-import "../assets/css/edit.css";
+// import "../assets/css/edit.css";
 function Edit(props) {
     console.log(props);
     const { userinfo, setbioObj } = props;
