@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Row, Button, Container } from "react-bootstrap";
-import "../assets/css/setting.css";
+// import "../assets/css/setting.css";
 
 
 
