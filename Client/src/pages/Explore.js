@@ -74,7 +74,7 @@ function Explore({getPosts, getAllUsers}, place) {
                     :
                     <></>
                     }
-                    <Row className="align-items-center">
+                    <Row className="align-items-center" style={{marginBottom:"2rem"}}>
                         <Col xs={2}>
                         <div className="d-flex justify-content-end">
                         <DropdownButton

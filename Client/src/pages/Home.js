@@ -11,6 +11,7 @@ import wave from "./Carousel/wave.png";
 import "./Home.css"
 import Explore from './Explore';
 import { Link, animateScroll as scroll } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
 
 
 // Photo by Jess Loiterton from Pexels
@@ -91,7 +92,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
             </Carousel>
 
            {/* Pitch Cards */}
-            <Row className ="pitch">
+            <Row className ="pitch justify-content-around" style={{marginLeft:"0.15rem"}}>
             <Col xs={12} sm={3} lg={3} className="gx-1">
                 <Link
                     activeClass="active"
@@ -101,7 +102,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     offset={-50}
                     duration={200}
                 >
-                <Card className="text-center align-self-end" style={{ maxWidth: '25rem', minWidth: '20rem', height: '17rem', cursor:"pointer"}}>
+                <Card className="text-center align-self-end" style={{cursor:"pointer"}}>
                 <Card.Body>
                 <Card.Title >
                     <img
@@ -111,7 +112,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     </Card.Title>
                     <Card.Title >Browse the Best</Card.Title>
                     <Card.Text>
-                    Access the best content on the web curated by people like you.
+                    Instead of searching yourself, access the best content on the web curated by passionate people like you
                     </Card.Text>
                 </Card.Body>
                 </Card>
@@ -119,7 +120,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
             </Col>
             
             <Col xs={12} sm={3} lg={3} className="gx-1">
-                <Card className="text-center" onClick={e=> {handleClick("Register")}} style={{ maxWidth: '25rem', minWidth: '20rem', height: '17rem', cursor:"pointer"}}>
+                <Card className="text-center" onClick={e=> {handleClick("Register")}} style={{cursor:"pointer"}}>
                 <Card.Body>
                     <Card.Title >
                     <img
@@ -129,14 +130,15 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     </Card.Title>
                     <Card.Title >Become a Curator</Card.Title>
                     <Card.Text>
-                    Eliminate the tedious process of blogging by curating content from the web on your MyRead blog.
+                    Eliminate the tedious process of blogging by curating content you find from the web
                     </Card.Text>
                 </Card.Body>
                 </Card>
             </Col>
             
             <Col xs={12} sm={3} lg={3} className="gx-1">
-                <Card className="text-center" style={{ maxWidth: '25rem', minWidth: '20rem',height: '17rem', cursor:"pointer"}}>
+                <RouterLink to="/extension-download" style={{textDecoration:"none", color:"black"}}>
+                <Card className="text-center" style={{cursor:"pointer"}}>
                 <Card.Body>
                     <Card.Title>                    
                     <img
@@ -146,10 +148,11 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     </Card.Title>
                     <Card.Title >Blog as you Surf</Card.Title>
                     <Card.Text>
-                    Save and tag content as you surf with our browser extension for a seamless experience. 
+                    Save and tag content as you surf with our browser extension for a seamless experience
                     </Card.Text>
                 </Card.Body>
                 </Card>
+                </RouterLink>
             </Col>
             </Row>
             {/* Explore Page */}

@@ -46,10 +46,7 @@
     position:absolute;
     z-index: 400;
     margin-top: -5rem;
-    padding-left: 1.5rem;
     width:100%;
-    justify-content: space-between;
-    text-align: center;
     /* background-image: linear-gradient(to top, white, rgba(255,0,0,0)); */
 }
 

@@ -23,6 +23,7 @@ import EditBio from './pages/EditBio';
 import setAuthToken from './utils/setAuthToken';
 import store from './store';
 import ExtensionPopUp from './pages/ExtensionPopUp';
+import ExtensionInfo from './pages/ExtensionInfo';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -147,6 +148,9 @@ function App({
             <Route path = "/extension-login">
               <ExtensionPopUp />
             </Route>
+            <Route path = "/extension-download">
+              <ExtensionInfo />
+            </Route>
             <Route exact path="/explore">
                     <Explore />
             </Route>
@@ -156,14 +160,10 @@ function App({
             <Route path = "/edit-profile">
               <EditBio/>
             </Route>
-            {/* 
-                Do not use dynamic routes under the root path
-                It is suggested that the project routing be modified
-                 */}
-                <Route exact path="/settings">
-                    <Setting />
-                </Route>
-                  <Redirect exact from="/" to="/home" />
+              <Route exact path="/settings">
+                  <Setting />
+              </Route>
+                <Redirect exact from="/" to="/home" />
             <Route exact path="/home" >
               {
                 isAuthenticated && user ? <Redirect to={`/blog/${user.alias}`} /> : 
