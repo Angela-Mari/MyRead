@@ -9,6 +9,8 @@ import browsing from "./Carousel/browsing.png";
 import blogging from "./Carousel/writing.png";
 import wave from "./Carousel/wave.png";
 import "./Home.css"
+import Explore from './Explore';
+import { Link, animateScroll as scroll } from "react-scroll";
 
 
 // Photo by Jess Loiterton from Pexels
@@ -27,7 +29,7 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
     }
   
     return (
-      <Container fluid={true} style={{padding:"0", margin:"0", overflow:"hidden"}}>
+      <Container fluid={true} style={{padding:"0", margin:"0", overflow:"-moz-hidden-unscrollable", overflow:"hidden"}}>
             <Row className="reg-cont justify-content-end" style={{marginTop:"0.5rem",marginRight:"0.5rem"}}>
                 <Col className="text-end" style={{marginTop:"0.50em"}}>
                     Your own blog in seconds.
@@ -50,23 +52,25 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     Log in
                 </Button>
             </Row>
-        <Container style={{marginTop:"40px", marginRight:"0", marginLeft:"0", padding:"0"}} fluid={true}>
+        <Container style={{marginTop:"40px", marginRight:"0", marginLeft:"0", padding:"0", overflow:"-moz-hidden-unscrollable", overflow:"hidden"}} fluid={true}>
+        {/* Title */}
         <Row className="float">
             <h1>
                 MyRead
             </h1>
-            <h2>
+            <h2 style={{marginTop:"-75px"}}>
                 blog as you surf
             </h2>
         </Row>
+
+        {/* Background images */}
         <Carousel controls={false} fade={true} indicators={false}>
             <Carousel.Item>
                 <img
                 className="crop"
                 src={pic1}
                 alt="Blog While You Surf"
-                />
-                
+                />  
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -82,15 +86,22 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 className="crop"
                 src={pic3}
                 alt="Blog While You Surf"
-                />
-
-                
+                />   
             </Carousel.Item>
             </Carousel>
+
+           {/* Pitch Cards */}
             <Row className ="pitch">
-            
-            <Col>
-                <Card className="text-center" style={{ maxWidth: '25rem' }}>
+            <Col xs={12} sm={3} lg={3} className="gx-1">
+                <Link
+                    activeClass="active"
+                    to="section1"
+                    spy={true}
+                    smooth={true}
+                    offset={-50}
+                    duration={200}
+                >
+                <Card className="text-center align-self-end" style={{ maxWidth: '25rem', minWidth: '20rem', height: '17rem', cursor:"pointer"}}>
                 <Card.Body>
                 <Card.Title >
                     <img
@@ -104,9 +115,11 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                     </Card.Text>
                 </Card.Body>
                 </Card>
+                </Link>
             </Col>
-            <Col>
-                <Card className="text-center" style={{ maxWidth: '25rem' }}>
+            
+            <Col xs={12} sm={3} lg={3} className="gx-1">
+                <Card className="text-center" onClick={e=> {handleClick("Register")}} style={{ maxWidth: '25rem', minWidth: '20rem', height: '17rem', cursor:"pointer"}}>
                 <Card.Body>
                     <Card.Title >
                     <img
@@ -121,8 +134,9 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card.Body>
                 </Card>
             </Col>
-            <Col>
-                <Card className="text-center" style={{ maxWidth: '25rem' }}>
+            
+            <Col xs={12} sm={3} lg={3} className="gx-1">
+                <Card className="text-center" style={{ maxWidth: '25rem', minWidth: '20rem',height: '17rem', cursor:"pointer"}}>
                 <Card.Body>
                     <Card.Title>                    
                     <img
@@ -138,7 +152,23 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 </Card>
             </Col>
             </Row>
+            {/* Explore Page */}
+            <Row style ={{marginTop:"17rem"}}>
+            
+            <Col>
+                <h2 id="section1" style = {{color:"DimGrey", marginLeft:"3rem", marginBottom:"0rem"}}>
+                    Browse the Best
+                </h2>
+                <Col style={{padding:"1.5rem"}}>
+                
+                <Explore/> 
+                </Col>
+            </Col>
+            </Row>
+            <Row>
+            </Row>
         </Container>
+        {/* Log in Modal */}
         <Row className="justify-content-md-center">
             <Col className="text-center">
             <AuthenticationModal email={email} setEmail={setEmail} password={password} setPassword={setPassword} show={show} handleClose={handleClose} firstName= {firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} alias={alias} setAlias={setAlias} phoneNumber={phoneNumber} setPhoneNumber = {setPhoneNumber} handleSubmit={handleSubmit} handleGoogleSubmit={handleGoogleSubmit} handleFacebookSubmit={handleFacebookSubmit} type={authenticationType}></AuthenticationModal>

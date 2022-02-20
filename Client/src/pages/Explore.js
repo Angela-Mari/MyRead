@@ -7,8 +7,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SmallPost from '../components/SmallPost';
 import BloggerCard from "../components/BloggerCard";
+import "./Explore.css";
+import { useHistory, useLocation } from "react-router";
 
-function Explore({getPosts, getAllUsers}) {
+function Explore({getPosts, getAllUsers}, place) {
+
+    const location = useLocation();
 
     const [posts, updatePosts] = useState([]);
     const [show, setShow] = useState(false);
@@ -30,6 +34,8 @@ function Explore({getPosts, getAllUsers}) {
             console.log(res)
             setShow(true);
         }) 
+        console.log(location.pathname)
+        
     }, [])
 
     const handleSelect=(e)=>{
@@ -57,16 +63,20 @@ function Explore({getPosts, getAllUsers}) {
         updateSearchPosts(searchArray)
         // console.log("done")
         console.log(searchPosts[0])
+        
     }
 
     return (
         <Container fluid={true}>
                 <Row>
+                    {location.pathname !== "/home"?
                     <h1 className="my-title">Explore</h1>
-                    <Row>
-                        
+                    :
+                    <></>
+                    }
+                    <Row className="align-items-center">
                         <Col xs={2}>
-                            <div className="d-flex justify-content-end">
+                        <div className="d-flex justify-content-end">
                         <DropdownButton
                         title={value}
                         id="dropdown-menu-align-right"
@@ -80,15 +90,15 @@ function Explore({getPosts, getAllUsers}) {
                         <Col xs={8}>
                         <input
                             type="text"
-                            style={{width:"100%", height:"40px"}}
+                            className="search-bar"
                             id="header-search"
                             placeholder={`Search ${value}`}
                             onChange={(e)=>{updateSearchTerms(e.currentTarget.value)}}
-                            name="s" 
+                            name="search" 
                         />
                         </Col>
                         <Col xs={2}>
-                        <Button onClick={handleSearch}>Search</Button>
+                        <Button onClick={handleSearch} className="rounded-pill">Search</Button>
                         </Col>
                     </Row>
                 </Row>
@@ -97,7 +107,7 @@ function Explore({getPosts, getAllUsers}) {
                     <Row xs={1} sm={2} lg={3}>
                     {searchPosts.map((post, i) => {
                         return (
-                        <Col>
+                        <Col className="gx-2 px-2">
                             <SmallPost key={i} picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
                         </Col>
                         )
@@ -108,7 +118,7 @@ function Explore({getPosts, getAllUsers}) {
                     <Row xs={1} sm={2} lg={3}>
                     {currators.map((currator, i) => {
                         return (
-                        <Col>
+                        <Col className="gx-2 px-2">
                            <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
                         </Col>
                         )
