@@ -1,10 +1,34 @@
 import { Container, Row, Col} from 'react-bootstrap';
+import { setAlert } from '../actions/alert';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
 import FacebookLogin from 'react-facebook-login';
 import "./ExtensionPopUp.css";
+import { login, register, loadUser } from '../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'; 
 
-function ExtensionPopUp({handleGoogleSubmit, handleFacebookSubmit,}){
+function ExtensionPopUp({ 
+    login, 
+    isAuthenticated, 
+    register, 
+    loadUser, 
+    setAlert,
+    auth: { user } 
+  }){
+
+    async function handleGoogleSubmit(g) {
+        console.log('inside handleGoogleSubmit');
+        console.log("in app: ", g);
+        await login(g.getEmail(), g.getId());
+      }
+        
+      async function handleFacebookSubmit(fb) {
+        console.log('inside handleFacebookSubmit');
+        console.log('in app: ', fb);
+        //set email and password
+        await login(fb.email, fb.id);
+      }
 
     const responseFacebook = (response) => {
         console.log(response);
@@ -53,4 +77,21 @@ function ExtensionPopUp({handleGoogleSubmit, handleFacebookSubmit,}){
     )
 }
 
-export default ExtensionPopUp;
+ExtensionPopUp.propTypes = {
+    login: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+    setAlert: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+});
+
+export default connect(mapStateToProps, {
+    login,
+    register,
+    loadUser,
+    setAlert,
+})(ExtensionPopUp);
