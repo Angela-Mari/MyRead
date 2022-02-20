@@ -5,8 +5,8 @@ import ExtensionDemo from './Carousel/extension-demo.jpg';
 
 function ExtensionInfo(){
     return(
-        <Container style={{paddingTop:"2rem"}}>
-            <Row>
+        <div style={{padding:"2rem"}}>
+        <Row style={{width:"100%"}} className='justify-content-center'>
         <Col md={8}>
             <img src={ExtensionDemo} width={"100%"}></img>
         </Col>
@@ -16,7 +16,7 @@ function ExtensionInfo(){
         <Button disabled>Get the browser button now</Button>
         </Col>
         </Row>
-        </Container>
+        </div>
     )
 }
 
