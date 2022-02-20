@@ -22,6 +22,7 @@ import NewPost from './components/NewPost';
 import EditBio from './pages/EditBio';
 import setAuthToken from './utils/setAuthToken';
 import store from './store';
+import ExtensionPopUp from './pages/ExtensionPopUp';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -135,13 +136,16 @@ function App({
 
   return(
     <>      
-     {location.pathname !== "/home" && location.pathname !== "/" && <MyNav/>}
+     {location.pathname !== "/home" && location.pathname !== "/" && location.pathname !== "/extension-login" && <MyNav/>}
      <Alert />
       {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
             <Route path = "/privacy-policy"> 
                 <Privacy />
+            </Route>
+            <Route path = "/extension-login">
+              <ExtensionPopUp />
             </Route>
             <Route exact path="/explore">
                     <Explore />
