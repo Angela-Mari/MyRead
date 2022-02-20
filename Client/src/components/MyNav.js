@@ -24,7 +24,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
         <Navbar className="my-nav" expand="lg">
             {isAuthenticated ? (
                 <Link to={"/home"} style={{ textDecoration: "none" }}>
-                    <Navbar.Brand className="my-brand">MyRead <span style={{color:"#000000"}}><i><b>CURATOR MODE</b></i></span></Navbar.Brand>
+                    <Navbar.Brand className="my-brand"><b>MyRead</b></Navbar.Brand>
                 </Link>
             ) : (
                 <Link to={"/home"} style={{ textDecoration: "none" }}>
@@ -36,16 +36,16 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
             {
                 isAuthenticated ? 
                 <> 
-                <Navbar.Text style={{color:"white", paddingRight:"1rem"}}>
-                    Welcome {user.firstName} {user.lastName}    
+                <Navbar.Text style={{color:"white", paddingRight:"1rem", fontSize:"1.2rem", fontWeight:"bold"}}>
+                    Curator {user.firstName} {user.lastName}    
                 </Navbar.Text>
                 
                 <Nav.Link>
-                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white"}}>
+                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.2rem", fontWeight:"bold"}}>
                     Explore
                 </Link>
                 </Nav.Link>
-                <NavDropdown title="Curator Tools" id="collasible-nav-dropdown">
+                <NavDropdown title="Curator Tools" id="collasible-nav-dropdown" style={{fontSize:"1.2rem", fontWeight:"bold"}}>
                     <NavDropdown.Item>
                         <Link to="/create-post" style={{textDecoration:"none",color:"black"}}>
                             Create New Post
@@ -64,7 +64,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                         </Link>
                     </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link onClick={(e) => {frontlogout(e)}} style={{color:"white"}}>
+                <Nav.Link onClick={(e) => {frontlogout(e)}} style={{color:"white", fontSize:"1.2rem", fontWeight:"bold"}}>
                         Logout
                 </Nav.Link> 
                 </>

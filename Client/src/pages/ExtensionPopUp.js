@@ -49,7 +49,7 @@ function ExtensionPopUp({
             <Container>
             <Row className="align-items-center text-center justify-content-center" style={{paddingTop:"5rem"}}>
                
-            <h1 style={{paddingBottom:"1rem"}}>MyRead</h1>
+            <h1 className="ext-h1" style={{paddingBottom:"1rem"}}>MyRead</h1>
             <p>Click below to log into MyRead via facebook or google</p>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
