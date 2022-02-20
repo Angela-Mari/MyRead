@@ -18,7 +18,7 @@ function SmallPost({picture, title, text, link, likes, key, category, comments, 
     return (
         // <a className="post-link" href={link} target="_blank">
         <Container>
-            <Card border="dark" className="p-2 mb-3 bg-white rounded myshadow" style={{height:"9rem"}}>
+            <Card className="p-2 mb-3 bg-white rounded myshadow" style={{height:"9rem"}}>
             <Row>
             <Col className="col-sm-auto">
             <img src={picture !== "" && picture !== undefined? picture: tempPic} width="100" height="125" style={{objectFit:"cover"}}/>

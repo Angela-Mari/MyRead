@@ -106,7 +106,7 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
             await addPost(validForm).then(res => (
                 uploadPostPicture(images[0], res._id)
             ))
-            history.push(`/blog/${user.alias}`);
+            // history.push(`/blog/${user.alias}`);
         }
  
     }

@@ -46,7 +46,7 @@ function Post({picture, deletePost, addLike, title, text, link, likes, category,
     return (
         // <a className="post-link" href={link} target="_blank">
         <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
-            <Card border="dark" className="p-3 mb-5 bg-white rounded ">
+            <Card className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
             <img src={picture!== "" && picture !== undefined? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
