@@ -2,12 +2,9 @@ import { Container, Row, Col} from 'react-bootstrap';
 import React from 'react';
 import GoogleBtn from '../external-logins/GoogleBtn';
 import FacebookLogin from 'react-facebook-login';
-import { login } from '../actions/auth';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import "./ExtensionPopUp.css";
 
-function ExtensionPopUp({login, handleGoogleSubmit, handleFacebookSubmit,}){
+function ExtensionPopUp({handleGoogleSubmit, handleFacebookSubmit,}){
 
     const responseFacebook = (response) => {
         console.log(response);
@@ -56,15 +53,4 @@ function ExtensionPopUp({login, handleGoogleSubmit, handleFacebookSubmit,}){
     )
 }
 
-ExtensionPopUp.propTypes = {
-    login: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    auth: state.auth,
-});
-
-export default connect(mapStateToProps, {
-    login
-})(ExtensionPopUp);
+export default ExtensionPopUp;
