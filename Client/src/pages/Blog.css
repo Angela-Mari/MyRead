@@ -1,11 +1,20 @@
 .my-header {
-    border-bottom: 2px #6baeec solid;
-    color: #6baeec;
-    font-family: 'Yeseva One', cursive;
-    margin-top: 1rem;
     padding-bottom: 1rem;
+    padding-top: .5rem;
+    height: 75px;
     padding-left: 1.5rem;
     text-align: center;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightGrey;
 }
 
-
+.btm-nav {
+    width: 110%;
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    line-height: 3;
+    text-align: center;
+    margin-left: -1rem;
+    background-image: linear-gradient(to top, lightgray, smokeWhite, rgba(255,0,0,0), rgba(255,0,0,0));
+}

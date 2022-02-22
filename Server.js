@@ -18,6 +18,8 @@ app.use('/api/users', require('./Server/routes/api/users'));
 app.use('/api/auth', require('./Server/routes/api/auth'));
 app.use('/api/posts', require('./Server/routes/api/posts'));
 app.use('/api/twofa', require('./Server/routes/api/twofa'));
+app.use('/api/image', require('./Server/routes/api/image'));
+app.use('/api/postimage', require('./Server/routes/api/postimage'));
 
 if (process.env.NODE_ENV === 'production') {
     console.log("Running in production mode");

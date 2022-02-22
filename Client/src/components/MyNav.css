@@ -1,9 +1,11 @@
 .my-nav {
-    background-color: #437eb6;
+    background-image: url("../pages/Carousel/nav-cropped.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .my-brand {
-    font-family: 'Yeseva One', cursive;
+    /* font-family: 'Yeseva One', cursive; */
     font-size: 2rem;
     margin-left: 1rem;
     color: white !important;
@@ -12,3 +14,4 @@
 #collasible-nav-dropdown {
     color:white;
 }
+

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Col, Button, FloatingLabel } from "react-bootstrap";
-import "../assets/css/edit.css";
+// import "../assets/css/edit.css";
 function Edit(props) {
     console.log(props);
     const { userinfo, setbioObj } = props;
@@ -25,7 +25,7 @@ function Edit(props) {
         setbioObj(info);
     };
     return (
-        <Col md={4}>
+        <div className="edit">
             <div className="forms">
                 <div className="title mt10">
                     <div>Edit profile</div>
@@ -75,7 +75,7 @@ function Edit(props) {
                     Save
                 </Button>
             </Form>
-        </Col>
+        </div>
     );
 }
 

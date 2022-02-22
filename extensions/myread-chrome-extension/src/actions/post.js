@@ -54,50 +54,10 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-// Get a Certain User's Posts
+// Get User Posts
 export const getUserPosts = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`${getDevPrefix()}/api/posts/${userId}`)
-    // const res = await axios.get(getDevPrefix() + '/api/posts');
-
-    dispatch({
-      type: GET_POSTS,
-      payload: res.data,
-    });
-    return res.data;
-  } catch (err) {
-    dispatch({
-      type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-    return err;
-  }
-};
-
-// Get a Certain User's Posts Under a Certain Category
-export const getUserPostsByCategory = (userId, category) => async (dispatch) => {
-  try {
-    const res = await axios.get(`${getDevPrefix()}/api/posts/${userId}/${category}`)
-    // const res = await axios.get(getDevPrefix() + '/api/posts');
-
-    dispatch({
-      type: GET_POSTS,
-      payload: res.data,
-    });
-    return res.data;
-  } catch (err) {
-    dispatch({
-      type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-    return err;
-  }
-};
-
-// Get All Posts Under a Certain Category
-export const getCategoryPosts = (category) => async (dispatch) => {
-  try {
-    const res = await axios.get(`${getDevPrefix()}/api/posts/${category}`)
     // const res = await axios.get(getDevPrefix() + '/api/posts');
 
     dispatch({

@@ -39,7 +39,7 @@ router.post(
 // @route   GET api/posts
 // @desc    Get all posts
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
     res.json(posts);
@@ -52,11 +52,52 @@ router.get('/', auth, async (req, res) => {
 // @route   GET api/posts/:userId
 // @desc    Get all posts
 // @access  Private
-router.get('/:userId', auth, async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
     var userId = req.params.userId;
     const posts = await Post.find({ user: userId });
     res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/posts/:userId/:category
+// @desc    Get all posts
+// @access  Private
+router.get('/:userId/:category', auth, async (req, res) => {
+  try {
+    var userId = req.params.userId;
+    var category = req.params.category;
+    const posts = await Post.find({ user: userId });
+    var categoryPosts = [];
+    posts.forEach(function(post) {
+      if (post.category == category) {
+        categoryPosts.push(post);
+      }
+    });
+    res.json(categoryPosts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/posts/:category
+// @desc    Get all posts
+// @access  Private
+router.get('/:category', auth, async (req, res) => {
+  try {
+    var category = req.params.category;
+    const posts = await Post.find({});
+    var categoryPosts = [];
+    posts.forEach(function(post) {
+      if (post.category == category) {
+        categoryPosts.push(post);
+      }
+    });
+    res.json(categoryPosts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

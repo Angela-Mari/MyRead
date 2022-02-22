@@ -1,5 +1,5 @@
 import { Container} from 'react-bootstrap';
-import React, { useState } from 'react';
+import React from 'react';
 
 function Privacy(){
     return(

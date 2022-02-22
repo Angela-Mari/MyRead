@@ -86,6 +86,7 @@ export const register = (
       });
   
       dispatch(loadUser());
+      dispatch(setAlert("Successful Registration 🎉🎉🎉", 'success'));
     } catch (err) {
       const errors = err.response.data.errors;
   
@@ -119,14 +120,15 @@ export const login = (email, password) => async (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
-  
       dispatch(loadUser());
+      dispatch(setAlert("Successful Login 🎉🎉🎉", 'success'));
     } catch (err) {
-      const errors = err.response.data.errors;
+      // const errors = err.response.data.errors;
+      // // return errors;
   
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      }
+      // if (errors) {
+      //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      // }
   
       dispatch({
         type: LOGIN_FAIL,
@@ -176,8 +178,64 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-  export const logout = () => async (dispatch) => {
-    dispatch({
-      type: LOGOUT,
+// Get Posts
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};
+
+export const uploadProfilePicture = (file) => async (dispatch) => {
+  try {
+    console.log("in profile upload")
+    console.log(file)
+    var result = await axios.get(getDevPrefix() + '/api/image');
+    console.log(result.data);
+    const response = await fetch(result.data, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+      'Cache-Control': 'no-store max-age=0',
+      'Content-Type': file.type,
+      'x-ms-date': new Date().toUTCString(),
+      'x-ms-version': '2020-04-08',
+      'x-ms-blob-type': 'BlockBlob'
+      },
+      body: file, // body data type must match "Content-Type" header
     });
-  };
+    await axios.post(getDevPrefix() + '/api/image');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const uploadPostPicture = (file, postId) => async (dispatch) => {
+  try {
+    console.log("in post upload")
+    console.log(file)
+    var result = await axios.get(getDevPrefix() + '/api/postimage/' + postId);
+    console.log(result.data);
+    const response = await fetch(result.data, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+      'Cache-Control': 'no-store max-age=0',
+      'Content-Type': file.type,
+      'x-ms-date': new Date().toUTCString(),
+      'x-ms-version': '2020-04-08',
+      'x-ms-blob-type': 'BlockBlob'
+      },
+      body: file, // body data type must match "Content-Type" header
+    });
+    await axios.post(getDevPrefix() + '/api/postimage/' + postId);
+  } catch (error) {
+    console.log(error);
+  }
+};
