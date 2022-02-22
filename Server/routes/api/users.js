@@ -107,10 +107,12 @@ router.post(
 // @desc    Add a category to a user
 // @access  Private
 router.put('/category', auth, async (req, res) => {
-    const newCategory = req.body.category;
+    const newCategorys = req.body.category;
     try {
       const user = await User.findOne({ _id: req.user.id });
-      user.categories.unshift(newCategory);
+      for(const category in newCategorys) {
+        user.categories.unshift(newCategorys[category]);
+      }
       await user.save();
       res.json(user);
     } catch (err) {
