@@ -89,12 +89,19 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
         if (validate()){
             var validForm = formData
 
-            for (category in validForm.category) {
+            let newCategories = []
+            for (const category in validForm.category) {
                 if (!user.categories.includes(category))
                 {
-                    console.log("new category")
-                    await addCategory(category)
+                    console.log(category)
+                    newCategories.push(category) 
+                    
                 }
+            }
+            if (newCategories.length > 0){
+                console.log("new category")
+                console.log(newCategories)
+                await addCategory(newCategories)
             }
                         
             setFormData(formData => ({...formData, picture: ""}))
@@ -102,7 +109,7 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
             await addPost(validForm).then(res => (
                 uploadPostPicture(images[0], res._id)
             ))
-            history.push(`/blog/${user.alias}`);
+            // history.push(`/blog/${user.alias}`);
         }
  
     }
