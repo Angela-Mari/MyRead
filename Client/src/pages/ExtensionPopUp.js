@@ -21,7 +21,6 @@ function ExtensionPopUp({
         console.log('inside handleGoogleSubmit');
         console.log("in app: ", g);
         await login(g.getEmail(), g.getId());
-        closePopup();
       }
         
       async function handleFacebookSubmit(fb) {
@@ -29,7 +28,6 @@ function ExtensionPopUp({
         console.log('in app: ', fb);
         //set email and password
         await login(fb.email, fb.id);
-        closePopup();
       }
 
     const responseFacebook = (response) => {
@@ -43,13 +41,6 @@ function ExtensionPopUp({
         
         console.log('FACEBOOK login successful: ', response)
         handleFacebookSubmit(response); 
-      };
-
-      const closePopup = () => {
-        setTimeout(function(){
-          //do what you need here
-          window.close("https://my-read-08.herokuapp.com/extension-login")
-        }, 2000);
       };
 
 
