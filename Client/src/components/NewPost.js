@@ -90,11 +90,12 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
             var validForm = formData
 
             let newCategories = []
-            for (const category in validForm.category) {
-                if (!user.categories.includes(category))
+            console.log(validForm.category)
+            for (let i = 0; i < validForm.category.length; i++) {
+                if (!user.categories.includes(validForm.category[i]))
                 {
-                    console.log(category)
-                    newCategories.push(category) 
+                    console.log(validForm.category[i])
+                    newCategories.push(validForm.category[i]) 
                     
                 }
             }
