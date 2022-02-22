@@ -28,7 +28,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { firstName, lastName, email, alias, password, phoneNumber } = req.body;
+    const { firstName, lastName, email, alias, password, phoneNumber, socials } = req.body;
 
     try {
       // See if the user exists
@@ -42,6 +42,20 @@ router.post(
 
       var bio = "Enter a bio here";
       var categories = ["Other"];
+      var instagram = "https://www.instagram.com";
+      var facebook = "https://www.facebook.com";
+      var other = "https://www.google.com";
+      if (socials) {
+        if (socials.instagram) {
+          instagram = socials.instagram;
+        }
+        if (socials.facebook) {
+          facebook = socials.facebook;
+        }
+        if (!socials.other) {
+          other = socials.other;
+        }
+      }
 
       user = new User({
         firstName,
@@ -51,6 +65,7 @@ router.post(
         password,
         phoneNumber,
         bio,
+        socials: {instagram, facebook, other},
         categories,
       });
 
@@ -71,8 +86,8 @@ router.post(
 
       jwt.sign(
         payload,
-        // config.get('jwtSecret'), //FOR LOCALHOST
-        process.env.JWTSECRET, //FOR HEROKU
+        config.get('jwtSecret'), //FOR LOCALHOST
+        // process.env.JWTSECRET, //FOR HEROKU
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
