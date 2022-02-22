@@ -88,25 +88,21 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
         event.preventDefault();
         if (validate()){
             var validForm = formData
-            if (!formData.url.includes('www.')){
-                console.log("adding www.")
-                validForm.url = "www." + validForm.url
+
+            for (category in validForm.category) {
+                if (!user.categories.includes(category))
+                {
+                    console.log("new category")
+                    await addCategory(category)
+                }
             }
-            if (validForm.url.startsWith('www')){
-                console.log("adding http://")
-                validForm.url = "http://" + validForm.url
-            }
-            if (!user.categories.includes(validForm.category)){
-                await addCategory(validForm.category)
-            }
-            console.log(validForm)
-            
+                        
             setFormData(formData => ({...formData, picture: ""}))
             console.log(images[0])
             await addPost(validForm).then(res => (
                 uploadPostPicture(images[0], res._id)
             ))
-            // history.push(`/blog/${user.alias}`);
+            history.push(`/blog/${user.alias}`);
         }
  
     }
