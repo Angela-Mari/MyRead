@@ -59,9 +59,6 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers}) {
                     {show && <Categories dataUser={dataUser}></Categories>}
                     {show && <RecentPosts dataUser={dataUser}></RecentPosts>}
                 </Row>
-            <div className="btm-nav">
-                <p>Blog as you surf</p>
-            </div>
             </Container>
         </>
     );

@@ -18,16 +18,16 @@ function Bio({dataUser}) {
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
                 
-                <img onClick={e => {window.location.href = dataUser.socials.facebook}} src={fb} height="40px" width="40px" className="socials"/>
+                <img onClick={e => {window.location.href = dataUser.socials.facebook}} src="https://img.icons8.com/plasticine/100/000000/facebook-new.png" height="60px" width="60px" className="socials"/>
               
                 </Col>
                 <Col className="col-sm-auto">
  
-                <img onClick={e => {window.location.href = dataUser.socials.instagram}} src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" height="45px" width="45px" className="socials"/>
+                <img onClick={e => {window.location.href = dataUser.socials.instagram}} src="https://img.icons8.com/plasticine/100/000000/instagram.png" height="60px" width="60px" className="socials"/>
         
                 </Col>
                 <Col className="col-sm-auto">
-                <img src="https://img.icons8.com/flat-round/48/000000/link--v1.png" height="40px" width="40px" className="socials"/>
+                <img src="https://img.icons8.com/plasticine/100/000000/link.png" height="60px" width="60px" className="socials"/>
                 </Col>
                 
             </Row>

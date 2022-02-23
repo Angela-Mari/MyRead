@@ -18,7 +18,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
     getUserPosts(dataUser._id).then(
         res => {
           setPosts(res.slice(0).reverse())
-          console.log(posts)
+          console.log(res)
           setShowPosts(true)
         }
       )
@@ -34,7 +34,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
               <div>
                   {
                     posts.map((post) => (
-                      <Post picture = {post.picture} title = {post.title} text = {post.description} categories={post.categories} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                      <Post picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
               </div>}

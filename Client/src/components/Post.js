@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
-function Post({picture, deletePost, addLike, title, text, link, likes, categoies, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
+function Post({picture, deletePost, addLike, title, text, link, likes, categories, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
 
     console.log(categories)
     //TODO: only delete if you are authenticated
@@ -63,21 +63,57 @@ function Post({picture, deletePost, addLike, title, text, link, likes, categoies
                     </h3>
                 </Col>
                 <Col className="col-sm-auto">
+               { categories.map((category) => (
+                      
+                <>
                 <Badge pill bg="primary" style={{fontSize:"1.2em"}}>
                     {category}
                 </Badge>
+                 {' '}
+                </>))
+                }
                 </Col>
                 </Row>
                 <div>
                     {text}
                 </div>
-                <div style={{marginTop:"0.5rem"}}>
-                    Source: {getSource()}
+                <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = link}}>
+                    Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
                 </div>
-                <Row className="bottom">
-                    <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="35px" weight="35px"/></Button>
-                    <Button variant="Link" style={{width:"100px"}} onClick={e => handleLike(e)}><span style={{fontSize:"2rem"}}>{likes !== undefined && likes.length > 0? likes.length : ""}</span> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="35px" weight="35px" style={{marginBottom:"0.5rem"}}/></Button>
-                    {isAuthenticated && <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>} 
+                <Row className="bottom justify-content-end">
+                    <Col xs={2}>
+                    <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                    </Col>
+                    <Col xs={2}>
+                    <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
+                    </Col>
+                    {isAuthenticated && 
+                    <>
+                    <Col xs={2}>
+                        
+                        
+                            {likes !== undefined && likes.length > 0? 
+                            <Row className="justify-content-center text-end">
+                            <Col xs={6} style={{marginTop:".5rem", marginRight:"-1rem", fontWeight:"bold"}} >
+                            {likes.length}
+                            </Col> 
+                            <Col xs={6} >
+                            <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginBottom:"0.5rem"}}/></Button>
+                            </Col>
+                            </Row>
+                            : 
+                            
+                            <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginBottom:"0.5rem"}}/></Button>
+                            
+                            }
+                        
+                        
+                    </Col>
+                    <Col xs={2}>
+                    <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>
+                    </Col>
+                    </>
+                    } 
                 </Row>
             </Col>
             </Row>
