@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
-function Post({picture, deletePost, addLike, title, text, link, likes, categories, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
 
+function Post({dataUser, picture, deletePost, addLike, title, text, link, likes, categories, comments, id, updatePosts, setUpdatePosts, isAuthenticated, auth: { user } }) {
+
+    
     console.log(categories)
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
@@ -81,14 +83,15 @@ function Post({picture, deletePost, addLike, title, text, link, likes, categorie
                     Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
                 </div>
                 <Row className="bottom justify-content-end">
-                    <Col xs={2}>
-                    <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
-                    </Col>
-                    <Col xs={2}>
-                    <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
-                    </Col>
-                    {isAuthenticated && 
+                    
+                    {isAuthenticated?
                     <>
+                    <Col xs={2}>
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                        </Col>
+                        <Col xs={2}>
+                            <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
+                        </Col>
                     <Col xs={2}>
                         
                         
@@ -110,9 +113,23 @@ function Post({picture, deletePost, addLike, title, text, link, likes, categorie
                         
                     </Col>
                     <Col xs={2}>
+                        {
+                            dataUser.alias === user.alias?
                     <Button variant="Link" style={{width:"40px"}} onClick={e => handleDelete(e)}><img src="https://img.icons8.com/pastel-glyph/64/000000/trash.png" height="25px" weight="25px"/></Button>
+                        :
+                        <></>
+                }
                     </Col>
                     </>
+                    :
+                    <Row class="justify-content-center">
+                        <Col xs={6}>
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                        </Col>
+                        <Col xs={6}>
+                            <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
+                        </Col>
+                    </Row>
                     } 
                 </Row>
             </Col>

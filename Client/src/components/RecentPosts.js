@@ -34,7 +34,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
               <div>
                   {
                     posts.map((post) => (
-                      <Post picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                      <Post dataUser = {dataUser} picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
               </div>}
