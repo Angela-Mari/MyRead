@@ -10,7 +10,7 @@ function BloggerCard({picture, name, bio, alias, key}) {
         
         <Link to={`/blog/${alias}`} style={{ textDecoration: "none", color: "black"}}>
         <Container key = {key}>
-            <Card border="dark" className="p-2 mb-3 bg-white rounded myshadow" >
+            <Card  className="p-2 mb-3 bg-white rounded myshadow" >
             <Row>
             <Col className="col-sm-auto">
             <img src={picture !== "" && picture !== undefined? picture: tempPic} width="75" height="75" style={{objectFit:"cover", borderRadius:"50%"}}/>

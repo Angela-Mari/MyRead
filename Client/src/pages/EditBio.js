@@ -63,9 +63,10 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
             var blogUrl = getUrl .protocol + "//" + getUrl.host + "/" + "blog/" + user.alias;
             console.log(blogUrl)
             await uploadProfilePicture(images[0], 1);
+
             console.log(formData.bio)
             await updateBio(formData.bio)
-            // refresh
+            history.push(`/blog/${user.alias}`);
         }
     }
 

@@ -18,6 +18,7 @@ function Explore({getPosts, getAllUsers}, place) {
     const [show, setShow] = useState(false);
     const [value, setValue] = useState('Posts');
     const [searchPosts, updateSearchPosts] = useState([]);
+    const [searchBlogs, updateSearchBlogs] = useState([]);
     const [searchTerms, updateSearchTerms] = useState("");
     const [currators, updateCurrators] = useState([]);
 
@@ -30,20 +31,22 @@ function Explore({getPosts, getAllUsers}, place) {
         })
         getAllUsers().then(res => {
             updateCurrators(res)
+            updateSearchBlogs(res)
             console.log("currators")
             console.log(res)
             setShow(true);
         }) 
-        console.log(location.pathname)
         
     }, [])
 
     const handleSelect=(e)=>{
         console.log(e);
         setValue(e)
+        updateSearchTerms("")
     }
 
     function handleSearch(e) {
+        if (value=="Posts"){
         updateSearchPosts([])
         console.log("searching..." + searchTerms)
         if (searchTerms === ""){
@@ -63,6 +66,34 @@ function Explore({getPosts, getAllUsers}, place) {
         updateSearchPosts(searchArray)
         // console.log("done")
         console.log(searchPosts[0])
+    }
+    else{
+        updateSearchBlogs([])
+        console.log("searching..." + searchTerms)
+        if (searchTerms === ""){
+            updateSearchBlogs(currators)
+        }
+        const searchArray = []
+        currators.forEach(element => {
+            // console.log(element.title)
+            if (element.alias.toLowerCase().includes(searchTerms.toLowerCase())){
+                // console.log("true")
+                searchArray.push(element)
+            }
+            else if (element.firstName.toLowerCase().includes(searchTerms.toLowerCase())){
+                searchArray.push(element)
+                
+            }
+            else if (element.lastName.toLowerCase().includes(searchTerms.toLowerCase())){
+                searchArray.push(element)
+                
+            }
+        
+        });
+        updateSearchBlogs(searchArray)
+        // console.log("done")
+        console.log(searchBlogs[0])
+    }
         
     }
 
@@ -93,6 +124,7 @@ function Explore({getPosts, getAllUsers}, place) {
                             className="search-bar"
                             id="header-search"
                             placeholder={`Search ${value}`}
+                            value={searchTerms}
                             onChange={(e)=>{updateSearchTerms(e.currentTarget.value)}}
                             name="search" 
                         />
@@ -108,7 +140,7 @@ function Explore({getPosts, getAllUsers}, place) {
                     {searchPosts.map((post, i) => {
                         return (
                         <Col className="gx-2 px-2">
-                            <SmallPost key={i} picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} />
+                            <SmallPost key={i} picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} alias={post.alias} userPicture={post.userPicture} />
                         </Col>
                         )
                     })}
@@ -116,7 +148,7 @@ function Explore({getPosts, getAllUsers}, place) {
                     :
                     show && value == "Blogs"?
                     <Row xs={1} sm={2} lg={3}>
-                    {currators.map((currator, i) => {
+                    {searchBlogs.map((currator, i) => {
                         return (
                         <Col className="gx-2 px-2">
                            <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>

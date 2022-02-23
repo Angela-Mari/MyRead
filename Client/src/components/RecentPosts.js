@@ -6,7 +6,6 @@ import { getAllUsers } from '../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
-import background from "../pages/Carousel/pexels-jess-loiterton-4319752.jpg";
 
 function RecentPosts({getUserPosts, dataUser, show}) { 
   const [updatePosts, setUpdatePosts] = useState({});
@@ -19,7 +18,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
     getUserPosts(dataUser._id).then(
         res => {
           setPosts(res.slice(0).reverse())
-          console.log(posts)
+          console.log(res)
           setShowPosts(true)
         }
       )
@@ -35,7 +34,7 @@ function RecentPosts({getUserPosts, dataUser, show}) {
               <div>
                   {
                     posts.map((post) => (
-                      <Post picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                      <Post dataUser = {dataUser} picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
               </div>}

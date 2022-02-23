@@ -20,7 +20,7 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
         if (isAuthenticated){
             // loadUser()
 
-            if ( username == user.alias ){
+            if ( username === user.alias ){
                 setDataUser(user)
                 getUserPosts(user._id).then(res=> updateCategoryPosts(res.slice(0)
                 .reverse().filter(function (post) {return post.category.includes(category)})))
@@ -48,7 +48,7 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
                     if (element.alias === username){
                         setDataUser(element)
                         getUserPosts(element._id).then(res=> updateCategoryPosts(res.slice(0)
-                        .reverse().filter(function (post) {return post.category === category})));
+                        .reverse().filter(function (post) {return post.category.includes(category)})));
                     }
                 });
                 setShow(true);
@@ -70,7 +70,8 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
             {
             categoryPosts !== undefined?
                 categoryPosts.map((post) => 
-                <Post title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={categoryPosts} setUpdatePosts={updateCategoryPosts}/> )
+                <Post dataUser={dataUser} picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} > </Post>
+                )
             :
             <></>
             }

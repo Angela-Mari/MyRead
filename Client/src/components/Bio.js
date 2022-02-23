@@ -1,6 +1,6 @@
 import React from "react";
 import "./Bio.css";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
 import fb from "./static_images/f_logo_RGB-Blue_72.png"
 
@@ -17,13 +17,17 @@ function Bio({dataUser}) {
             <p className="introInfo mt10">{dataUser.bio}</p>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
-                <img src={fb} height="40px" width="40px"/>
+                
+                <img onClick={e => {window.location.href = dataUser.socials.facebook}} src="https://img.icons8.com/plasticine/100/000000/facebook-new.png" height="60px" width="60px" className="socials"/>
+              
                 </Col>
                 <Col className="col-sm-auto">
-                <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" height="45px" width="45px"/>
+ 
+                <img onClick={e => {window.location.href = dataUser.socials.instagram}} src="https://img.icons8.com/plasticine/100/000000/instagram.png" height="60px" width="60px" className="socials"/>
+        
                 </Col>
                 <Col className="col-sm-auto">
-                <img src="https://img.icons8.com/flat-round/48/000000/link--v1.png" height="40px" width="40px"/>
+                <img src="https://img.icons8.com/plasticine/100/000000/link.png" height="60px" width="60px" className="socials"/>
                 </Col>
                 
             </Row>

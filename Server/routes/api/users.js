@@ -28,7 +28,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { firstName, lastName, email, alias, password, phoneNumber } = req.body;
+    const { firstName, lastName, email, alias, password, phoneNumber, socials } = req.body;
 
     try {
       // See if the user exists
@@ -42,6 +42,20 @@ router.post(
 
       var bio = "Enter a bio here";
       var categories = ["Other"];
+      var instagram = "https://www.instagram.com";
+      var facebook = "https://www.facebook.com";
+      var other = "https://www.google.com";
+      if (socials) {
+        if (socials.instagram) {
+          instagram = socials.instagram;
+        }
+        if (socials.facebook) {
+          facebook = socials.facebook;
+        }
+        if (!socials.other) {
+          other = socials.other;
+        }
+      }
 
       user = new User({
         firstName,
@@ -51,6 +65,7 @@ router.post(
         password,
         phoneNumber,
         bio,
+        socials: {instagram, facebook, other},
         categories,
       });
 
@@ -92,10 +107,12 @@ router.post(
 // @desc    Add a category to a user
 // @access  Private
 router.put('/category', auth, async (req, res) => {
-    const newCategory = req.body.category;
+    const newCategorys = req.body.category;
     try {
       const user = await User.findOne({ _id: req.user.id });
-      user.categories.unshift(newCategory);
+      for(const category in newCategorys) {
+        user.categories.unshift(newCategorys[category]);
+      }
       await user.save();
       res.json(user);
     } catch (err) {

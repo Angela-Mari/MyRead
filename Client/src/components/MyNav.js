@@ -1,10 +1,11 @@
 import React from 'react';
-import { Navbar,Nav, NavDropdown} from 'react-bootstrap';
+import { Navbar,Nav, NavDropdown, Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser, logout } from '../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import "./MyNav.css"
+import PaypalImage from "../pages/Carousel/paypal.png";
 
 function MyNav({logout, auth: { user }, isAuthenticated}) {
     
@@ -45,6 +46,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                     Explore
                 </Link>
                 </Nav.Link>
+               
                 <NavDropdown title="Curator Tools" id="collasible-nav-dropdown" style={{fontSize:"1.2rem", fontWeight:"bold"}}>
                     <NavDropdown.Item>
                         <Link to="/create-post" style={{textDecoration:"none",color:"black"}}>
@@ -64,20 +66,35 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                         </Link>
                     </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link onClick={(e) => {frontlogout(e)}} style={{color:"white", fontSize:"1.2rem", fontWeight:"bold"}}>
+                
+                <Button className="rounded-pill" style={{width:"40px", backgroundColor:"#f4ca43", color:"#242b9b"}} onClick={e => {window.location.href = "https://www.paypal.com/donate/?hosted_button_id=NFWC9PWNSDWBA"}}>Donate<img src={PaypalImage} height="35px" weight="35px"/>
+                </Button>
+                <Button 
+                    style={{width:"fit-content", marginRight:"0.5rem", background:"white", color:"black"}}
+                    className="rounded-pill"
+                    variant="primary"
+                    onClick={(e) => {frontlogout(e)}} >
                         Logout
-                </Nav.Link> 
+                </Button>
                 </>
                 :
                 <>
                 <Nav.Link>
-                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white"}}>
+                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.2rem", fontWeight:"bold"}}>
                     Explore
                 </Link>
                 </Nav.Link>
-                <Nav.Link onClick={login} style={{textDecoration:"none",color:"white"}}>
-                    Login
-                </Nav.Link>
+
+                <Button className="rounded-pill" style={{width:"40px", backgroundColor:"#f4ca43", color:"#242b9b"}} onClick={e => {window.location.href = "https://www.paypal.com/donate/?hosted_button_id=NFWC9PWNSDWBA"}}>Donate<img src={PaypalImage} height="35px" weight="35px"/>
+                </Button>
+            
+                <Button 
+                    style={{width:"fit-content", marginRight:"0.5rem", background:"white", color:"black"}}
+                    className="rounded-pill"
+                    variant="primary"
+                    onClick={login}  >
+                        Login
+                </Button>
                 </>
             }
             </Nav>
