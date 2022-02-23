@@ -32,10 +32,11 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                     <Navbar.Brand className="my-brand">MyRead</Navbar.Brand>
                 </Link>
             )}
+
             <Navbar.Collapse className="justify-content-end">
                 <Nav >
             {
-                isAuthenticated ? 
+                isAuthenticated && user !== null ? 
                 <> 
                 <Navbar.Text style={{color:"white", paddingRight:"1rem", fontSize:"1.2rem", fontWeight:"bold"}}>
                     Curator {user.firstName} {user.lastName}    
