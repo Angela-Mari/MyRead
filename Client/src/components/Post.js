@@ -32,15 +32,18 @@ function Post({picture, deletePost, addLike, title, text, link, likes, category,
     }
 
     function getSource(){
-        // if (link !== undefined) {
-        // let arr1 = link.split(":")
-        // let arr2 = arr1[1].split("/")
-        // // console.log(arr2)
-        // return arr2[2]
-        // }
-        // else {
-        //     return ""
-        // }
+        if (link !== undefined) {
+        let arr1 = link.split(":")
+        if (arr1.length > 1) {
+            let arr2 = arr1[1].split("/")
+            if (arr2.length > 2) {
+                return arr2[2]
+            }
+        }
+        }
+        else {
+            return ""
+        }
     }
 
     return (
