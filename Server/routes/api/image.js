@@ -39,8 +39,8 @@ router.get('/post', auth, async (req, res) => {
 // @access   Private
 router.post('/', auth, async (req, res) => {
   try {
-    const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
-    // const profileStorageUrl = process.env.PROFILE_PIC_STORAGE_URL; //for HEROKU
+    // const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
+    const profileStorageUrl = process.env.PROFILE_PIC_STORAGE_URL; //for HEROKU
 
     await User.findOneAndUpdate(
       { _id: req.user.id },
@@ -62,8 +62,8 @@ router.post('/', auth, async (req, res) => {
 // @access   Private
 router.post('/post', auth, async (req, res) => {
   try {
-    const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
-    // const postStorageUrl = process.env.POST_PIC_STORAGE_URL; //for HEROKU
+    // const profileStorageUrl = config.get('profilePics.storageUrl'); //LOCALHOST
+    const postStorageUrl = process.env.POST_PIC_STORAGE_URL; //for HEROKU
 
     await User.findOneAndUpdate(
       { _id: req.user.id },

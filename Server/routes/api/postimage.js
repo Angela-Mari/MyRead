@@ -25,8 +25,8 @@ router.get('/:postId', auth, async (req, res) => {
 // @access   Private
 router.post('/:postId', auth, async (req, res) => {
   try {
-    const postStorageUrl = config.get('postPics.storageUrl'); //LOCALHOST
-    // const postStorageUrl = process.env.POST_PIC_STORAGE_URL; //for HEROKU
+    // const postStorageUrl = config.get('postPics.storageUrl'); //LOCALHOST
+    const postStorageUrl = process.env.POST_PIC_STORAGE_URL; //for HEROKU
 
     await Post.findOneAndUpdate(
       { _id: req.params.postId },
