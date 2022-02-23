@@ -8,8 +8,9 @@ import PropTypes from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
-function Post({picture, deletePost, addLike, title, text, link, likes, category, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
+function Post({picture, deletePost, addLike, title, text, link, likes, categoies, comments, id, updatePosts, setUpdatePosts, isAuthenticated}) {
 
+    console.log(categories)
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
         e.preventDefault();

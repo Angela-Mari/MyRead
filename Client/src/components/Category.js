@@ -70,7 +70,7 @@ function Category({isAuthenticated, auth:{user}, getAllUsers, getUserPosts}) {
             {
             categoryPosts !== undefined?
                 categoryPosts.map((post) => 
-                <Post picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                <Post picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} > </Post>
                 )
             :
             <></>
