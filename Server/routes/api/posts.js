@@ -42,7 +42,32 @@ router.post(
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
-    res.json(posts);
+
+    const updatedPosts = [];
+
+    for (var i in posts) {
+      var post = posts[i];
+      const userInfo = await getUserInfo(post.user);
+
+      var newPost = {
+        _id: post._id,
+        user: post.user,
+        title: post.title,
+        description: post.description,
+        url: post.url,
+        category: [...post.category],
+        picture: post.picture,
+        likes: [...post.likes],
+        comments: [...post.comments],
+        date: post.date,
+        name: userInfo.name,
+        alias: userInfo.alias,
+        userPicture: userInfo.picture,
+      };
+
+      updatedPosts.push(newPost);
+    }
+    res.json(updatedPosts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -276,5 +301,15 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+async function getUserInfo(userId) {
+  const user = await User.findById(userId);
+  var userInfo = {
+    name: user.firstName + " " + user.lastName,
+    alias: user.alias,
+    picture: user.picture,
+  }
+  return userInfo;
+}
 
 module.exports = router;

@@ -63,14 +63,18 @@ export const register = (
     alias,
     password,
     phoneNumber,
-    idNum
+    idNum,
+    instagram,
+    facebook,
+    other
   ) => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
+    var socials = { instagram, facebook, other };
+    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum, socials });
     // if (idNum) {
     //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
     // } else {

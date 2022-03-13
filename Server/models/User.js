@@ -36,6 +36,17 @@ const UserSchema = new mongoose.Schema({
     bio: {
         type: String,
     },
+    socials: {
+        instagram: {
+            type: String,
+        },
+        facebook: {
+            type: String,
+        },
+        other: {
+            type: String,
+        },
+    },
     categories: [
         {
             type: String,

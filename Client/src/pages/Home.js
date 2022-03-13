@@ -12,6 +12,7 @@ import "./Home.css"
 import Explore from './Explore';
 import { Link, animateScroll as scroll } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
+import PaypalImage from "./Carousel/paypal.png";
 
 
 // Photo by Jess Loiterton from Pexels
@@ -35,6 +36,8 @@ function Home({authenticationType, setAuthenticationType, email, setEmail, passw
                 <Col className="text-end" style={{marginTop:"0.50em"}}>
                     Your own blog in seconds.
                 </Col>
+                <Button className="rounded-pill" style={{width:"40px", backgroundColor:"#f4ca43", color:"#242b9b"}} onClick={e => {window.location.href = "https://www.paypal.com/donate/?hosted_button_id=NFWC9PWNSDWBA"}}>Donate<img src={PaypalImage} height="35px" weight="35px"/>
+                </Button>
                 <Button 
                     style={{width:"fit-content", marginRight:"0.5rem"}}
                     className="rounded-pill"
