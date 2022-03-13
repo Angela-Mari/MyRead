@@ -1,3 +1,4 @@
+/* global chrome */
 import { Container, Row, Col} from 'react-bootstrap';
 import { setAlert } from '../actions/alert';
 import React from 'react';
@@ -16,6 +17,7 @@ function ExtensionPopUp({
     setAlert,
     auth: { user } 
   }){
+    
 
     async function handleGoogleSubmit(g) {
         console.log('inside handleGoogleSubmit');
