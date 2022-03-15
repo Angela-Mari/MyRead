@@ -18,6 +18,14 @@ function ExtensionPopUp({
     auth: { user } 
   }){
     
+    // //for connection to extension
+    // // extension id
+    // const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
+    // // send over local sotrage since it has userId
+    // chrome.runtime.sendMessage(extId, { messageFromWeb: window.localStorage}, function(response) {
+    //   console.log("from myread");
+    //   console.log("response: ", response);
+    // });
 
     async function handleGoogleSubmit(g) {
         console.log('inside handleGoogleSubmit');
