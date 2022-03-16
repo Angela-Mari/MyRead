@@ -35,6 +35,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
             if (selectedPost == {} || selectedPost._id !== postId){
                 console.log("post not sent")
                 await getPost(postId).then(res => console.log(res))
+                console.log("testing")
             }
         }
     } 
