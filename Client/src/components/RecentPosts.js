@@ -6,35 +6,52 @@ import { getAllUsers } from '../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./RecentPosts.css";
+import { useHistory } from "react-router-dom";
 
-function RecentPosts({getUserPosts, dataUser, show}) { 
-  const [updatePosts, setUpdatePosts] = useState({});
+function RecentPosts({getUserPosts, dataUser, show, setPost, setPostDetail, header, category, updatePosts, setUpdatePosts}) { 
   const [showPosts, setShowPosts] = useState(false);
   const [posts, setPosts] = useState([])
+  let history = useHistory();
   
   useEffect(() => {
-    
+    console.log("in use effect recent posts")
     if (dataUser !== undefined){
     getUserPosts(dataUser._id).then(
         res => {
-          setPosts(res.slice(0).reverse())
-          console.log(res)
-          setShowPosts(true)
+          console.log(category)
+          if (category !== undefined && category !== ""){
+            setPosts(res.slice(0).reverse().filter(function (post) {return post.category.includes(category)}))
+            setShowPosts(true)
+
+          }
+          else {
+            setPosts(res.slice(0).reverse())
+            console.log(res)
+            setShowPosts(true)
+          }
+          
+          
         }
       )
       }
     }, [updatePosts])
 
-    //
-  console.log(typeof posts)
-   return (
+  
+  function handleClick(post) {
+    console.log(post)
+    setPost(post)
+    // setPostDetail(true)
+    history.push(`/blog/${dataUser.alias}/post/${post._id}`)    
+  }
+
+  return (
             <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem"}}>
-              <h2 style={{marginTop:"0"}}>Recent Posts</h2>
+              <h2 style={{marginTop:"0"}}>{header}</h2>
                 {showPosts && posts && posts.length > 0 &&
               <div>
                   {
                     posts.map((post) => (
-                      <Post dataUser = {dataUser} picture = {post.picture} title = {post.title} text = {post.description} categories={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
+                      <Post handleClick = {handleClick} dataUser = {dataUser}  post = {post} key = {post._id} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}> </Post>
                     ))
                   }
               </div>}

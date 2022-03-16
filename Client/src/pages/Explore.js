@@ -140,7 +140,7 @@ function Explore({getPosts, getAllUsers}, place) {
                     {searchPosts.map((post, i) => {
                         return (
                         <Col className="gx-2 px-2">
-                            <SmallPost key={i} picture = {post.picture} title = {post.title} text = {post.description} category={post.category} link = {post.url} likes = {post.likes} key = {post._id} id={post._id} alias={post.alias} userPicture={post.userPicture} />
+                            <SmallPost key={i} post = {post} />
                         </Col>
                         )
                     })}

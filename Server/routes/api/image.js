@@ -81,8 +81,8 @@ router.post('/post', auth, async (req, res) => {
 });
 
 async function getAzureSignedUrl(fileName, minutesToExpiration) {
-  // const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
-  const profileConnectionString = process.env.PROFILE_PIC_CONNECTION_STRING; //for HEROKU
+  const profileConnectionString = config.get('profilePics.connectionString'); //for LOCALHOST
+  // const profileConnectionString = process.env.PROFILE_PIC_CONNECTION_STRING; //for HEROKU
 
   const containerName = 'profilepics';
   const connectionString = profileConnectionString;
