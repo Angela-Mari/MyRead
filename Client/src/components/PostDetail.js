@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function PostDetail({post, currator}) { 
-  console.log(post)
+  console.log("in post")
+    console.log(post)
 
 
   function getSource(){
@@ -41,7 +42,7 @@ function PostDetail({post, currator}) {
                       
                 <>
                 <Badge pill bg="primary" style={{fontSize:"1.2em"}} key = {idx} >
-                    {post.category}
+                    {category}
                 </Badge>
                  {' '}
                 </>))

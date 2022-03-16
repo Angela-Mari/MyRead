@@ -23,10 +23,10 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     const [selectedCategory, setCategory] = useState("")
     const [updatePosts, setUpdatePosts] = useState({});
 
-    console.log(postId)
-    console.log(selectedPost)
-    console.log(category)
-    console.log(selectedCategory)
+    // console.log(postId)
+    // console.log(selectedPost)
+    // console.log(category)
+    // console.log(selectedCategory)
 
     
     async function checkPost(){
@@ -34,13 +34,23 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
             console.log("post defined")
             if (selectedPost == {} || selectedPost._id !== postId){
                 console.log("post not sent")
-                await getPost(postId).then(res => {console.log(res)})
-                console.log("testing")
+                
+                await getPost(postId).then(res => {
+                    setPost(res.data)  
+                    setShow(true);
+                    console.log("got post")
+                })
+                
             }
+            else {
+                setShow(true);
+            }
+        }
+        else {
+            setShow(true);
         }
     } 
 
-    checkPost()
 
     if (selectedCategory !== category){
         if (category == "undefined") {
@@ -54,24 +64,13 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
         
     }
     useEffect(() => {
-
-        console.log("in use effect blog")
-        
-        // console.log(location)
-        // var pathArray = location.pathname.split('/');
-        // console.log(pathArray)
-        // if(pathArray.includes("post")){
-        //     setPostDetail(true)
-        // }
-        // else {
-        //     setPostDetail(false)
-        // }
+        setShow(false)
 
         if (isAuthenticated){
             loadUser()
             if ( username == user.alias ){
                 setDataUser(user)
-                setShow(true);
+                
             }
             else {
                 getAllUsers().then(res => {
@@ -80,7 +79,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                             setDataUser(element);
                         }
                     });
-                    setShow(true);
+                    
                 }) //todo filter for actual user
             }
             
@@ -92,9 +91,12 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                         setDataUser(element);
                     }
                 });
-                setShow(true);
+                
             }) //todo filter for actual user
         }
+
+        checkPost()
+        
     }, [])
 
    
@@ -106,7 +108,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                     {show && 
                         <Row>
                             <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
-                            {postId !== undefined ? 
+                            {postId !== undefined && selectedPost !== {} && selectedPost !== undefined ? 
                                 <PostDetail post={selectedPost} currator ={dataUser}></PostDetail>
                                 :
                                 <RecentPosts dataUser={dataUser} post={selectedPost} setPost={setPost} header = {category !== "" && category !== undefined? `Category: ${selectedCategory}` : "Recent Posts"} category={selectedCategory} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}></RecentPosts>
