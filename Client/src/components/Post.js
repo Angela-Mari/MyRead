@@ -3,40 +3,36 @@ import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
 import "./Post.css"
 import { deletePost } from "../actions/post"
 import { addLike } from "../actions/post"
+
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { loadUser } from '../actions/auth';
 import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
 
-function Post({dataUser, picture, deletePost, addLike, title, text, link, likes, categories, comments, id, updatePosts, setUpdatePosts, isAuthenticated, auth: { user } }) {
+function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, setUpdatePosts, isAuthenticated, auth: { user } }, ) {
 
-    
-    console.log(categories)
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
         e.preventDefault();
-        console.log("delete")
-        await deletePost(id)
+        await deletePost(post._id)
         setUpdatePosts({})
     }
 
     //TODO: remove like
     async function handleLike(e){
         e.preventDefault();
-        console.log("like")
-        await addLike(id)
+        await addLike(post._id)
         setUpdatePosts({})
     }
 
     function handleComment(e){
         e.preventDefault();
-        console.log("comment")
     }
 
     function getSource(){
-        if (link !== undefined) {
-        let arr1 = link.split(":")
+        if (post.url !== undefined) {
+        let arr1 = post.url.split(":")
         if (arr1.length > 1) {
             let arr2 = arr1[1].split("/")
             if (arr2.length > 2) {
@@ -50,25 +46,24 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
     }
 
     return (
-        // <a className="post-link" href={link} target="_blank">
-        <Container style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
+        <Container onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
             <Card className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
-            <img src={picture!== "" && picture !== undefined? picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
+            <img src={post.picture!== "" && post.picture !== undefined? post.picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
                 <Row>
                 <Col>
                     <h3>
-                        {title}
+                        {post.title}
                     </h3>
                 </Col>
                 <Col className="col-sm-auto">
-               { categories.map((category) => (
+               { post.category.map((category, idx) => (
                       
                 <>
-                <Badge pill bg="primary" style={{fontSize:"1.2em"}}>
+                <Badge pill bg="primary" style={{fontSize:"1.2em"}} key = {idx} >
                     {category}
                 </Badge>
                  {' '}
@@ -77,9 +72,9 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
                 </Col>
                 </Row>
                 <div>
-                    {text}
+                    {post.description.length <= 300? post.description : post.description.substring(0, 300).trim() + "... Read More"}
                 </div>
-                <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = link}}>
+                <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
                     Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
                 </div>
                 <Row className="bottom justify-content-end">
@@ -87,7 +82,7 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
                     {isAuthenticated?
                     <>
                     <Col xs={2}>
-                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.url}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
                         </Col>
                         <Col xs={2}>
                             <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
@@ -95,10 +90,10 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
                     <Col xs={2}>
                         
                         
-                            {likes !== undefined && likes.length > 0? 
+                            {post.likes !== undefined && post.likes.length > 0? 
                             <Row className="justify-content-center text-end">
                             <Col xs={6} style={{marginTop:".5rem", marginRight:"-1rem", fontWeight:"bold"}} >
-                            {likes.length}
+                            {post.likes.length}
                             </Col> 
                             <Col xs={6} >
                             <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginBottom:"0.5rem"}}/></Button>
@@ -124,7 +119,7 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
                     :
                     <Row class="justify-content-center">
                         <Col xs={6}>
-                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
                         </Col>
                         <Col xs={6}>
                             <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
@@ -136,7 +131,6 @@ function Post({dataUser, picture, deletePost, addLike, title, text, link, likes,
             </Row>
             </Card> 
         </Container>
-        // </a>
     )
 }
 

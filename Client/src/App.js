@@ -1,7 +1,6 @@
 import { setAlert } from './actions/alert';
 import React, { useEffect, useState } from 'react';
 import Blog from './pages/Blog';
-import Category from './components/Category';
 import MyNav from './components/MyNav';
 import Home from './pages/Home';
 import Explore from './pages/Explore';
@@ -24,6 +23,7 @@ import setAuthToken from './utils/setAuthToken';
 import store from './store';
 import ExtensionPopUp from './pages/ExtensionPopUp';
 import ExtensionInfo from './pages/ExtensionInfo';
+import PostDetail from './components/PostDetail';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -174,7 +174,10 @@ function App({
                 <Blog /> {/* TODO: fix routing when unauthenticated  */}
               </Route>
               <Route path ="/blog/:username/category/:category">
-                <Category />
+                <Blog />
+              </Route>  
+              <Route path ="/blog/:username/post/:postId">
+                <Blog postDetail = {true} />
               </Route>    
           </Switch>
     </>  

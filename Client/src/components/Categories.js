@@ -6,23 +6,34 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./Categories.css";
 import Bio from "../components/Bio";
+import { useHistory } from "react-router-dom";
 
-function Categories({dataUser}) {
+function Categories({dataUser, setCategory, setUpdatePosts}) {
+
+    let history = useHistory();
+
+    function handleClick(e) {
+        setCategory(e.target.name)
+        setUpdatePosts({})
+        history.push(`/blog/${dataUser.alias}/category/${e.target.name}`)    
+      }
 
     const MyCategories = ({ categories }) => (
         categories.length !== 0?
         <div className="d-grid gap-2">
             {categories.map((category, idx) => (
-                <Link key={idx} className="category-link text-secondary" to={`/blog/${dataUser.alias}/category/${category}`}>
-                        <Button style={{width:"100%"}} variant="light" className="category-btn" key={idx}>
+                // <Link key={idx} className="category-link text-secondary" to={`/blog/${dataUser.alias}/category/${category}`}>
+                        <Button onClick = {e => handleClick(e)} name= {category} style={{width:"100%"}} variant="light" className="category-btn" key={idx}>
                             {category}
                         </Button>
-                </Link>
+                // </Link>
                 ))}
             </div>
         : 
             <div>You have no categories yet!</div>
     )
+
+    
 
     return (
         <Col xs={3} md={3} className="sidebar">

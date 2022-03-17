@@ -129,10 +129,10 @@ router.get('/:category', auth, async (req, res) => {
   }
 });
 
-// @route   GET api/posts/:id
+// @route   GET api/posts/single/:id
 // @desc    Get post by ID
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
+router.get('/single/getpost/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
