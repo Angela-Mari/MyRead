@@ -15,22 +15,19 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
     //TODO: only delete if you are authenticated
     async function handleDelete(e){
         e.preventDefault();
-        console.log("delete")
-        await deletePost(post.id)
+        await deletePost(post._id)
         setUpdatePosts({})
     }
 
     //TODO: remove like
     async function handleLike(e){
         e.preventDefault();
-        console.log("like")
-        await addLike(post.id)
+        await addLike(post._id)
         setUpdatePosts({})
     }
 
     function handleComment(e){
         e.preventDefault();
-        console.log("comment")
     }
 
     function getSource(){
@@ -49,7 +46,7 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
     }
 
     return (
-        <Container  onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
+        <Container onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
             <Card className="p-3 mb-5 bg-white rounded ">
             <Row>
             <Col className="col-sm-auto">
@@ -75,7 +72,7 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                 </Col>
                 </Row>
                 <div>
-                    {post.description}
+                    {post.description.length <= 300? post.description : post.description.substring(0, 300).trim() + "... Read More"}
                 </div>
                 <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
                     Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>

@@ -13,7 +13,6 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
 
     async function frontlogout(e){
         e.preventDefault()
-        console.log("logging out...")
         await logout().then(history.push("/home")); //this is redirecting but user is not logged out thus still authenticated and redirects to here
     }
 

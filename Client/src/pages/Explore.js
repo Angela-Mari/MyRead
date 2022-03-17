@@ -26,21 +26,17 @@ function Explore({getPosts, getAllUsers}, place) {
         getPosts().then(res => {
             updatePosts(res)
             updateSearchPosts(res)
-            console.log(res)
             
         })
         getAllUsers().then(res => {
             updateCurrators(res)
             updateSearchBlogs(res)
-            console.log("currators")
-            console.log(res)
             setShow(true);
         }) 
         
     }, [])
 
     const handleSelect=(e)=>{
-        console.log(e);
         setValue(e)
         updateSearchTerms("")
     }
@@ -48,15 +44,12 @@ function Explore({getPosts, getAllUsers}, place) {
     function handleSearch(e) {
         if (value=="Posts"){
         updateSearchPosts([])
-        console.log("searching..." + searchTerms)
         if (searchTerms === ""){
             updateSearchPosts(posts)
         }
         const searchArray = []
         posts.forEach(element => {
-            // console.log(element.title)
             if (element.title.toLowerCase().includes(searchTerms.toLowerCase())){
-                // console.log("true")
                 searchArray.push(element)
             }
             else if (element.description.toLowerCase().includes(searchTerms.toLowerCase())){
@@ -64,20 +57,15 @@ function Explore({getPosts, getAllUsers}, place) {
             }
         });
         updateSearchPosts(searchArray)
-        // console.log("done")
-        console.log(searchPosts[0])
     }
     else{
         updateSearchBlogs([])
-        console.log("searching..." + searchTerms)
         if (searchTerms === ""){
             updateSearchBlogs(currators)
         }
         const searchArray = []
         currators.forEach(element => {
-            // console.log(element.title)
             if (element.alias.toLowerCase().includes(searchTerms.toLowerCase())){
-                // console.log("true")
                 searchArray.push(element)
             }
             else if (element.firstName.toLowerCase().includes(searchTerms.toLowerCase())){
@@ -91,8 +79,6 @@ function Explore({getPosts, getAllUsers}, place) {
         
         });
         updateSearchBlogs(searchArray)
-        // console.log("done")
-        console.log(searchBlogs[0])
     }
         
     }

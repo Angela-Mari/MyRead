@@ -5,27 +5,34 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function PostDetail({post, currator}) { 
-  console.log("in post")
-    console.log(post)
+  
+    const [show, setShow] = useState(false);
 
-
-  function getSource(){
-    if (post.url !== undefined) {
-    let arr1 = post.url.split(":")
-    if (arr1.length > 1) {
-        let arr2 = arr1[1].split("/")
-        if (arr2.length > 2) {
-            return arr2[2]
+    useEffect(() => {
+        if (currator !== undefined && Object.keys(currator).length !== 0 && post !== undefined && Object.keys(post).length){
+            setShow(true)
         }
+    }, [currator, post])
+    
+    function getSource(){
+        if (post.url !== undefined) {
+        let arr1 = post.url.split(":")
+        if (arr1.length > 1) {
+            let arr2 = arr1[1].split("/")
+            if (arr2.length > 2) {
+                return arr2[2]
+            }
+        }
+        }
+        else {
+            return ""
+            }
     }
-    }
-    else {
-        return ""
-    }
-}
 
    return (
+       
             <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem"}}>
+                { show &&
                 <Row>
                 <Col>
                 <h1>{post.title}</h1>
@@ -38,7 +45,7 @@ function PostDetail({post, currator}) {
                 <Col>
                 <Row>
                 <Col className="col-sm-auto">
-               { post.category.map((category, idx) => (
+                { post.category.map((category, idx) => (
                       
                 <>
                 <Badge pill bg="primary" style={{fontSize:"1.2em"}} key = {idx} >
@@ -54,6 +61,7 @@ function PostDetail({post, currator}) {
                 </Col>
                 
                 </Row>
+                }
             </Col>
         )
 }

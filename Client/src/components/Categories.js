@@ -13,7 +13,6 @@ function Categories({dataUser, setCategory, setUpdatePosts}) {
     let history = useHistory();
 
     function handleClick(e) {
-        console.log(e.target.name)
         setCategory(e.target.name)
         setUpdatePosts({})
         history.push(`/blog/${dataUser.alias}/category/${e.target.name}`)    

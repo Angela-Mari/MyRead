@@ -8,17 +8,16 @@ import PropTypes from 'prop-types';
 import "./RecentPosts.css";
 import { useHistory } from "react-router-dom";
 
-function RecentPosts({getUserPosts, dataUser, show, setPost, setPostDetail, header, category, updatePosts, setUpdatePosts}) { 
+function RecentPosts({getUserPosts, dataUser, show, setPost, header, category, updatePosts, setUpdatePosts}) { 
   const [showPosts, setShowPosts] = useState(false);
   const [posts, setPosts] = useState([])
   let history = useHistory();
   
   useEffect(() => {
-    console.log("in use effect recent posts")
-    if (dataUser !== undefined){
-    getUserPosts(dataUser._id).then(
+    if (dataUser !== undefined && Object.keys(dataUser).length !== 0){
+      getUserPosts(dataUser._id).then(
+       
         res => {
-          console.log(category)
           if (category !== undefined && category !== ""){
             setPosts(res.slice(0).reverse().filter(function (post) {return post.category.includes(category)}))
             setShowPosts(true)
@@ -26,28 +25,28 @@ function RecentPosts({getUserPosts, dataUser, show, setPost, setPostDetail, head
           }
           else {
             setPosts(res.slice(0).reverse())
-            console.log(res)
             setShowPosts(true)
           }
           
           
         }
       )
-      }
-    }, [updatePosts])
+    }
+    else {
+      setShowPosts(false)
+    }
+    }, [dataUser, updatePosts])
 
   
   function handleClick(post) {
-    console.log(post)
     setPost(post)
-    // setPostDetail(true)
     history.push(`/blog/${dataUser.alias}/post/${post._id}`)    
   }
 
   return (
             <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem"}}>
               <h2 style={{marginTop:"0"}}>{header}</h2>
-                {showPosts && posts && posts.length > 0 &&
+                { show && showPosts && posts && posts.length > 0 &&
               <div>
                   {
                     posts.map((post) => (
