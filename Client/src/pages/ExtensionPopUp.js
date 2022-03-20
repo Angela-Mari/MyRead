@@ -17,6 +17,8 @@ function ExtensionPopUp({
     setAlert,
     auth: { user } 
   }){
+
+    console.log("window opener:", window.opener)
     
     // //for connection to extension
     // // extension id
@@ -28,9 +30,10 @@ function ExtensionPopUp({
     // });
 
     async function handleGoogleSubmit(g) {
-        console.log('inside handleGoogleSubmit');
+        console.log('inside of handleGoogleSubmit');
         console.log("in app: ", g);
         await login(g.getEmail(), g.getId());
+        
       }
         
       async function handleFacebookSubmit(fb) {
@@ -60,7 +63,7 @@ function ExtensionPopUp({
             <Row className="align-items-center text-center justify-content-center" style={{paddingTop:"5rem"}}>
                
             <h1 className="ext-h1" style={{paddingBottom:"1rem"}}>MyRead</h1>
-            <p>Click below to log into MyRead via facebook or google</p>
+            <p>Click below to log into MyRead via Facebook or Google</p>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
                 <FacebookLogin
