@@ -85,7 +85,6 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     return (
         <>
             <Container fluid={true} style={{backgroundColor:"whiteSmoke"}} >
-                <Row >
                         <Row>
                             <h1 className="my-header">{dataUser.alias}'s Blog</h1>
                             <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
@@ -95,7 +94,6 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                                 <RecentPosts show = {show} dataUser={dataUser} post={selectedPost} setPost={setPost} header = {category !== "" && category !== undefined? `Category: ${selectedCategory}` : "Recent Posts"} category={selectedCategory} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}></RecentPosts>
                             }
                         </Row>
-                    </Row>
                 </Container>
             </>
         );
