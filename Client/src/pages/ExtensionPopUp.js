@@ -18,27 +18,13 @@ function ExtensionPopUp({
     auth: { user } 
   }){
 
-    // console.log("window opener:", window.opener)
-
-    // window.addEventListener("msg", (event) => {
-    //   if (event.origin !== "http://chrome-extension://mophplpadcdmninlhmbnkhpdohgfodlh") //may be incorrect
-    //     return;
-
-    //   //event.source is window.opener
-    //   //event.data is the message
-    //   // send another message back?
-    //   event.source.postMessage("hello back", event.origin);
-    // }, false);
-    
-    
-
     function sendMessage(g) {
       console.log("in sendMessage")
       //for connection to extension
       // extension id
       const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
       // send over local sotrage since it has userId
-      chrome.runtime.sendMessage(extId, { openUrlInEditor: g }, 
+      chrome.runtime.sendMessage(extId, { openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
         function(response) {
           if(!response.success)
             return;
