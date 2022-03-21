@@ -18,22 +18,42 @@ function ExtensionPopUp({
     auth: { user } 
   }){
 
-    console.log("window opener:", window.opener)
+    // console.log("window opener:", window.opener)
+
+    // window.addEventListener("msg", (event) => {
+    //   if (event.origin !== "http://chrome-extension://mophplpadcdmninlhmbnkhpdohgfodlh") //may be incorrect
+    //     return;
+
+    //   //event.source is window.opener
+    //   //event.data is the message
+    //   // send another message back?
+    //   event.source.postMessage("hello back", event.origin);
+    // }, false);
     
-    // //for connection to extension
-    // // extension id
-    // const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
-    // // send over local sotrage since it has userId
-    // chrome.runtime.sendMessage(extId, { messageFromWeb: window.localStorage}, function(response) {
-    //   console.log("from myread");
-    //   console.log("response: ", response);
-    // });
+    
+
+    function sendMessage(g) {
+      console.log("in sendMessage")
+      //for connection to extension
+      // extension id
+      const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
+      // send over local sotrage since it has userId
+      chrome.runtime.sendMessage(extId, { openUrlInEditor: g }, 
+        function(response) {
+          if(!response.success)
+            return;
+          console.log("from myread");
+          console.log("response: ", response);
+    });
+    }
+
+
 
     async function handleGoogleSubmit(g) {
         console.log('inside of handleGoogleSubmit');
         console.log("in app: ", g);
         await login(g.getEmail(), g.getId());
-        
+        await sendMessage(g);
       }
         
       async function handleFacebookSubmit(fb) {
@@ -41,6 +61,7 @@ function ExtensionPopUp({
         console.log('in app: ', fb);
         //set email and password
         await login(fb.email, fb.id);
+        sendMessage();
       }
 
     const responseFacebook = (response) => {
