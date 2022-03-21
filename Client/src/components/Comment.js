@@ -6,17 +6,17 @@ import React, { useState } from 'react';
 function Comment({comment, key}){
    
     return(
-        <Container >
+        <Container style={{marginTop:"0.5rem"}}>
         <Row>
-        <Col xs={3}>
-            <img src={comment.picture !== "" && comment.picture !== undefined? comment.picture: tempPic} width="25" height="25" style={{objectFit:"cover", borderRadius:"50%"}}/>
-        </Col>
-        <Col xs={9}>
-        <div> {comment.alias} </div>
-        </Col>
+        <Col xs={1}>
+            <img src={comment.picture !== "" && comment.picture !== undefined? comment.picture: tempPic} width="35" height="35" style={{objectFit:"cover", borderRadius:"50%"}}/>
         
-        </Row>
+        </Col>
+        <Col xs={11}>
+        <div> {comment.alias} </div>
         <div> {comment.text} </div>
+        </Col>
+        </Row>
         </Container>
     )
 }

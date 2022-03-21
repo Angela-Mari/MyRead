@@ -62,9 +62,7 @@ function PostDetail({post, currator}) {
                 
                     <Row>
                     <img src={post.picture} alt="post picture" height="300" style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}} />
-                    </Row>
-                    <Row>
-                        <Comments post={post} />
+                    <Comments post={post} />
                     </Row>
                 </Col>
                     

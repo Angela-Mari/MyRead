@@ -1,13 +1,14 @@
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, FloatingLabel } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
 import { addComment } from '../actions/post';
 import { connect } from 'react-redux';
 import PropTypes, { func } from 'prop-types';
 import { getPost } from '../actions/post';
+import "./Comments.css";
 
 function Comments({addComment, post, getPost }){
-    const [comment, setComment] = useState("");
+    const [comment, setComment] = useState('');
     const [errors, setErrors] = useState({});
     const [comments, setComments] = useState([]);
     const [show, setShow] = useState(false);
@@ -27,9 +28,10 @@ function Comments({addComment, post, getPost }){
     }
 
     return(
-        <Container >
+        <Container>
+        <Col className="g-0" style={{background:"white", borderRadius:"1%", padding:"1rem"}}>
         <h2> Comments </h2>
-        <Row>
+        <div style={{height:"150px"}} className="overflow-auto">
             {
                 
                 show && comments.length === 0?
@@ -42,24 +44,24 @@ function Comments({addComment, post, getPost }){
                 :
                 <p>Having issues loading comments.</p>
             }
-        </Row>
-        <Row>
+        </div>
         <Form onSubmit={e => handleSubmit(e)}>
-            <Row>
-                <Col className="g-0" xs={10} style={{paddingRight:"0rem", paddingLeft:"0.5rem"}}>
-                    <Form.Group className="mb-3" controlId="firstName">
-                        <Form.Control value={comment} onChange={(e) => setComment(e.currentTarget.value)} isInvalid={ !!errors.firstName }/>
-                        <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
+            <Row style={{marginTop:"1rem"}}>
+                <Col xs={10} >
+                    <Form.Group className="mb-3" controlId="comment">
+                        <Form.Control className="my-text" value={comment} placeHolder = "Write a comment..." onChange={(e) => setComment(e.currentTarget.value)} isInvalid={ !!errors.firstName }/>
+                        <Form.Control.Feedback type="invalid">{errors.comment}</Form.Control.Feedback>
                     </Form.Group>
+                    
                 </Col>
-                <Col className="g-0" xs={2} style={{paddingRight:"0.5rem"}}>
-                    <Button variant="primary" type="submit">
+                <Col className="g-0" xs={2} style={{marginLeft:"-0.5rem"}}>
+                    <Button className="rounded-pill" variant="primary" type="submit">
                         Submit
                     </Button>
                 </Col>
             </Row>      
         </Form>
-        </Row>
+        </Col>
         </Container>
     )
 }
