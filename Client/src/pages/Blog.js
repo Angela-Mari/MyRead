@@ -9,38 +9,33 @@ import { getPost } from '../actions/post';
 import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
 import { useLocation } from 'react-router-dom'
-import background from './Carousel/pexels-jess-loiterton-4319752.jpg'
 import PostDetail from "../components/PostDetail";
 
 function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     let { username } = useParams();
     let { postId } = useParams();
     let { category } = useParams();
-    const [dataUser, setDataUser] = useState({});
-    const [show, setShow] = useState(false);
-    const location = useLocation();
+    const [dataUser, setDataUser, dataUserRef] = useState({});
+    const [show, setShow] = useState([false]);
     const [selectedPost, setPost] = useState({});
     const [selectedCategory, setCategory] = useState("")
     const [updatePosts, setUpdatePosts] = useState({});
 
-    console.log(postId)
-    console.log(selectedPost)
-    console.log(category)
-    console.log(selectedCategory)
-
-    
     async function checkPost(){
         if (postId !== undefined){
-            console.log("post defined")
-            if (selectedPost == {} || selectedPost._id !== postId){
-                console.log("post not sent")
-                await getPost(postId).then(res => console.log(res))
-                console.log("testing")
+            if (Object.keys(selectedPost).length !== 0 || selectedPost._id !== postId){
+                
+                await getPost(postId).then(res => {
+                    setPost(res.data)  
+                    setShow([true]);
+                })
+                
             }
         }
+        else {
+            setShow([true])
+        }
     } 
-
-    checkPost()
 
     if (selectedCategory !== category){
         if (category == "undefined") {
@@ -53,25 +48,13 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
         }   
         
     }
-    useEffect(() => {
 
-        console.log("in use effect blog")
-        
-        // console.log(location)
-        // var pathArray = location.pathname.split('/');
-        // console.log(pathArray)
-        // if(pathArray.includes("post")){
-        //     setPostDetail(true)
-        // }
-        // else {
-        //     setPostDetail(false)
-        // }
+    useEffect(() => {
 
         if (isAuthenticated){
             loadUser()
             if ( username == user.alias ){
-                setDataUser(user)
-                setShow(true);
+                setDataUser(user) 
             }
             else {
                 getAllUsers().then(res => {
@@ -80,7 +63,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                             setDataUser(element);
                         }
                     });
-                    setShow(true);
+                    
                 }) //todo filter for actual user
             }
             
@@ -92,9 +75,10 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                         setDataUser(element);
                     }
                 });
-                setShow(true);
+                
             }) //todo filter for actual user
         }
+        checkPost()
     }, [])
 
    
@@ -102,21 +86,20 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
         <>
             <Container fluid={true} style={{backgroundColor:"whiteSmoke"}} >
                 <Row >
-                    <h1 className="my-header">{dataUser.alias}'s Blog</h1>
-                    {show && 
                         <Row>
+                            <h1 className="my-header">{dataUser.alias}'s Blog</h1>
                             <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
-                            {postId !== undefined ? 
+                            {postId !== undefined && selectedPost !== {} && selectedPost !== undefined ? 
                                 <PostDetail post={selectedPost} currator ={dataUser}></PostDetail>
                                 :
-                                <RecentPosts dataUser={dataUser} post={selectedPost} setPost={setPost} header = {category !== "" && category !== undefined? `Category: ${selectedCategory}` : "Recent Posts"} category={selectedCategory} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}></RecentPosts>
+                                <RecentPosts show = {show} dataUser={dataUser} post={selectedPost} setPost={setPost} header = {category !== "" && category !== undefined? `Category: ${selectedCategory}` : "Recent Posts"} category={selectedCategory} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}></RecentPosts>
                             }
                         </Row>
-                    }
-                </Row>
-            </Container>
-        </>
-    );
+                    </Row>
+                </Container>
+            </>
+        );
+    
 }
 
 Blog.propTypes = {

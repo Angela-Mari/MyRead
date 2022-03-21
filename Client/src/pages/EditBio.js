@@ -19,12 +19,10 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
     const findFormErrors = () => {
         const newErrors = {}
 
-        console.log("alias: " + formData.alias)
         if (formData.bio.length === 0){
             newErrors.alias = "Alias must be at least one character."
         }
 
-        console.log("bio: " + formData.bio)
         if (formData.bio.length === 0){
             newErrors.bio = "Bio must be at least one character."
         }
@@ -57,21 +55,16 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
     async function submit(event){
         event.preventDefault();
         if (validate()){
-            console.log(images[0])
 
             var getUrl = window.location;
             var blogUrl = getUrl .protocol + "//" + getUrl.host + "/" + "blog/" + user.alias;
-            console.log(blogUrl)
             await uploadProfilePicture(images[0], 1);
-
-            console.log(formData.bio)
             await updateBio(formData.bio)
             history.push(`/blog/${user.alias}`);
         }
     }
 
     function onImageChange(e){
-        console.log(e.target.files[0])
         setImages([e.target.files[0]])
         const url = URL.createObjectURL(e.target.files[0]);
         setPreview(url);

@@ -108,9 +108,11 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
             setFormData(formData => ({...formData, picture: ""}))
             console.log(images[0])
             await addPost(validForm).then(res => (
-                uploadPostPicture(images[0], res._id)
+                uploadPostPicture(images[0], res._id).then(res =>{
+                    history.push(`/blog/${user.alias}`);
+                })
             ))
-            history.push(`/blog/${user.alias}`);
+           
         }
  
     }
