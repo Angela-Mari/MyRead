@@ -256,7 +256,7 @@ export const twoFactorAuth = (email, phoneNumber) => async (dispatch) => {
   try {
     await axios.post('/api/twofa', body);
     dispatch({
-      type: CONTACT_MESSAGE_SENT,
+      // type: CONTACT_MESSAGE_SENT,
     });
 
     // dispatch(setAlert('Text message sent'));
