@@ -10,7 +10,10 @@ import {
     AUTH_ERROR,
     SET_ALERT,
     REMOVE_ALERT,
-    LOGOUT
+    LOGOUT,
+    TWO_FACTOR_ATTEMPTED,
+    TWO_FACTOR_SUCCESS,
+    TWO_FACTOR_FAILED,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -241,5 +244,43 @@ export const uploadPostPicture = (file, postId) => async (dispatch) => {
     await axios.post(getDevPrefix() + '/api/postimage/' + postId);
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const twoFactorAuth = (email, phoneNumber) => async (dispatch) => {
+  const body = { email: email, phoneNumber: phoneNumber };
+
+  dispatch({
+    type: TWO_FACTOR_ATTEMPTED,
+  });
+  try {
+    await axios.post('/api/twofa', body);
+    dispatch({
+      type: CONTACT_MESSAGE_SENT,
+    });
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+  }
+};
+
+export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
+  const body = { email, code };
+
+  try {
+    await axios.post('/api/twofa/verify', body);
+    dispatch({
+      type: TWO_FACTOR_SUCCESS,
+    });
+    return true;
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    dispatch({
+      type: TWO_FACTOR_FAILED,
+    });
+    return false;
+    // const errors = err.response.data.errors;
   }
 };
