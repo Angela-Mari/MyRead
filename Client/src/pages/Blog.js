@@ -29,12 +29,14 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                 await getPost(postId).then(res => {
                     setPost(res.data)  
                     setShow([true]);
-                })
+                    }
+                )
+            }
         }
         else {
             setShow([true])
         }
-    } 
+    }
 
     if (selectedCategory !== category){
         if (category == "undefined") {
