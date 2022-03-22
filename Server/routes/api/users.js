@@ -149,23 +149,69 @@ router.put('/category', auth, async (req, res) => {
   }
 );
 
-// @route   GET api/users/bio
-// @desc    Add or update a users bio
+// @route   PUT api/users/following
+// @desc    Add a user to a users following list
 // @access  Private
-router.put('/bio', auth, async (req, res) => {
-  const newBio = req.body.bio;
+router.put('/following', auth, async (req, res) => {
+    const userToFollowId = req.body.followId;
+    try {
+      const user = await User.findOne({ _id: req.user.id });
+      user.following.unshift(userToFollowId);
+      
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route   GET api/users/getfollowing
+// @desc    Get a list of all users that a user is following
+// @access  Private
+router.get('/following', auth, async (req, res) => {
   try {
-    // Using upsert option
-    let user = await User.findOneAndUpdate(
-      { _id: req.user.id },
-      { $set: { bio : newBio }},
-    );
-    return res.json(user);
+    const user = await User.findOne({ _id: req.user.id });
+    const allFollowing = user.following;
+
+    const usersFollowing = [];
+
+    for(const userFollowing in allFollowing) {
+      const newUser = {
+        name: userFollowing.firstName + " " + userFollowing.lastName,
+        alias: userFollowing.alias,
+        picture: userFollowing.picture,
+        bio: userFollowing.bio,
+      };
+      usersFollowing.unshift(newUser);
+    }
+    
+    res.json(usersFollowing);
   } catch (err) {
     console.error(err.message);
-    return res.status(500).send('Server Error');
+    res.status(500).send('Server error');
   }
 }
 );
+
+// // @route   GET api/users/bio
+// // @desc    Add or update a users bio
+// // @access  Private
+// router.put('/bio', auth, async (req, res) => {
+//   const newBio = req.body.bio;
+//   try {
+//     // Using upsert option
+//     let user = await User.findOneAndUpdate(
+//       { _id: req.user.id },
+//       { $set: { bio : newBio }},
+//     );
+//     return res.json(user);
+//   } catch (err) {
+//     console.error(err.message);
+//     return res.status(500).send('Server Error');
+//   }
+// }
+// );
 
 module.exports = router;

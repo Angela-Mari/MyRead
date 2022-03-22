@@ -304,3 +304,32 @@ export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
     // const errors = err.response.data.errors;
   }
 };
+
+// Add a User Following
+export const addFollowing = (followId) => async (dispatch) => {
+  var body = JSON.stringify({ followId: followId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Get all users a user is following
+export const getFollowing = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/following');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
