@@ -28,10 +28,10 @@ function Comments({addComment, post, getPost }){
     }
 
     return(
-        <Container>
-        <Col className="g-0" style={{background:"white", borderRadius:"1%", padding:"1rem"}}>
-        <h2> Comments </h2>
-        <div style={{height:"150px"}} className="overflow-auto">
+        <Container >
+        <Col className="g-0" style={{background:"whitesmoke", borderRadius:"1%", padding:"1rem 1rem 0rem 1rem", border: "1px solid lightgrey", marginTop:"1rem"}}>
+        <h2 style={{marginTop:"0", color:"dimgray", fontSize:"1.3rem", fontWeight:"bold"}}> Comments </h2>
+        <div style={{height:"150px", overflowX:"hidden", overflowY:"auto"}}>
             {
                 
                 show && comments.length === 0?

@@ -8,10 +8,11 @@ import PropTypes, { func } from 'prop-types';
 import { getPost } from '../actions/post';
 import { loadUser, getAllUsers } from '../actions/auth';
 import "./Blog.css";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory} from 'react-router-dom'
 import PostDetail from "../components/PostDetail";
 
 function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
+    let history = useHistory();
     let { username } = useParams();
     let { postId } = useParams();
     let { category } = useParams();
@@ -84,9 +85,9 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
    
     return (
         <>
-            <Container fluid={true} style={{backgroundColor:"whiteSmoke"}} >
+            <Container fluid={true} style={{backgroundColor:"whiteSmoke", minHeight:"900px"}} >
                         <Row>
-                            <h1 className="my-header">{dataUser.alias}'s Blog</h1>
+                            <h1 onClick={e=> {history.push(`/blog/${dataUser.alias}`)}} className="my-header">{dataUser.alias}'s Blog</h1>
                             <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
                             {postId !== undefined && selectedPost !== {} && selectedPost !== undefined ? 
                                 <PostDetail post={selectedPost} currator ={dataUser}></PostDetail>

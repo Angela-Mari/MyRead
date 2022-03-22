@@ -46,8 +46,8 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
     }
 
     return (
-        <Container onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0.5rem", marginRight: "0.5rem"}}>
-            <Card className="p-3 mb-5 bg-white rounded ">
+        <Container onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0rem", marginRight: "0.5rem", cursor:"pointer"}}>
+            <Card className="p-3 mb-4 bg-white rounded" >
             <Row>
             <Col className="col-sm-auto">
             <img src={post.picture!== "" && post.picture !== undefined? post.picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>

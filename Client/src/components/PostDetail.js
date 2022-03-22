@@ -4,6 +4,7 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Comments from './Comments';
+import tempPic from '../pages/Carousel/pexels-jess-loiterton-4784090.jpg'
 
 function PostDetail({post, currator}) { 
   
@@ -32,10 +33,10 @@ function PostDetail({post, currator}) {
 
    return (
 
-            <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem", paddingRight:"1rem"}}>
+            <Col  xs={9} md={9} style={{marginTop:"0.5rem", paddingTop:"0.5rem", paddingRight:"1rem", backgroundColor:"white", paddingBottom:"1rem"}}>
                 { show &&
                 <Row>
-                <Col>
+                <Col xs={6}>
                 <h1>{post.title}</h1>
                 <h3><i>Currated By </i>{currator.firstName} {currator.lastName}</h3>
                 <p>{post.description}</p>
@@ -43,7 +44,7 @@ function PostDetail({post, currator}) {
                     Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
                 </div>
                 </Col>
-                <Col>
+                <Col xs={6}>
                 <Row>
                 <Row style={{marginTop:"1rem"}}>
                 <Col className="col-sm-auto">
@@ -58,18 +59,18 @@ function PostDetail({post, currator}) {
                 }
                 </Col>
                 </Row>
-                <Col>
-                
-                    <Row>
-                    <img src={post.picture} alt="post picture" height="300" style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}} />
-                    <Comments post={post} />
-                    </Row>
-                </Col>
+                <img 
+                            src={post.picture !== "" && post.picture !== undefined? post.picture: tempPic} 
+                            alt="post picture" 
+                            class="img-responsive" 
+                            height= "300px"
+                            style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}}
+                        />
                     
                 </Row>
                 
                 </Col>
-                
+                <Comments post={post} />
                 </Row>
                 }
             </Col>

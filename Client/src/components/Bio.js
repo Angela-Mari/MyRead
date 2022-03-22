@@ -3,14 +3,18 @@ import "./Bio.css";
 import { Col, Row, Button } from "react-bootstrap";
 import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
 import fb from "./static_images/f_logo_RGB-Blue_72.png"
+import { useLocation, useHistory} from 'react-router-dom';
 
 function Bio({dataUser}) {
     
+    let history = useHistory();
+
+
     return (
         <Col className = "center-block">
             <Row>
                 <Col>
-                <img style={{borderRadius:"50%", height:"100px", width:"100px", objectFit:"cover"}} src={dataUser.picture} />
+                <img onClick = {e=> {history.push(`/blog/${dataUser.alias}`)}} className= "bio-pic" src={dataUser.picture} />
             </Col>
             </Row>            
             <h3 style={{marginTop:"1rem"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
