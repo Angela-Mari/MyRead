@@ -165,6 +165,26 @@ export const addCategory = (category) => async (dispatch) => {
     }
 };
 
+// Update a User
+export const updateUser = (bio, socials) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, socials: socials });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/update', body, config);
+    // const res = await axios.post('/api/auth', body);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 // Update a User's Bio
 export const updateBio = (bio) => async (dispatch) => {
   var body = JSON.stringify({ bio: bio });

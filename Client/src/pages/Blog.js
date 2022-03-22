@@ -29,8 +29,6 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                     setPost(res.data)  
                     setShow([true]);
                 })
-                
-            }
         }
         else {
             setShow([true])

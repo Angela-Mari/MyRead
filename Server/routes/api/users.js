@@ -32,9 +32,10 @@ router.post(
 
     try {
       // See if the user exists
-      let user = await User.findOne({ email });
+      let user1 = await User.findOne({ email });
+      let user2 = await User.findOne({ alias });
 
-      if (user) {
+      if (user1 || user2) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User already exists' }] });
@@ -100,6 +101,32 @@ router.post(
     }
 
     console.log(req.body);
+  }
+);
+
+// @route   GET api/users/update
+// @desc    Add a category to a user
+// @access  Private
+router.put('/update', auth, async (req, res) => {
+    const newBio = req.body.bio;
+
+    const newSocials = req.body.socials;
+    const instagram = newSocials.instagram;
+    const facebook = newSocials.facebook;
+    const other = newSocials.other;
+    
+    try {
+
+      let user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: { bio : newBio, socials: { instagram, facebook, other } }},
+      );
+      return res.json(user);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
   }
 );
 
