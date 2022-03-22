@@ -165,6 +165,26 @@ export const addCategory = (category) => async (dispatch) => {
     }
 };
 
+// Update a User
+export const updateUser = (bio, socials) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, socials: socials });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/update', body, config);
+    // const res = await axios.post('/api/auth', body);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 // Update a User's Bio
 export const updateBio = (bio) => async (dispatch) => {
   var body = JSON.stringify({ bio: bio });
@@ -282,5 +302,34 @@ export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
     });
     return false;
     // const errors = err.response.data.errors;
+  }
+};
+
+// Add a User Following
+export const addFollowing = (followId) => async (dispatch) => {
+  var body = JSON.stringify({ followId: followId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Get all users a user is following
+export const getFollowing = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/following');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
   }
 };

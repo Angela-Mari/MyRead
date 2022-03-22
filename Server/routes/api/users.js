@@ -32,9 +32,10 @@ router.post(
 
     try {
       // See if the user exists
-      let user = await User.findOne({ email });
+      let user1 = await User.findOne({ email });
+      let user2 = await User.findOne({ alias });
 
-      if (user) {
+      if (user1 || user2) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User already exists' }] });
@@ -103,6 +104,32 @@ router.post(
   }
 );
 
+// @route   GET api/users/update
+// @desc    Add a category to a user
+// @access  Private
+router.put('/update', auth, async (req, res) => {
+    const newBio = req.body.bio;
+
+    const newSocials = req.body.socials;
+    const instagram = newSocials.instagram;
+    const facebook = newSocials.facebook;
+    const other = newSocials.other;
+    
+    try {
+
+      let user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: { bio : newBio, socials: { instagram, facebook, other } }},
+      );
+      return res.json(user);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
 // @route   GET api/users/category
 // @desc    Add a category to a user
 // @access  Private
@@ -122,23 +149,69 @@ router.put('/category', auth, async (req, res) => {
   }
 );
 
-// @route   GET api/users/bio
-// @desc    Add or update a users bio
+// @route   PUT api/users/following
+// @desc    Add a user to a users following list
 // @access  Private
-router.put('/bio', auth, async (req, res) => {
-  const newBio = req.body.bio;
+router.put('/following', auth, async (req, res) => {
+    const userToFollowId = req.body.followId;
+    try {
+      const user = await User.findOne({ _id: req.user.id });
+      user.following.unshift(userToFollowId);
+      
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route   GET api/users/getfollowing
+// @desc    Get a list of all users that a user is following
+// @access  Private
+router.get('/following', auth, async (req, res) => {
   try {
-    // Using upsert option
-    let user = await User.findOneAndUpdate(
-      { _id: req.user.id },
-      { $set: { bio : newBio }},
-    );
-    return res.json(user);
+    const user = await User.findOne({ _id: req.user.id });
+    const allFollowing = user.following;
+
+    const usersFollowing = [];
+
+    for(const userFollowing in allFollowing) {
+      const newUser = {
+        name: userFollowing.firstName + " " + userFollowing.lastName,
+        alias: userFollowing.alias,
+        picture: userFollowing.picture,
+        bio: userFollowing.bio,
+      };
+      usersFollowing.unshift(newUser);
+    }
+    
+    res.json(usersFollowing);
   } catch (err) {
     console.error(err.message);
-    return res.status(500).send('Server Error');
+    res.status(500).send('Server error');
   }
 }
 );
+
+// // @route   GET api/users/bio
+// // @desc    Add or update a users bio
+// // @access  Private
+// router.put('/bio', auth, async (req, res) => {
+//   const newBio = req.body.bio;
+//   try {
+//     // Using upsert option
+//     let user = await User.findOneAndUpdate(
+//       { _id: req.user.id },
+//       { $set: { bio : newBio }},
+//     );
+//     return res.json(user);
+//   } catch (err) {
+//     console.error(err.message);
+//     return res.status(500).send('Server Error');
+//   }
+// }
+// );
 
 module.exports = router;
