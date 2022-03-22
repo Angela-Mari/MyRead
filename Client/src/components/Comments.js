@@ -31,7 +31,7 @@ function Comments({addComment, post, getPost }){
         <Container >
         <Col className="g-0" style={{background:"whitesmoke", borderRadius:"1%", padding:"1rem 1rem 0rem 1rem", border: "1px solid lightgrey", marginTop:"1rem"}}>
         <h2 style={{marginTop:"0", color:"dimgray", fontSize:"1.3rem", fontWeight:"bold"}}> Comments </h2>
-        <div style={{height:"150px", overflowX:"hidden", overflowY:"auto"}}>
+        <div class="masked-overflow" style={{paddingTop:"1rem", marginTop:"-0.5rem", height:"150px", overflowX:"hidden", overflowY:"auto"}}>
             {
                 
                 show && comments.length === 0?
@@ -46,7 +46,7 @@ function Comments({addComment, post, getPost }){
             }
         </div>
         <Form onSubmit={e => handleSubmit(e)}>
-            <Row style={{marginTop:"1rem"}}>
+            <Row className="no-gutters" style={{marginTop:"0.5rem"}}>
                 <Col xs={10} >
                     <Form.Group className="mb-3" controlId="comment">
                         <Form.Control className="my-text" value={comment} placeHolder = "Write a comment..." onChange={(e) => setComment(e.currentTarget.value)} isInvalid={ !!errors.firstName }/>
@@ -54,7 +54,7 @@ function Comments({addComment, post, getPost }){
                     </Form.Group>
                     
                 </Col>
-                <Col className="g-0" xs={2} style={{marginLeft:"-0.5rem"}}>
+                <Col className="g-0" xs={2} >
                     <Button className="rounded-pill" variant="primary" type="submit">
                         Submit
                     </Button>

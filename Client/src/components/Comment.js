@@ -8,12 +8,11 @@ function Comment({comment, key}){
     return(
         <Container style={{marginTop:"0.5rem"}}>
         <Row>
-        <Col xs={1}>
-            <img src={comment.picture !== "" && comment.picture !== undefined? comment.picture: tempPic} width="35" height="35" style={{objectFit:"cover", borderRadius:"50%"}}/>
-        
+        <Col xs={1} className="col-sm-auto">
+            <img src={comment.picture !== "" && comment.picture !== undefined? comment.picture: tempPic} width="40" height="40" style={{objectFit:"cover", borderRadius:"50%"}}/>
         </Col>
-        <Col xs={11}>
-        <div> {comment.alias} </div>
+        <Col xs={11} className="no-gutters">
+        <div style={{fontWeight:"bold", color:"#303030"}}> {comment.alias} </div>
         <div> {comment.text} </div>
         </Col>
         </Row>
