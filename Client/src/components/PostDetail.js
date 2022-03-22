@@ -3,6 +3,7 @@ import { Col, Row, Badge } from 'react-bootstrap';
 import Post from './Post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Comments from './Comments';
 
 function PostDetail({post, currator}) { 
   
@@ -30,13 +31,13 @@ function PostDetail({post, currator}) {
     }
 
    return (
-       
-            <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem"}}>
+
+            <Col  xs={9} md={9} style={{marginTop:"-.5rem", paddingTop:"0.5rem", paddingRight:"1rem"}}>
                 { show &&
                 <Row>
                 <Col>
                 <h1>{post.title}</h1>
-                <h2>{currator.firstName} {currator.lastName}</h2>
+                <h3><i>Currated By </i>{currator.firstName} {currator.lastName}</h3>
                 <p>{post.description}</p>
                 <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
                     Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
@@ -44,6 +45,7 @@ function PostDetail({post, currator}) {
                 </Col>
                 <Col>
                 <Row>
+                <Row style={{marginTop:"1rem"}}>
                 <Col className="col-sm-auto">
                 { post.category.map((category, idx) => (
                       
@@ -55,7 +57,15 @@ function PostDetail({post, currator}) {
                 </>))
                 }
                 </Col>
-                    <img src={post.picture} alt="post picture" height="300" style={{objectFit:"cover"}} />
+                </Row>
+                <Col>
+                
+                    <Row>
+                    <img src={post.picture} alt="post picture" height="300" style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}} />
+                    <Comments post={post} />
+                    </Row>
+                </Col>
+                    
                 </Row>
                 
                 </Col>
