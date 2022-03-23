@@ -13,16 +13,24 @@ function Comments({addComment, post, getPost }){
     const [comments, setComments] = useState([]);
     const [show, setShow] = useState(false);
 
+    async function refreshComments(){
+        await getPost(post._id).then(res => {
+            console.log("setting comments...")
+            console.log(res.data.comments)
+            setComments([...res.data.comments])})
+        console.log("updated comments")
+    }
+
     useEffect(() => {
+        console.log("use effect comments")
         setComments(post.comments)
         setShow(true)
       }, []);
     
     async function handleSubmit(e){
         e.preventDefault()
-        await addComment(post._id, {text: comment })
-        await getPost(post._id).then(res => {
-            setComments(res.data.comments)  
+        await addComment(post._id, {text: comment }).then(e=>{
+            refreshComments()
         })
         
     }
@@ -38,8 +46,8 @@ function Comments({addComment, post, getPost }){
                 <p>There are zero comments on this post, write your own below.</p>
                 :
                 show ? 
-                comments.map((comment, idx) => (
-                            <Comment comment= {comment} key={idx} />
+                comments.map((mycomment, idx) => (
+                            <Comment postId= {post._id} comment= {mycomment} key={mycomment._id} refreshComments={refreshComments}/>
                     ))
                 :
                 <p>Having issues loading comments.</p>
