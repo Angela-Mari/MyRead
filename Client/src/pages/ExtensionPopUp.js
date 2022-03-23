@@ -24,7 +24,7 @@ function ExtensionPopUp({
       // extension id
       const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
       // send over local sotrage since it has userId
-      chrome.runtime.sendMessage(extId, { openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
+      chrome.runtime.sendMessage(extId, { url: "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
         function(response) {
           if(!response.success)
             return;
@@ -32,7 +32,7 @@ function ExtensionPopUp({
           console.log("response: ", response);
     });
     }
-
+ 
 
 
     async function handleGoogleSubmit(g) {
