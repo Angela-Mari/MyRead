@@ -23,13 +23,14 @@ function ExtensionPopUp({
       //for connection to extension
       // extension id
       const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
-      // send over local sotrage since it has userId
+      // "http://localhost:3000/extension-login"
+      // "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login"
       chrome.runtime.sendMessage(extId, { url: "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
         function(response) {
           if(!response.success)
             return;
-          console.log("from myread");
-          console.log("response: ", response);
+          // console.log("from myread");
+          // console.log("response: ", response);
     });
     }
  
