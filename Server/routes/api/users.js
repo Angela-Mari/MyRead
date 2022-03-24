@@ -171,28 +171,48 @@ router.put('/following', auth, async (req, res) => {
 // @desc    Get a list of all users that a user is following
 // @access  Private
 router.get('/following', auth, async (req, res) => {
-  try {
-    const user = await User.findOne({ _id: req.user.id });
-    const allFollowing = user.following;
+    try {
+      const user = await User.findOne({ _id: req.user.id });
+      const allFollowing = user.following;
 
-    const usersFollowing = [];
+      const usersFollowing = [];
 
-    for(const userFollowing in allFollowing) {
-      const newUser = {
-        name: userFollowing.firstName + " " + userFollowing.lastName,
-        alias: userFollowing.alias,
-        picture: userFollowing.picture,
-        bio: userFollowing.bio,
-      };
-      usersFollowing.unshift(newUser);
+      for(const userFollowing in allFollowing) {
+        const currUser = await User.findOne({ _id: userFollowing._id });
+        
+        // const newUser = {
+        //   name: userFollowing.firstName + " " + userFollowing.lastName,
+        //   alias: userFollowing.alias,
+        //   picture: userFollowing.picture,
+        //   bio: userFollowing.bio,
+        // };
+        usersFollowing.unshift(currUser);
+      }
+      
+      res.json(usersFollowing);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
     }
-    
-    res.json(usersFollowing);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
   }
-}
+);
+
+// @route   PUT api/users/favorites
+// @desc    Add a post to user's favorites
+// @access  Private
+router.put('/favorites', auth, async (req, res) => {
+    const postId = req.body.postId;
+    try {
+      const user = await User.findOne({ _id: req.user.id });
+      user.favorites.unshift(postId);
+      
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
 );
 
 // // @route   GET api/users/bio
