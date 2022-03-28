@@ -27,10 +27,9 @@ function ExtensionPopUp({
       // "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login"
       chrome.runtime.sendMessage(extId, { url: "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
         function(response) {
-          // if(!response.success)
-          //   return;
-          // console.log("from myread");
-          console.log("response: ", response);
+          if(!response)
+            return;
+          console.log("from myread");
     });
     }
  
