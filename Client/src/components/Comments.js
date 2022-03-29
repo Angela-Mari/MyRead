@@ -54,7 +54,7 @@ function Comments({addComment, post, getPost, isAuthenticated }){
             }
         </div>
         {
-            isAuthenticated?
+            isAuthenticated && show?
             <Form onSubmit={e => handleSubmit(e)}>
             <Row className="no-gutters" style={{marginTop:"0.5rem"}}>
                 <Col xs={10} >
