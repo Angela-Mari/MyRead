@@ -7,7 +7,7 @@ import PropTypes, { func } from 'prop-types';
 import { getPost } from '../actions/post';
 import "./Comments.css";
 
-function Comments({addComment, post, getPost }){
+function Comments({addComment, post, getPost, isAuthenticated }){
     const [comment, setComment] = useState('');
     const [errors, setErrors] = useState({});
     const [comments, setComments] = useState([]);
@@ -53,7 +53,9 @@ function Comments({addComment, post, getPost }){
                 <p>Having issues loading comments.</p>
             }
         </div>
-        <Form onSubmit={e => handleSubmit(e)}>
+        {
+            isAuthenticated && show?
+            <Form onSubmit={e => handleSubmit(e)}>
             <Row className="no-gutters" style={{marginTop:"0.5rem"}}>
                 <Col xs={10} >
                     <Form.Group className="mb-3" controlId="comment">
@@ -69,6 +71,10 @@ function Comments({addComment, post, getPost }){
                 </Col>
             </Row>      
         </Form>
+        :
+        <></>
+        }
+        
         </Col>
         </Container>
     )

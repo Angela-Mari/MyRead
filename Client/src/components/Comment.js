@@ -6,7 +6,7 @@ import PropTypes, { func } from 'prop-types';
 import React, { useState } from 'react';
 import "./Comment.css"
 
-function Comment({postId, comment, key, deleteComment, auth: {user}, refreshComments}){
+function Comment({postId, comment, key, deleteComment, auth: {user}, refreshComments, isAuthenticated}){
    
     async function handleDelete(){
         console.log("delete: " + comment.text)
@@ -31,7 +31,7 @@ function Comment({postId, comment, key, deleteComment, auth: {user}, refreshComm
         </Col>
         <Col xs={1}>
         {
-            user.alias === comment.alias?
+            isAuthenticated && user.alias === comment.alias?
                 <NavDropdown title="..." id="comment-drop-down" style={{fontSize:"1.2rem", fontWeight:"bold", color:"dimgray"}}>
                 <NavDropdown.Item onClick={e=>{handleDelete()}}>
                     Delete Comment

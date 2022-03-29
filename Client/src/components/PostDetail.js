@@ -10,7 +10,7 @@ import { getPost } from '../actions/post';
 import {Link} from 'react-router-dom';
 
 
-function PostDetail({post, currator, addLike, getPost}) { 
+function PostDetail({post, currator, addLike, getPost, isAuthenticated}) { 
   
     const [show, setShow] = useState(false);
     const [likes, setLikes] = useState(post.likes)
@@ -52,79 +52,83 @@ function PostDetail({post, currator, addLike, getPost}) {
 
             <Col  xs={9} md={9} style={{marginTop:"0.5rem", paddingTop:"0.5rem", paddingRight:"1rem", backgroundColor:"white", paddingBottom:"1rem"}}>
                 { show &&
-                <Row>
-                <Col xs={6}>
-                <h1>{post.title}</h1>
-                <h3 style={{color:"dimgrey"}}><i>Currated by: </i>{currator.firstName} {currator.lastName}</h3>
-                <p>{post.description}</p>
-                <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
-                    Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
-                </div>
-                <Row>
-                    <Col>
-                        <Link
-                            to={{
-                                pathname: "/create-post",
-                                state: 
-                                    { 
-                                        title: post.title,
-                                        description: post.description,
-                                        url: post.url
-                                    }
-                            }}
-                            >
-                                <Button>
-                                    Reblog
-                            </Button>
+                    <Row>
+                    <Col xs={6}>
+                    <h1>{post.title}</h1>
+                    <h3 style={{color:"dimgrey"}}><i>Currated by: </i>{currator.firstName} {currator.lastName}</h3>
+                    <p>{post.description}</p>
+                    <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
+                        Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
+                    </div>
+                    {
+                        isAuthenticated?
+                        <Row style={{marginTop:"0.5rem"}}>
+                        <Col xs={2}>
+                            <Link
+                                to={{
+                                    pathname: "/create-post",
+                                    state: 
+                                        { 
+                                            title: post.title,
+                                            description: post.description,
+                                            url: post.url
+                                        }
+                                }}
+                                >
+                                    <Button className="rounded-pill">
+                                        Reblog
+                                    </Button>
                                 </Link>
+                            
+                        </Col>
+                        <Col xs={2}>
+                            { likes !== undefined && likes.length > 0?
+                                <Row className="justify-content-center text-end">
+                                    <Button variant="Link" onClick={e => handleLike(e)}>{likes.length}<img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px"style={{marginLeft:"0.5rem", marginBottom:"0.5rem"}}/></Button>
+                                </Row>
+                            : 
+                                <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginLeft:"0.5rem", marginBottom:"0.5rem"}}/></Button>
+                            }
+                        </Col>
+                        <Col xs={2}>
+                        <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                        </Col>
+                    </Row>
+                    :
+                    ""
+                    }
+                    
+                    
+                    </Col>
+                    <Col xs={6}>
+                    <Row>
+                    <Row className="justify-content-end" style={{marginTop:"1rem"}}>
+                    <Col className="col-sm-auto" style={{marginRight:"-1.5rem"}}>
+                    { post.category.map((category, idx) => (
                         
-                    </Col>
-                    <Col xs={2}>
+                    <>
+                    {' '}
+                    <Badge pill bg="primary" style={{fontSize:"1.2em"}} key = {idx} >
+                        {category}
+                    </Badge>
                     
-                    
-                        {likes !== undefined && likes.length > 0?
-                            <Row className="justify-content-center text-end">
-                                <Button variant="Link" onClick={e => handleLike(e)}>{likes.length}<img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px"style={{marginLeft:"0.5rem", marginBottom:"0.5rem"}}/></Button>
-                            </Row>
-                        : 
-                            <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginLeft:"0.5rem", marginBottom:"0.5rem"}}/></Button>
-                        }
+                    </>))
+                    }
                     </Col>
-                    <Col>
-                    <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
-                    </Col>
-                </Row>
-                
-                </Col>
-                <Col xs={6}>
-                <Row>
-                <Row className="justify-content-end" style={{marginTop:"1rem"}}>
-                <Col className="col-sm-auto" style={{marginRight:"-1.5rem"}}>
-                { post.category.map((category, idx) => (
-                      
-                <>
-                {' '}
-                <Badge pill bg="primary" style={{fontSize:"1.2em"}} key = {idx} >
-                    {category}
-                </Badge>
-                 
-                </>))
-                }
-                </Col>
-                </Row>
-                <img 
-                            src={post.picture !== "" && post.picture !== undefined? post.picture: tempPic} 
-                            alt="post picture" 
-                            class="img-responsive" 
-                            height= "300px"
-                            style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}}
-                        />
+                    </Row>
+                    <img 
+                                src={post.picture !== "" && post.picture !== undefined? post.picture: tempPic} 
+                                alt="post picture" 
+                                class="img-responsive" 
+                                height= "300px"
+                                style={{objectFit:"cover", marginBottom:"1rem", marginTop:"1rem"}}
+                            />
+                        
+                    </Row>
                     
-                </Row>
-                
-                </Col>
-                <Comments post={post} />
-                </Row>
+                    </Col>
+                    <Comments post={post} show={show} />
+                    </Row>
                 }
             </Col>
         )
