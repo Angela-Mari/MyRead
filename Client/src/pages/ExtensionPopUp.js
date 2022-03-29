@@ -38,14 +38,12 @@ function ExtensionPopUp({
 
     async function handleGoogleSubmit(g) {
         console.log('inside of handleGoogleSubmit');
-        console.log("in app: ", g);
         await login(g.getEmail(), g.getId());
         await sendMessage(g);
       }
         
       async function handleFacebookSubmit(fb) {
         console.log('inside handleFacebookSubmit');
-        console.log('in app: ', fb);
         //set email and password
         await login(fb.email, fb.id);
         sendMessage();

@@ -68,7 +68,6 @@ function App({
 
   async function handleGoogleSubmit(g) {
     console.log('inside handleGoogleSubmit');
-    console.log("in app: ", g);
     setEmail(g.getEmail());
     setPassword(g.getId());
     if (authenticationType === "Register") {
@@ -105,7 +104,6 @@ function App({
     
   async function handleFacebookSubmit(fb) {
     console.log('inside handleFacebookSubmit');
-    console.log('in app: ', fb);
     //set email and password
     setEmail(fb.email);
     setPassword(fb.id);
