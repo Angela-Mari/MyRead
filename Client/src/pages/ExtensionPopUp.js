@@ -22,7 +22,8 @@ function ExtensionPopUp({
       console.log("in sendMessage")
       //for connection to extension
       // extension id
-      const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
+      // const extId = "mophplpadcdmninlhmbnkhpdohgfodlh"; //old
+      const extId = "nlimpfenamaljjgolngpfmdikickookj" // new
       // "http://localhost:3000/extension-login"
       // "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login"
       // "https://my-read-08.herokuapp.com/extension-login"
