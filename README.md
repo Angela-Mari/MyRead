@@ -70,3 +70,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 New edit.js and edit.css added some new code to blog.js 2021 -11 -9
+
+
+### MyRead Extension
+The URL to the extension's github: https://github.com/stoll2882/extension
