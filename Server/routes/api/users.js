@@ -179,14 +179,8 @@ router.get('/following', auth, async (req, res) => {
 
       for(const userFollowing in allFollowing) {
         const currUserId = user.following[userFollowing]._id;
-        const currUser = await User.findOne({ _id: currUserId });
+        const currUser = await User.findOne({ _id: currUserId }).select('-password');
         
-        // const newUser = {
-        //   name: userFollowing.firstName + " " + userFollowing.lastName,
-        //   alias: userFollowing.alias,
-        //   picture: userFollowing.picture,
-        //   bio: userFollowing.bio,
-        // };
         usersFollowing.unshift(currUser);
       }
       
@@ -198,22 +192,28 @@ router.get('/following', auth, async (req, res) => {
   }
 );
 
-// @route   PUT api/users/favorites
-// @desc    Add a post to user's favorites
+// @route   DELETE api/users/following
+// @desc    Delete a user from a users following list
 // @access  Private
-router.put('/favorites', auth, async (req, res) => {
-    const postId = req.body.postId;
-    try {
-      const user = await User.findOne({ _id: req.user.id });
-      user.favorites.unshift(postId);
-      
-      await user.save();
-      res.json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-    }
+router.delete('/following/:follow_id', auth, async (req, res) => {
+  const userToFollowId = req.params.follow_id;
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    
+    // Get remove index
+    const removeIndex = user.following.find(
+      (following) => following.id === req.params.follow_id
+    );
+
+    user.following.splice(removeIndex, 1);
+    
+    await user.save();
+    res.json(user.following);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
+}
 );
 
 // // @route   GET api/users/bio
