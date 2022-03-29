@@ -88,7 +88,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
             <Container fluid={true} style={{backgroundColor:"whiteSmoke", minHeight:"900px"}} >
                         <Row>
                             <h1 onClick={e=> {history.push(`/blog/${dataUser.alias}`)}} className="my-header">{dataUser.alias}'s Blog</h1>
-                            <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
+                            <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts} show={show}></Categories>
                             {postId !== undefined && selectedPost !== {} && selectedPost !== undefined ? 
                                 <PostDetail post={selectedPost} currator ={dataUser}></PostDetail>
                                 :
