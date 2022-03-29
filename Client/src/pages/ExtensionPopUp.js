@@ -25,7 +25,8 @@ function ExtensionPopUp({
       const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
       // "http://localhost:3000/extension-login"
       // "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login"
-      chrome.runtime.sendMessage(extId, { url: "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
+      // "https://my-read-08.herokuapp.com/extension-login"
+      chrome.runtime.sendMessage(extId, { url: "https://my-read-08.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
         function(response) {
           if(!response)
             return;
