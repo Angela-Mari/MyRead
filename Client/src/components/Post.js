@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
+import { Container, Card, Row, Col, Button, Badge, ButtonGroup} from 'react-bootstrap';
 import "./Post.css"
 import { deletePost } from "../actions/post"
 import { addLike } from "../actions/post"
@@ -26,10 +26,6 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
         setUpdatePosts({})
     }
 
-    function handleComment(e){
-        e.preventDefault();
-    }
-
     function getSource(){
         if (post.url !== undefined) {
         let arr1 = post.url.split(":")
@@ -46,14 +42,14 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
     }
 
     return (
-        <Container onClick = {() => handleClick(post)} style={{marginTop:"0.5rem", marginLeft:"0rem", marginRight: "0.5rem", cursor:"pointer"}}>
+        <Container  style={{marginTop:"0.5rem", marginLeft:"0rem", marginRight: "0.5rem"}}>
             <Card className="p-3 mb-4 bg-white rounded" >
-            <Row>
-            <Col className="col-sm-auto">
+            <Row >
+            <Col className="col-sm-auto" onClick = {() => handleClick(post)} style={{cursor:"pointer"}}>
             <img src={post.picture!== "" && post.picture !== undefined? post.picture: tempPic} width="300" height="200px" style={{objectFit:"cover"}}/>
             </Col>
             <Col>
-                <Row>
+                <Row onClick = {() => handleClick(post)} style={{cursor:"pointer"}}>
                 <Col>
                     <h3>
                         {post.title}
@@ -70,43 +66,43 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                 </>))
                 }
                 </Col>
-                </Row>
+                
                 <div>
                     {post.description.length <= 300? post.description : post.description.substring(0, 300).trim() + "... Read More"}
                 </div>
-                <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
-                    Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
+                </Row>
+                <Row>
+                <div >
+                    Source: <span style={{color:"#437eb6", textDecoration:"underline", marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>{getSource()}</span>
                 </div>
+                </Row>
                 <Row className="bottom justify-content-end">
                     
                     {isAuthenticated?
                     <>
-                    <Col xs={2}>
-                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.url}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
-                        </Col>
-                        <Col xs={2}>
-                            <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
-                        </Col>
-                    <Col xs={2}>
-                        
-                        
-                            {post.likes !== undefined && post.likes.length > 0? 
+                        {post.likes !== undefined && post.likes.length > 0? 
+                            <Col xs={4}>
                             <Row className="justify-content-center text-end">
-                            <Col xs={6} style={{marginTop:".5rem", marginRight:"-1rem", fontWeight:"bold"}} >
-                            {post.likes.length}
-                            </Col> 
-                            <Col xs={6} >
+                                <Col xs={11} style={{marginTop:".5rem", marginRight:"-1rem", fontWeight:"bold"}} >
+                                {post.likes.length}
+                                </Col> 
+                                <Col xs={1} >
                             <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginBottom:"0.5rem"}}/></Button>
                             </Col>
                             </Row>
+                           </Col>
                             : 
-                            
+                            <Col xs={2}>
                             <Button variant="Link" onClick={e => handleLike(e)}> <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/50/000000/external-like-touch-gestures-those-icons-lineal-those-icons.png" height="25px" weight="25px" style={{marginBottom:"0.5rem"}}/></Button>
-                            
-                            }
-                        
-                        
+                            </Col>
+                        }
+                    <Col xs={2}>
+                        <Button onClick = {() => handleClick(post)} variant="Link" style={{width:"40px", marginLeft:"1rem"}}> <img src="https://img.icons8.com/ios/50/000000/resize-diagonal--v1.png" height="25px" weight="25px"/> </Button>
                     </Col>
+                    <Col xs={2}>
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.url}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                        </Col>
+                        
                     <Col xs={2}>
                         {
                             dataUser.alias === user.alias?
@@ -122,7 +118,7 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                             <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
                         </Col>
                         <Col xs={6}>
-                            <Button variant="Link" style={{width:"40px"}}> <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-comment-chat-flatart-icons-outline-flatarticons-1.png" height="25px" weight="25px"/> </Button>
+                            <Button onClick = {() => handleClick(post)} variant="Link" style={{width:"40px", marginLeft:"1rem"}}> <img src="https://img.icons8.com/ios/50/000000/resize-diagonal--v1.png" height="25px" weight="25px"/> </Button>
                         </Col>
                     </Row>
                     } 
