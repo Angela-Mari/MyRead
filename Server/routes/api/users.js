@@ -178,7 +178,8 @@ router.get('/following', auth, async (req, res) => {
       const usersFollowing = [];
 
       for(const userFollowing in allFollowing) {
-        const currUser = await User.findOne({ _id: userFollowing._id });
+        const currUserId = user.following[userFollowing]._id;
+        const currUser = await User.findOne({ _id: currUserId });
         
         // const newUser = {
         //   name: userFollowing.firstName + " " + userFollowing.lastName,
