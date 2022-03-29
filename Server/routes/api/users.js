@@ -110,13 +110,11 @@ router.post(
 router.put('/update', auth, async (req, res) => {
     const newBio = req.body.bio;
 
-    const newSocials = req.body.socials;
-    const instagram = newSocials.instagram;
-    const facebook = newSocials.facebook;
-    const other = newSocials.other;
+    const instagram = req.body.instagram;
+    const facebook = req.body.facebook;
+    const other = req.body.other;
     
     try {
-
       let user = await User.findOneAndUpdate(
         { _id: req.user.id },
         { $set: { bio : newBio, socials: { instagram, facebook, other } }},
