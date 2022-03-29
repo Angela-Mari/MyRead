@@ -166,8 +166,8 @@ export const addCategory = (category) => async (dispatch) => {
 };
 
 // Update a User
-export const updateUser = (bio, socials) => async (dispatch) => {
-  var body = JSON.stringify({ bio: bio, socials: socials });
+export const updateUser = (bio, instagram, facebook, other) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, instagram: instagram, facebook: facebook, other: other });
 
   const config = {
     headers: {
