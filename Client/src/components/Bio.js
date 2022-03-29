@@ -27,9 +27,7 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
 
     useEffect(() => {
         console.log("in use effect")
-        console.log(user)
-        console.log(dataUser)
-        if (show && isAuthenticated){
+        if (show && isAuthenticated && user && dataUser && user.alias != dataUser.alias){
             var myFollower = null
             myFollower = user.following.find(follower => follower._id === dataUser._id)
             if (myFollower == null) {
@@ -41,8 +39,12 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
                 setFollowing("Following")
             }
         }
+        if(user && dataUser && user.alias == dataUser.alias) {
+            console.log("user.alias == datauser.alias")
+            setFollowing("Self")
+        }
         
-    }, [dataUser, user]);
+    }, [show, dataUser, user]);
 
     return (
         <Col className = "center-block">
@@ -70,13 +72,13 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
             </Row>
             <Row>
                 {
-                    show && user && dataUser && user.alias == dataUser.alias ? 
-                    "" 
-                    : 
                     following === "Following"?
                         <Button>Following</Button> 
-                            : 
+                        :
+                    following === "Follow"?
                         <Button onClick={e => updateFollowing()}>Follow</Button>
+                        :
+                        ""
                 }
             </Row>
         </Col>

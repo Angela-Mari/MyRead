@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Row, Col,Button, Container, Dropdown, DropdownButton } from "react-bootstrap";
+import { Row, Col,Button, Container, Dropdown, DropdownButton, Spinner } from "react-bootstrap";
 import "./Explore.css"
 import { getPosts } from '../actions/post';
 import { getAllUsers, getFollowing } from "../actions/auth";
@@ -25,22 +25,23 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
     const [searchFollowing, updateSearchFollowing] = useState([]);
 
     useEffect(() => {
-        getPosts().then(res => {
-            updatePosts(res)
-            updateSearchPosts(res)
-            
-        })
+        
         getAllUsers().then(res => {
             updateCurrators(res)
             updateSearchBlogs(res)
+            getFollowing().then(res => {
+                console.log(res)
+                updateFollowing(res)
+                updateSearchFollowing(res)
+                getPosts().then(res => {
+                    updatePosts(res)
+                    updateSearchPosts(res)
+                    setShow(true);
+                })
+            })
             
         }) 
-        getFollowing().then(res => {
-            console.log(res)
-            updateFollowing(res)
-            updateSearchFollowing(res)
-            setShow(true);
-        })
+        
         
     }, [])
 
@@ -152,7 +153,17 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
                     </Row>
                 </Row>
                 <Row>
-                {show && value == "Posts"?
+                {
+                !show?
+                <Row className="justify-content-center">
+                    
+                    <Spinner animation="border" role="status" size="lg">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                   
+                </Row>
+                :
+                show && value == "Posts"?
                     <Row xs={1} sm={2} lg={3}>
                     {searchPosts.map((post, i) => {
                         return (
@@ -185,7 +196,7 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
                     })}
                     </Row>
                     :
-                    <></>
+                    "Error loading explore page"
                     }
                 </Row>
             

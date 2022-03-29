@@ -8,7 +8,7 @@ import "./Categories.css";
 import Bio from "../components/Bio";
 import { useHistory } from "react-router-dom";
 
-function Categories({dataUser, setCategory, setUpdatePosts}) {
+function Categories({dataUser, setCategory, setUpdatePosts, show}) {
 
     let history = useHistory();
 
@@ -38,7 +38,7 @@ function Categories({dataUser, setCategory, setUpdatePosts}) {
     return (
         <Col xs={3} md={3} className="sidebar">
             <h2>About the Curator</h2>
-            <Bio dataUser={dataUser}></Bio>
+            <Bio dataUser={dataUser} show={show}></Bio>
             <h2>Categories</h2>
             <Col>
             <MyCategories categories={dataUser !== undefined && dataUser.categories !== undefined? dataUser.categories : []}/>
