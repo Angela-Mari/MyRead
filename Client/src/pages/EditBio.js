@@ -3,13 +3,13 @@ import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {loadUser, updateBio, uploadProfilePicture} from '../actions/auth';
+import {loadUser, updateUser, uploadProfilePicture} from '../actions/auth';
 import {useHistory} from 'react-router';
 import validator from 'validator';
 import CreatableSelect from 'react-select/creatable';
 import avatar from "../components/static_images/anonymous-avatar-icon-25.jpg";
 
-function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user }}){
+function EditBio({isAuthenticated, updateUser, uploadProfilePicture, auth: { user }}){
     const history = useHistory();
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({})
@@ -18,10 +18,6 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
     
     const findFormErrors = () => {
         const newErrors = {}
-
-        if (formData.bio.length === 0){
-            newErrors.alias = "Alias must be at least one character."
-        }
 
         if (formData.bio.length === 0){
             newErrors.bio = "Bio must be at least one character."
@@ -46,10 +42,10 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
     }
     
     const [formData, setFormData] = useState({
-    alias: isAuthenticated? user.alias : "",
     bio: isAuthenticated? user.bio : "",
-    url: '',
-    category: '',
+    facebook: '',
+    instagram: '',
+    other: ''
     });
 
     async function submit(event){
@@ -59,7 +55,7 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
             var getUrl = window.location;
             var blogUrl = getUrl .protocol + "//" + getUrl.host + "/" + "blog/" + user.alias;
             await uploadProfilePicture(images[0], 1);
-            await updateBio(formData.bio)
+            await updateUser(formData.bio, formData.socials)
             history.push(`/blog/${user.alias}`);
         }
     }
@@ -84,19 +80,23 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
                         </Col>
                             <input type="file" accept="image/*" onChange={onImageChange} />
                     </Form.Group>
-                    
-                    <Form.Group style={{marginTop:"0.5rem"}}>
-                        <Form.Label>Alias</Form.Label>
-                        <Form.Control name="title" value={formData.alias} placeholder="Enter Alias" onChange={(e) => setFormData(formData => ({...formData, alias: e.target.value}))} isInvalid={ !!errors.alias }/>
-                        <Form.Control.Feedback type="invalid">{errors.alias}</Form.Control.Feedback>
-                    </Form.Group>
                     <Form.Group style={{marginTop:"0.5rem"}}>
                         <Form.Label>Edit Bio</Form.Label>
                         <Form.Control name="bio" value={formData.bio} as="textarea" placeholder="Enter Bio" onChange={(e) => setFormData(formData => ({...formData, bio: e.target.value}))} isInvalid={!!errors.bio }/>
                         <Form.Control.Feedback type="invalid">{errors.bio}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group style={{marginTop:"0.5rem"}}>
-                        <Form.Label>Social Media Links</Form.Label>
+                        <Form.Label>Instagram Link</Form.Label>
+                        <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, instagram: e.target.value}))}  isInvalid={ !!errors.url }/>
+                        <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group style={{marginTop:"0.5rem"}}>
+                        <Form.Label>Facebook Link</Form.Label>
+                        <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, facebook: e.target.value}))}  isInvalid={ !!errors.url }/>
+                        <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group style={{marginTop:"0.5rem"}}>
+                        <Form.Label>Other Link</Form.Label>
                         <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, url: e.target.value}))}  isInvalid={ !!errors.url }/>
                         <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
                     </Form.Group>
@@ -112,7 +112,7 @@ function EditBio({isAuthenticated, updateBio, uploadProfilePicture, auth: { user
 }
 
 EditBio.propTypes = {
-    updateBio: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
     uploadProfilePicture: PropTypes.func.isRequired,
   };
@@ -123,4 +123,4 @@ const mapStateToProps = (state) => ({
   });
 
 
-export default connect(mapStateToProps,{loadUser, updateBio, uploadProfilePicture})(EditBio);
+export default connect(mapStateToProps,{loadUser, updateUser, uploadProfilePicture})(EditBio);
