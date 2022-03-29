@@ -324,12 +324,33 @@ export const addFollowing = (followId) => async (dispatch) => {
   }
 };
 
-// Get all users a user is following
-export const getFollowing = () => async (dispatch) => {
+// Add a User Favorite Post
+export const addFavorite = (postId) => async (dispatch) => {
+  var body = JSON.stringify({ postId: postId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
   try {
-    const res = await axios.get(getDevPrefix() + '/api/users/following');
-    return res.data;
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
   } catch (err) {
-    console.log(err.msg);
+    console.log(err.message);
   }
 };
+
+// Get all users a user is following
+//   **dont think we need this function... should be able to access through users.following as other 
+//     variables are accessed... leaving it here just in case... uncomment if we need it.
+// export const getFollowing = () => async (dispatch) => {
+//   try {
+//     const res = await axios.get(getDevPrefix() + '/api/users/following');
+//     return res.data;
+//   } catch (err) {
+//     console.log(err.msg);
+//   }
+// };
