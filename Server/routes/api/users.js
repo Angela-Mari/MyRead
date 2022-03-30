@@ -104,6 +104,22 @@ router.post(
   }
 );
 
+// @route   GET api/users/:user_id
+// @desc    Get a single user from a given id
+// @access  Private
+router.get('/:user_id', async (req, res) => {
+  const userId = req.params.user_id;
+  try {
+    const user = await User.findOne({ _id: userId });
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+}
+);
+
 // @route   GET api/users/update
 // @desc    Add a category to a user
 // @access  Private
@@ -201,7 +217,7 @@ router.delete('/following/:follow_id', auth, async (req, res) => {
     // Get remove index
     const removeIndex = user.following.find(
       (following) => following.id === req.params.follow_id
-    );
+    ).__index;
 
     user.following.splice(removeIndex, 1);
     
