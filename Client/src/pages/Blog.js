@@ -53,7 +53,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     useEffect(() => {
         console.log("in use effect blog to set data user")
         if (isAuthenticated){
-            getUser
+            //GET USER HERE!!!!!
             if ( username == user.alias ){
                 setDataUser(user) 
             }

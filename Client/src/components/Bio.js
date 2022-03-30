@@ -6,24 +6,56 @@ import fb from "./static_images/f_logo_RGB-Blue_72.png"
 import { useLocation, useHistory, Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addFollowing, getFollowing } from '../actions/auth';
+import { addFollowing, getFollowing, removeFollowing } from '../actions/auth';
 
-function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { user }, show}) {
+function Bio({dataUser, addFollowing, removeFollowing, getFollowing, isAuthenticated, auth: { user }, show}) {
     
     let history = useHistory();
    
-    async function updateFollowing() {
-        await addFollowing(dataUser._id).then(res => {
-            getFollowing().then(res => {
-                console.log("got following:", res)
-                setFollowing(res)
-                console.log(res)
+    async function updateFollowing(type) {
+        if (type == "add"){
+            await addFollowing(dataUser._id).then(res => {
+                getFollowing().then(res => {
+                    console.log("got following:", res)
+                    var myFollower = null
+                    myFollower = res.find(follower => follower._id === dataUser._id)
+                    if (myFollower == null) {
+                        console.log("not following")
+                        setFollowing("Follow")
+                    }
+                    else {
+                        console.log("following")
+                        setFollowing("Following")
+                    }
+                    console.log(res)
+                })
             })
-        })
+        }
+        if (type == "remove"){
+            await removeFollowing(dataUser._id).then(res => {
+                getFollowing().then(res => {
+                    console.log("got following:", res)
+                    var myFollower = null
+                    myFollower = res.find(follower => follower._id === dataUser._id)
+                    if (myFollower == null) {
+                        console.log("not following")
+                        setFollowing("Follow")
+                    }
+                    else {
+                        console.log("following")
+                        setFollowing("Following")
+                    }
+                    console.log(res)
+                })
+            })
+        }
+       
     } 
 
     const [following, setFollowing] = useState({});
     const [displayUser, setDiplayUser] = useState(dataUser);
+
+    
 
     useEffect(() => {
         console.log("in use effect bio")
@@ -53,7 +85,7 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
             <Row>
                 <Col>
                 <img onClick = {e=> {history.push(`/blog/${displayUser.alias}`)}} className= "bio-pic" src={displayUser.picture} />
-            </Col>
+                </Col>
             </Row>            
             <h3 style={{marginTop:"1rem"}}>{`${displayUser.firstName} ${displayUser.lastName}`}</h3>
             <p style={{marginBottom:"-0.25rem"}}>{displayUser.bio}</p>
@@ -79,10 +111,10 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
             <Row className="justify-content-center">
                 {
                     following === "Following"?
-                        <Button className="rounded-pill" onClick={e => updateFollowing()>Following</Button> 
+                        <Button className="rounded-pill" onClick={e => updateFollowing("remove")}>Following</Button> 
                         :
                     following === "Follow"?
-                        <Button className="rounded-pill" onClick={e => updateFollowing()}>Follow</Button>
+                        <Button className="rounded-pill" onClick={e => updateFollowing("add")}>Follow</Button>
                         :
                         ""
                 }
@@ -92,6 +124,7 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
 }
 Bio.propTypes = {
     addFollowing: PropTypes.func.isRequired,
+    removeFollowing: PropTypes.func.isRequired,
     getFollowing: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
@@ -101,4 +134,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
   });
 
-export default connect(mapStateToProps,{ addFollowing, getFollowing })(Bio);
+export default connect(mapStateToProps,{ addFollowing, getFollowing, removeFollowing })(Bio);
