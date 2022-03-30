@@ -39,10 +39,10 @@ const PostSchema = new Schema({
         type: String,
         required: true,
       },
-      name: {
+      alias: {
         type: String,
       },
-      avatar: {
+      picture: {
         type: String,
       },
       date: {

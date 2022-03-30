@@ -10,7 +10,10 @@ import {
     AUTH_ERROR,
     SET_ALERT,
     REMOVE_ALERT,
-    LOGOUT
+    LOGOUT,
+    TWO_FACTOR_ATTEMPTED,
+    TWO_FACTOR_SUCCESS,
+    TWO_FACTOR_FAILED,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -18,19 +21,19 @@ function getDevPrefix() {
   var devPrefix = "http://localhost:5000";
 
   if(process === undefined) {
-    console.log(">>> Process doesnt exist, dev mode activated");
+    // console.log(">>> Process doesnt exist, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV == null) {
-    console.log(">>> NODE_ENV is null, dev mode activated");
+    // console.log(">>> NODE_ENV is null, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === undefined) {
-    console.log(">>> NODE_ENV undefined, dev mode activated");
+    // console.log(">>> NODE_ENV undefined, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === "development") {
-    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    // console.log(">>> NODE_ENV is set to development, dev mode activated");
     return devPrefix;    
   } else {
-    console.log(">>> No dev mode detected");
+    // console.log(">>> No dev mode detected");
     return "";
   }
 }
@@ -162,6 +165,26 @@ export const addCategory = (category) => async (dispatch) => {
     }
 };
 
+// Update a User
+export const updateUser = (bio, instagram, facebook, other) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, instagram: instagram, facebook: facebook, other: other });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/update', body, config);
+    // const res = await axios.post('/api/auth', body);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 // Update a User's Bio
 export const updateBio = (bio) => async (dispatch) => {
   var body = JSON.stringify({ bio: bio });
@@ -182,10 +205,20 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-// Get Posts
+// Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
     const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+// Get Posts
+export const getUserById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/singleuser/' + userId);
     return res.data;
   } catch (err) {
     console.log(err.msg);
@@ -241,5 +274,103 @@ export const uploadPostPicture = (file, postId) => async (dispatch) => {
     await axios.post(getDevPrefix() + '/api/postimage/' + postId);
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const twoFactorAuth = (email, phoneNumber) => async (dispatch) => {
+  const body = { email: email, phoneNumber: phoneNumber };
+
+  dispatch({
+    type: TWO_FACTOR_ATTEMPTED,
+  });
+  try {
+    await axios.post('/api/twofa', body);
+    dispatch({
+      // type: CONTACT_MESSAGE_SENT,
+    });
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+  }
+};
+
+export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
+  const body = { email, code };
+
+  try {
+    await axios.post('/api/twofa/verify', body);
+    dispatch({
+      type: TWO_FACTOR_SUCCESS,
+    });
+    return true;
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    dispatch({
+      type: TWO_FACTOR_FAILED,
+    });
+    return false;
+    // const errors = err.response.data.errors;
+  }
+};
+
+// Add a User Following
+export const addFollowing = (followId) => async (dispatch) => {
+  var body = JSON.stringify({ followId: followId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Add a User Favorite Post
+export const addFavorite = (postId) => async (dispatch) => {
+  var body = JSON.stringify({ postId: postId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Get all users a user is following
+export const getFollowing = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/following');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+// Remove a User Following
+export const removeFollowing = (followId) => async (dispatch) => {
+
+  try {
+    const res = await axios.delete(getDevPrefix() + '/api/users/following/' + followId);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
   }
 };

@@ -1,0 +1,6 @@
+#comment-drop-down::after{
+    display: none; 
+ }
+#comment-drop-down{
+    color: dimgray
+ }

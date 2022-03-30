@@ -37,12 +37,12 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
             {
                 isAuthenticated && user !== null ? 
                 <> 
-                <Navbar.Text style={{color:"white", paddingRight:"1rem", fontSize:"1.2rem", fontWeight:"bold"}}>
+                <Navbar.Text style={{color:"white", paddingRight:"1rem", fontSize:"1.3rem", fontWeight:"bold"}}>
                     Curator {user.firstName} {user.lastName}    
                 </Navbar.Text>
                 
                 <Nav.Link>
-                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.2rem", fontWeight:"bold"}}>
+                <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.3rem", fontWeight:"bold"}}>
                     Explore
                 </Link>
                 </Nav.Link>

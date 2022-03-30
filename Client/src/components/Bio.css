@@ -11,3 +11,16 @@
 p {
     font-size: 1.2em;
 }
+
+.bio-pic {
+    border-radius:50%;
+    height:100px;
+    width:100px;
+    object-fit:"cover";
+    cursor: pointer;
+}
+
+.bio-pic:hover{
+    cursor: pointer;
+    transform:scale(1.15);
+}

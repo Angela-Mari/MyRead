@@ -21,6 +21,12 @@ import PaypalImage from "./Carousel/paypal.png";
 function Home({authenticationType, setAuthenticationType, email, setEmail, password, setPassword, firstName, lastName, alias, phoneNumber, setFirstName, setLastName, setAlias, setPhoneNumber, handleSubmit, handleGoogleSubmit, handleFacebookSubmit, pin, setPin, handle2FASubmit, twoFA, setTwoFA, show, setShow}) {    
   
     function handleClose(){
+        setEmail("")
+        setPassword("")
+        setFirstName("")
+        setLastName("")
+        setPhoneNumber("")
+        setAlias("")
         setShow(false)
         setTwoFA(false)
     }

@@ -1,11 +1,14 @@
 .my-header {
     padding-bottom: 1rem;
+    color: dimgray;
+    font-weight: bold;
     padding-top: .5rem;
     height: 75px;
     padding-left: 1.5rem;
     text-align: center;
     background-color: white;
     box-shadow: 2px 2px 10px lightGrey;
+    cursor: pointer;
 }
 
 .btm-nav {

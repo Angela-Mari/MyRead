@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { addPost } from "../actions/post";
 import { connect } from 'react-redux';
@@ -17,7 +17,20 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
     const [selectedOptions, setSelectedOptions] = useState([])
     const [images, setImages] = useState([]);
     const [preview, setPreview] = useState(null);
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        url: '',
+        picture: '',
+        category: [],
+        });
 
+    useEffect(() => {
+        console.log("in use effect new post")
+        if (history.location.state !== undefined ){
+            setFormData(formData => ({...formData, title: history.location.state.title, description: history.location.state.description, url: history.location.state.url}))
+        }
+      }, []);
     // on submit updateFormData inside useEffect dependent on cahnges from my values
     const findFormErrors = () => {
         const newErrors = {}
@@ -65,13 +78,7 @@ function NewPost({addPost, addCategory, isAuthenticated, uploadPostPicture, auth
 
     const options = user != undefined && user.categories.length !== 0? user.categories.map(category => ({value: category, label: category})): [];
     
-    const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    url: '',
-    picture: '',
-    category: [],
-    });
+    
 
     function handleSelections(newOption) {  
         console.log("setting options...")

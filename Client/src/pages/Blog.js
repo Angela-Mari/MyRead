@@ -6,12 +6,13 @@ import RecentPosts from "../components/RecentPosts";
 import { connect } from 'react-redux';
 import PropTypes, { func } from 'prop-types';
 import { getPost } from '../actions/post';
-import { loadUser, getAllUsers } from '../actions/auth';
+import { loadUser, getAllUsers, getUserById} from '../actions/auth';
 import "./Blog.css";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory} from 'react-router-dom'
 import PostDetail from "../components/PostDetail";
 
-function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
+function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost, getUserById}) {
+    let history = useHistory();
     let { username } = useParams();
     let { postId } = useParams();
     let { category } = useParams();
@@ -28,14 +29,14 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                 await getPost(postId).then(res => {
                     setPost(res.data)  
                     setShow([true]);
-                })
-                
+                    }
+                )
             }
         }
         else {
             setShow([true])
         }
-    } 
+    }
 
     if (selectedCategory !== category){
         if (category == "undefined") {
@@ -50,11 +51,13 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     }
 
     useEffect(() => {
-
+        console.log("in use effect blog to set data user")
         if (isAuthenticated){
-            loadUser()
+           
             if ( username == user.alias ){
-                setDataUser(user) 
+                getUserById(user._id).then(res => {
+                    setDataUser(res) 
+                })
             }
             else {
                 getAllUsers().then(res => {
@@ -62,8 +65,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                         if (element.alias === username){
                             setDataUser(element);
                         }
-                    });
-                    
+                    }); 
                 }) //todo filter for actual user
             }
             
@@ -84,18 +86,16 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
    
     return (
         <>
-            <Container fluid={true} style={{backgroundColor:"whiteSmoke"}} >
-                <Row >
+            <Container fluid={true} style={{backgroundColor:"whiteSmoke", minHeight:"900px"}} >
                         <Row>
-                            <h1 className="my-header">{dataUser.alias}'s Blog</h1>
-                            <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts}></Categories>
+                            <h1 onClick={e=> {history.push(`/blog/${dataUser.alias}`)}} className="my-header">{dataUser.alias}'s Blog</h1>
+                            <Categories dataUser={dataUser} setCategory ={setCategory} setUpdatePosts={setUpdatePosts} show={show}></Categories>
                             {postId !== undefined && selectedPost !== {} && selectedPost !== undefined ? 
                                 <PostDetail post={selectedPost} currator ={dataUser}></PostDetail>
                                 :
                                 <RecentPosts show = {show} dataUser={dataUser} post={selectedPost} setPost={setPost} header = {category !== "" && category !== undefined? `Category: ${selectedCategory}` : "Recent Posts"} category={selectedCategory} updatePosts={updatePosts} setUpdatePosts={setUpdatePosts}></RecentPosts>
                             }
                         </Row>
-                    </Row>
                 </Container>
             </>
         );
@@ -104,6 +104,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
 
 Blog.propTypes = {
     getAllUsers: PropTypes.func.isRequired,
+    getUserById: PropTypes.func.isRequired,
     getPost: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
 };
@@ -113,4 +114,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps,{loadUser, getAllUsers, getPost})(Blog);
+export default connect(mapStateToProps,{loadUser, getAllUsers, getPost, getUserById})(Blog);

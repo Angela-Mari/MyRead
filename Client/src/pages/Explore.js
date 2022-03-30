@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { Row, Col,Button, Container, Dropdown, DropdownButton } from "react-bootstrap";
+import { Row, Col,Button, Container, Dropdown, DropdownButton, Spinner } from "react-bootstrap";
 import "./Explore.css"
 import { getPosts } from '../actions/post';
-import { getAllUsers } from "../actions/auth";
+import { getAllUsers, getFollowing } from "../actions/auth";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SmallPost from '../components/SmallPost';
@@ -10,7 +10,7 @@ import BloggerCard from "../components/BloggerCard";
 import "./Explore.css";
 import { useHistory, useLocation } from "react-router";
 
-function Explore({getPosts, getAllUsers}, place) {
+function Explore({getPosts, getAllUsers, getFollowing, isAuthenticated}) {
 
     const location = useLocation();
 
@@ -21,18 +21,27 @@ function Explore({getPosts, getAllUsers}, place) {
     const [searchBlogs, updateSearchBlogs] = useState([]);
     const [searchTerms, updateSearchTerms] = useState("");
     const [currators, updateCurrators] = useState([]);
+    const [following, updateFollowing] = useState([]);
+    const [searchFollowing, updateSearchFollowing] = useState([]);
 
     useEffect(() => {
-        getPosts().then(res => {
-            updatePosts(res)
-            updateSearchPosts(res)
-            
-        })
+        
         getAllUsers().then(res => {
             updateCurrators(res)
             updateSearchBlogs(res)
-            setShow(true);
+            getFollowing().then(res => {
+                console.log(res)
+                updateFollowing(res)
+                updateSearchFollowing(res)
+                getPosts().then(res => {
+                    updatePosts(res)
+                    updateSearchPosts(res)
+                    setShow(true);
+                })
+            })
+            
         }) 
+        
         
     }, [])
 
@@ -43,22 +52,43 @@ function Explore({getPosts, getAllUsers}, place) {
 
     function handleSearch(e) {
         if (value=="Posts"){
-        updateSearchPosts([])
-        if (searchTerms === ""){
-            updateSearchPosts(posts)
+            updateSearchPosts([])
+            if (searchTerms === ""){
+                updateSearchPosts(posts)
+            }
+            const searchArray = []
+            posts.forEach(element => {
+                if (element.title.toLowerCase().includes(searchTerms.toLowerCase())){
+                    searchArray.push(element)
+                }
+                else if (element.description.toLowerCase().includes(searchTerms.toLowerCase())){
+                    searchArray.push(element)
+                }
+            });
+            updateSearchPosts(searchArray)
         }
-        const searchArray = []
-        posts.forEach(element => {
-            if (element.title.toLowerCase().includes(searchTerms.toLowerCase())){
-                searchArray.push(element)
-            }
-            else if (element.description.toLowerCase().includes(searchTerms.toLowerCase())){
-                searchArray.push(element)
-            }
-        });
-        updateSearchPosts(searchArray)
-    }
-    else{
+        if (value=="Following"){
+                updateSearchFollowing([])
+                if (searchTerms === ""){
+                    updateSearchFollowing(following)
+                }
+                const searchArray = []
+                following.forEach(element => {
+                if (element.alias.toLowerCase().includes(searchTerms.toLowerCase())){
+                    searchArray.push(element)
+                }
+                else if (element.firstName.toLowerCase().includes(searchTerms.toLowerCase())){
+                    searchArray.push(element)
+                    
+                }
+                else if (element.lastName.toLowerCase().includes(searchTerms.toLowerCase())){
+                    searchArray.push(element)
+                }
+            });
+            updateSearchFollowing(searchArray)
+        }
+        
+    if (value=="Blogs") {
         updateSearchBlogs([])
         if (searchTerms === ""){
             updateSearchBlogs(currators)
@@ -101,6 +131,8 @@ function Explore({getPosts, getAllUsers}, place) {
                         >
                             <Dropdown.Item eventKey="Posts">Posts</Dropdown.Item>
                             <Dropdown.Item eventKey="Blogs">Blogs</Dropdown.Item>
+                            {isAuthenticated? <Dropdown.Item eventKey="Following">Following</Dropdown.Item> : ""}
+
                         </DropdownButton>
                         </div>
                         </Col>
@@ -121,29 +153,69 @@ function Explore({getPosts, getAllUsers}, place) {
                     </Row>
                 </Row>
                 <Row>
-                {show && value == "Posts"?
+                {
+                !show?
+                <Row className="justify-content-center">
+                    
+                    <Spinner animation="border" role="status" size="lg">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                   
+                </Row>
+                :
+                show && value == "Posts"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchPosts.map((post, i) => {
+                    {searchPosts.length > 0 ?
+                    searchPosts.map((post, i) => {
                         return (
                         <Col className="gx-2 px-2">
                             <SmallPost key={i} post = {post} />
                         </Col>
                         )
-                    })}
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    There are no posts right now.
                     </Row>
+                    }
+                    </Row>
+
                     :
                     show && value == "Blogs"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchBlogs.map((currator, i) => {
+                    {searchBlogs.length > 0?
+                    searchBlogs.map((currator, i) => {
                         return (
                         <Col className="gx-2 px-2">
                            <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
                         </Col>
                         )
-                    })}
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    There are no blogs right now.
+                    </Row>
+                    }
                     </Row>
                     :
-                    <></>
+                    show && value == "Following"?
+                    <Row xs={1} sm={2} lg={3}>
+                    {searchFollowing.length > 0 ?
+                    searchFollowing.map((currator, i) => {
+                        return (
+                        <Col className="gx-2 px-2">
+                           <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
+                        </Col>
+                        )
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    You are not following anyone
+                    </Row>
+                    }
+                    </Row>
+                    :
+                    "Error loading explore page"
                     }
                 </Row>
             
@@ -154,6 +226,7 @@ function Explore({getPosts, getAllUsers}, place) {
 Explore.propTypes = {
     getPosts: PropTypes.func.isRequired,
     getAllUsers: PropTypes.func.isRequired,
+    getFollowing: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -162,4 +235,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
   });
 
-export default connect(mapStateToProps,{getPosts, getAllUsers})(Explore);
+export default connect(mapStateToProps,{getPosts, getAllUsers, getFollowing})(Explore);

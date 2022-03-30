@@ -14,23 +14,23 @@ import {
 function getDevPrefix() { 
   var devPrefix = "http://localhost:5000";
 
-  console.log(">>> PROCESS.ENV.NODE_ENV: "+process.env.NODE_ENV);
-  console.log(">>> RESULT: "+(process.env.NODE_ENV === undefined));
+  // console.log(">>> PROCESS.ENV.NODE_ENV: "+process.env.NODE_ENV);
+  // console.log(">>> RESULT: "+(process.env.NODE_ENV === undefined));
 
   if(process === undefined) {
-    console.log(">>> Process doesnt exist, dev mode activated");
+    // console.log(">>> Process doesnt exist, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV == null) {
-    console.log(">>> NODE_ENV is null, dev mode activated");
+    // console.log(">>> NODE_ENV is null, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === undefined) {
-    console.log(">>> NODE_ENV undefined, dev mode activated");
+    // console.log(">>> NODE_ENV undefined, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === "development") {
-    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    // console.log(">>> NODE_ENV is set to development, dev mode activated");
     return devPrefix;    
   } else {
-    console.log(">>> No dev mode detected");
+    // console.log(">>> No dev mode detected");
     return "";
   }
 }

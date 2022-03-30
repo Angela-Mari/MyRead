@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
     firstName: {
@@ -51,7 +52,23 @@ const UserSchema = new mongoose.Schema({
         {
             type: String,
         }
-    ]
+    ],
+    following: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
+          },
+        },
+      ],
+    favorites: [
+    {
+        post: {
+            type: Schema.Types.ObjectId,
+            ref: 'posts',
+        },
+    },
+    ],
   });
   
   module.exports = User = mongoose.model('user', UserSchema);

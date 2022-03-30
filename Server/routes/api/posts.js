@@ -132,7 +132,7 @@ router.get('/:category', auth, async (req, res) => {
 // @route   GET api/posts/single/:id
 // @desc    Get post by ID
 // @access  Private
-router.get('/single/getpost/:id', auth, async (req, res) => {
+router.get('/single/getpost/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -247,8 +247,8 @@ router.post(
 
       const newComment = {
         text: req.body.text,
-        name: user.name,
-        avatar: user.avatar,
+        alias: user.alias,
+        picture: user.picture,
         user: req.user.id,
       };
 
@@ -287,9 +287,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     }
 
     // Get remove index
-    const removeIndex = post.comments
-      .map((comment) => comment.user.toString())
-      .indexOf(req.user.id);
+    const removeIndex = post.comments.find((comment) => comment.id === req.params.comment_id).__index;
 
     post.comments.splice(removeIndex, 1);
 
