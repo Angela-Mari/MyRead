@@ -205,10 +205,20 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-// Get Posts
+// Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
     const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+// Get Posts
+export const getUserById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/' + userId);
     return res.data;
   } catch (err) {
     console.log(err.msg);
