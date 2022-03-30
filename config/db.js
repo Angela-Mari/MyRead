@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('config');
-//const db = config.get('mongoURI'); //FOR LOCALHOST
-const db = process.env.MONGOURI; //FOR HEROKU
+const db = config.get('mongoURI'); //FOR LOCALHOST
+//const db = process.env.MONGOURI; //FOR HEROKU
 
 
 

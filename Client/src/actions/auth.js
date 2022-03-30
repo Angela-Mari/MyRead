@@ -21,19 +21,19 @@ function getDevPrefix() {
   var devPrefix = "http://localhost:5000";
 
   if(process === undefined) {
-    console.log(">>> Process doesnt exist, dev mode activated");
+    // console.log(">>> Process doesnt exist, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV == null) {
-    console.log(">>> NODE_ENV is null, dev mode activated");
+    // console.log(">>> NODE_ENV is null, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === undefined) {
-    console.log(">>> NODE_ENV undefined, dev mode activated");
+    // console.log(">>> NODE_ENV undefined, dev mode activated");
     return devPrefix;
   } else if(process.env.NODE_ENV === "development") {
-    console.log(">>> NODE_ENV is set to development, dev mode activated");
+    // console.log(">>> NODE_ENV is set to development, dev mode activated");
     return devPrefix;    
   } else {
-    console.log(">>> No dev mode detected");
+    // console.log(">>> No dev mode detected");
     return "";
   }
 }
@@ -166,8 +166,8 @@ export const addCategory = (category) => async (dispatch) => {
 };
 
 // Update a User
-export const updateUser = (bio, socials) => async (dispatch) => {
-  var body = JSON.stringify({ bio: bio, socials: socials });
+export const updateUser = (bio, instagram, facebook, other) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, instagram: instagram, facebook: facebook, other: other });
 
   const config = {
     headers: {
@@ -205,10 +205,20 @@ export const updateBio = (bio) => async (dispatch) => {
   }
 };
 
-// Get Posts
+// Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
     const res = await axios.get(getDevPrefix() + '/api/auth/all');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+// Get Posts
+export const getUserById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/singleuser/' + userId);
     return res.data;
   } catch (err) {
     console.log(err.msg);
@@ -344,13 +354,23 @@ export const addFavorite = (postId) => async (dispatch) => {
 };
 
 // Get all users a user is following
-//   **dont think we need this function... should be able to access through users.following as other 
-//     variables are accessed... leaving it here just in case... uncomment if we need it.
-// export const getFollowing = () => async (dispatch) => {
-//   try {
-//     const res = await axios.get(getDevPrefix() + '/api/users/following');
-//     return res.data;
-//   } catch (err) {
-//     console.log(err.msg);
-//   }
-// };
+export const getFollowing = () => async (dispatch) => {
+  try {
+    const res = await axios.get(getDevPrefix() + '/api/users/following');
+    return res.data;
+  } catch (err) {
+    console.log(err.msg);
+  }
+};
+
+// Remove a User Following
+export const removeFollowing = (followId) => async (dispatch) => {
+
+  try {
+    const res = await axios.delete(getDevPrefix() + '/api/users/following/' + followId);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
