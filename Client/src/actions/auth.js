@@ -218,7 +218,7 @@ export const getAllUsers = () => async (dispatch) => {
 // Get Posts
 export const getUserById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(getDevPrefix() + '/api/users/' + userId);
+    const res = await axios.get(getDevPrefix() + '/api/users/singleuser/' + userId);
     return res.data;
   } catch (err) {
     console.log(err.msg);
