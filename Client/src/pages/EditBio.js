@@ -43,9 +43,9 @@ function EditBio({isAuthenticated, updateUser, uploadProfilePicture, auth: { use
     
     const [formData, setFormData] = useState({
     bio: isAuthenticated? user.bio : "",
-    facebook: '',
-    instagram: '',
-    other: ''
+    facebook: isAuthenticated? user.socials.facebook: '',
+    instagram: isAuthenticated? user.socials.instagram: '',
+    other: isAuthenticated? user.socials.other: ''
     });
 
     async function submit(event){
@@ -55,8 +55,10 @@ function EditBio({isAuthenticated, updateUser, uploadProfilePicture, auth: { use
             var getUrl = window.location;
             var blogUrl = getUrl .protocol + "//" + getUrl.host + "/" + "blog/" + user.alias;
             await uploadProfilePicture(images[0], 1);
-            await updateUser(formData.bio, formData.socials)
-            history.push(`/blog/${user.alias}`);
+            await updateUser(formData.bio, formData.instagram, formData.facebook, formData.other).then(e=>{
+                history.push(`/blog/${user.alias}`);
+            })
+            
         }
     }
 
@@ -87,17 +89,17 @@ function EditBio({isAuthenticated, updateUser, uploadProfilePicture, auth: { use
                     </Form.Group>
                     <Form.Group style={{marginTop:"0.5rem"}}>
                         <Form.Label>Instagram Link</Form.Label>
-                        <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, instagram: e.target.value}))}  isInvalid={ !!errors.url }/>
-                        <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
+                        <Form.Control name="instagram" value={formData.instagram} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, instagram: e.target.value}))}  isInvalid={ !!errors.url }/>
+                        <Form.Control.Feedback type="invalid">{errors.instagram}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group style={{marginTop:"0.5rem"}}>
                         <Form.Label>Facebook Link</Form.Label>
-                        <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, facebook: e.target.value}))}  isInvalid={ !!errors.url }/>
-                        <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
+                        <Form.Control name="facebook" value={formData.facebook} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, facebook: e.target.value}))}  isInvalid={ !!errors.url }/>
+                        <Form.Control.Feedback type="invalid">{errors.facebook}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group style={{marginTop:"0.5rem"}}>
                         <Form.Label>Other Link</Form.Label>
-                        <Form.Control name="url" value={formData.url} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, url: e.target.value}))}  isInvalid={ !!errors.url }/>
+                        <Form.Control name="url" value={formData.other} type="url" placeholder="Enter URL" onChange={(e) => setFormData(formData => ({...formData, other: e.target.value}))}  isInvalid={ !!errors.url }/>
                         <Form.Control.Feedback type="invalid">{errors.url}</Form.Control.Feedback>
                     </Form.Group>
                     <Button style={{marginTop:"0.5rem"}} className="rounded-pill" type = "primary" onClick={e => submit(e)}>Save Changes</Button>

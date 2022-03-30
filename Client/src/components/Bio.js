@@ -3,11 +3,10 @@ import "./Bio.css";
 import { Col, Row, Button } from "react-bootstrap";
 import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
 import fb from "./static_images/f_logo_RGB-Blue_72.png"
-import { useLocation, useHistory} from 'react-router-dom';
+import { useLocation, useHistory, Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addFollowing, getFollowing } from '../actions/auth';
-import e from "cors";
 
 function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { user }, show}) {
     
@@ -24,9 +23,10 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
     } 
 
     const [following, setFollowing] = useState({});
+    const [displayUser, setDiplayUser] = useState(dataUser);
 
     useEffect(() => {
-        console.log("in use effect")
+        console.log("in use effect bio")
         if (show && isAuthenticated && user && dataUser && user.alias != dataUser.alias){
             var myFollower = null
             myFollower = user.following.find(follower => follower._id === dataUser._id)
@@ -43,6 +43,8 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
             console.log("user.alias == datauser.alias")
             setFollowing("Self")
         }
+
+        setDiplayUser(dataUser)
         
     }, [show, dataUser, user]);
 
@@ -50,33 +52,37 @@ function Bio({dataUser, addFollowing, getFollowing, isAuthenticated, auth: { use
         <Col className = "center-block">
             <Row>
                 <Col>
-                <img onClick = {e=> {history.push(`/blog/${dataUser.alias}`)}} className= "bio-pic" src={dataUser.picture} />
+                <img onClick = {e=> {history.push(`/blog/${displayUser.alias}`)}} className= "bio-pic" src={displayUser.picture} />
             </Col>
             </Row>            
-            <h3 style={{marginTop:"1rem"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h3>
-            <p>{dataUser.bio}</p>
-            <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = dataUser.socials.other}}>
-                    <span style={{color:"#437eb6", textDecoration:"underline"}}>{dataUser.socials !== undefined && dataUser.socials.other !== undefined ? dataUser.socials.other : "" }</span>
-            </div>
+            <h3 style={{marginTop:"1rem"}}>{`${displayUser.firstName} ${displayUser.lastName}`}</h3>
+            <p style={{marginBottom:"-0.25rem"}}>{displayUser.bio}</p>
+            <a href = {displayUser.socials !== undefined && displayUser.socials.other !== undefined && displayUser.socials.other.slice(3) !== "http"?
+            
+            `http://${displayUser.socials.other}`
+            :
+            displayUser.socials !== undefined && displayUser.socials.other !== undefined?
+                
+                displayUser.socials.other : "" } target="_blank" ><span style={{color:"#437eb6", textDecoration:"underline"}}>{displayUser.socials !== undefined && displayUser.socials.other !== undefined ? displayUser.socials.other : "" }</span></a>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
                 
-                <img onClick={e => {window.location.href = dataUser.socials.facebook}} src="https://img.icons8.com/plasticine/100/000000/facebook-new.png" height="60px" width="60px" className="socials"/>
+                <img onClick={e => {window.open(displayUser.socials.facebook)}} src="https://img.icons8.com/plasticine/100/000000/facebook-new.png" height="60px" width="60px" className="socials"/>
               
                 </Col>
                 <Col className="col-sm-auto">
  
-                <img onClick={e => {window.location.href = dataUser.socials.instagram}} src="https://img.icons8.com/plasticine/100/000000/instagram.png" height="60px" width="60px" className="socials"/>
+                <img onClick={e => {window.open(displayUser.socials.instagram)}} src="https://img.icons8.com/plasticine/100/000000/instagram.png" height="60px" width="60px" className="socials"/>
         
                 </Col>
             </Row>
-            <Row>
+            <Row className="justify-content-center">
                 {
                     following === "Following"?
-                        <Button>Following</Button> 
+                        <Button className="rounded-pill" onClick={e => updateFollowing()>Following</Button> 
                         :
                     following === "Follow"?
-                        <Button onClick={e => updateFollowing()}>Follow</Button>
+                        <Button className="rounded-pill" onClick={e => updateFollowing()}>Follow</Button>
                         :
                         ""
                 }
