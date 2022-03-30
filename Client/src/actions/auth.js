@@ -284,14 +284,12 @@ export const twoFactorAuth = (email, phoneNumber) => async (dispatch) => {
     type: TWO_FACTOR_ATTEMPTED,
   });
   try {
-    await axios.post('/api/twofa', body);
-    dispatch({
-      // type: CONTACT_MESSAGE_SENT,
-    });
+    await axios.post(getDevPrefix() + '/api/twofa', body);
 
     // dispatch(setAlert('Text message sent'));
   } catch (err) {
     const errors = err.response.data.errors;
+    console.log(errors)
   }
 };
 
@@ -299,7 +297,7 @@ export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
   const body = { email, code };
 
   try {
-    await axios.post('/api/twofa/verify', body);
+    await axios.post(getDevPrefix() + '/api/twofa/verify', body);
     dispatch({
       type: TWO_FACTOR_SUCCESS,
     });
