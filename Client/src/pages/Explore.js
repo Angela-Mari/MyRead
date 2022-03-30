@@ -165,35 +165,54 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
                 :
                 show && value == "Posts"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchPosts.map((post, i) => {
+                    {searchPosts.length > 0 ?
+                    searchPosts.map((post, i) => {
                         return (
                         <Col className="gx-2 px-2">
                             <SmallPost key={i} post = {post} />
                         </Col>
                         )
-                    })}
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    There are no posts right now.
                     </Row>
+                    }
+                    </Row>
+
                     :
                     show && value == "Blogs"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchBlogs.map((currator, i) => {
+                    {searchBlogs.length > 0?
+                    searchBlogs.map((currator, i) => {
                         return (
                         <Col className="gx-2 px-2">
                            <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
                         </Col>
                         )
-                    })}
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    There are no blogs right now.
+                    </Row>
+                    }
                     </Row>
                     :
                     show && value == "Following"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchFollowing.map((currator, i) => {
+                    {searchFollowing > 0 ?
+                    searchFollowing.map((currator, i) => {
                         return (
                         <Col className="gx-2 px-2">
                            <BloggerCard key = {currator._id} alias = {currator.alias} name = {currator.firstName + " " + currator.lastName} picture = {currator.picture} bio = {currator.bio}/>
                         </Col>
                         )
-                    })}
+                    })
+                    :
+                    <Row className="justify-content-center">
+                    You are not following anyone
+                    </Row>
+                    }
                     </Row>
                     :
                     "Error loading explore page"
