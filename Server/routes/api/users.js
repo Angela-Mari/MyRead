@@ -107,7 +107,7 @@ router.post(
 // @route   GET api/users/:user_id
 // @desc    Get a single user from a given id
 // @access  Private
-router.get('/:user_id', async (req, res) => {
+router.get('/singleuser/:user_id', async (req, res) => {
   const userId = req.params.user_id;
   try {
     const user = await User.findOne({ _id: userId });
