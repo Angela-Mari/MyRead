@@ -10,7 +10,7 @@ import BloggerCard from "../components/BloggerCard";
 import "./Explore.css";
 import { useHistory, useLocation } from "react-router";
 
-function Explore({getPosts, getAllUsers, getFollowing}) {
+function Explore({getPosts, getAllUsers, getFollowing, isAuthenticated}) {
 
     const location = useLocation();
 
@@ -131,7 +131,7 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
                         >
                             <Dropdown.Item eventKey="Posts">Posts</Dropdown.Item>
                             <Dropdown.Item eventKey="Blogs">Blogs</Dropdown.Item>
-                            <Dropdown.Item eventKey="Following">Following</Dropdown.Item>
+                            {isAuthenticated? <Dropdown.Item eventKey="Following">Following</Dropdown.Item> : ""}
 
                         </DropdownButton>
                         </div>
@@ -200,7 +200,7 @@ function Explore({getPosts, getAllUsers, getFollowing}) {
                     :
                     show && value == "Following"?
                     <Row xs={1} sm={2} lg={3}>
-                    {searchFollowing > 0 ?
+                    {searchFollowing.length > 0 ?
                     searchFollowing.map((currator, i) => {
                         return (
                         <Col className="gx-2 px-2">

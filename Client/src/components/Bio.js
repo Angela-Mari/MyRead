@@ -3,15 +3,16 @@ import "./Bio.css";
 import { Col, Row, Button } from "react-bootstrap";
 import avatar from "./static_images/anonymous-avatar-icon-25.jpg";
 import fb from "./static_images/f_logo_RGB-Blue_72.png"
-import { useLocation, useHistory, Link} from 'react-router-dom';
+import { useLocation, useHistory, Link, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addFollowing, getFollowing, removeFollowing } from '../actions/auth';
+import { addFollowing, getFollowing, getUserById, removeFollowing } from '../actions/auth';
 
-function Bio({dataUser, addFollowing, removeFollowing, getFollowing, isAuthenticated, auth: { user }, show}) {
+function Bio({dataUser, addFollowing, removeFollowing, getFollowing, getUserById, isAuthenticated, auth: { user }, show}) {
     
     let history = useHistory();
-   
+    let { username } = useParams();
+
     async function updateFollowing(type) {
         if (type == "add"){
             await addFollowing(dataUser._id).then(res => {
@@ -59,19 +60,24 @@ function Bio({dataUser, addFollowing, removeFollowing, getFollowing, isAuthentic
 
     useEffect(() => {
         console.log("in use effect bio")
-        if (show && isAuthenticated && user && dataUser && user.alias != dataUser.alias){
-            var myFollower = null
-            myFollower = user.following.find(follower => follower._id === dataUser._id)
-            if (myFollower == null) {
-                console.log("not following")
-                setFollowing("Follow")
-            }
-            else {
-                console.log("following")
-                setFollowing("Following")
-            }
+        if (show && isAuthenticated && user && dataUser && user.alias !== username){
+            console.log(user.alias)
+            console.log(dataUser.alias)
+            getUserById(user._id).then(res => {
+                var myFollower = null
+                myFollower = res.following.find(follower => follower._id === dataUser._id)
+                if (myFollower == null) {
+                    console.log("not following")
+                    setFollowing("Follow")
+                }
+                else {
+                    console.log("following")
+                    setFollowing("Following")
+                }
+            })
+            
         }
-        if(user && dataUser && user.alias == dataUser.alias) {
+        else {
             console.log("user.alias == datauser.alias")
             setFollowing("Self")
         }
@@ -126,6 +132,7 @@ Bio.propTypes = {
     addFollowing: PropTypes.func.isRequired,
     removeFollowing: PropTypes.func.isRequired,
     getFollowing: PropTypes.func.isRequired,
+    getUserById: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
   };
 
@@ -134,4 +141,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
   });
 
-export default connect(mapStateToProps,{ addFollowing, getFollowing, removeFollowing })(Bio);
+export default connect(mapStateToProps,{ addFollowing, getFollowing, removeFollowing, getUserById })(Bio);
