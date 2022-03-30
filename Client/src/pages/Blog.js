@@ -6,12 +6,12 @@ import RecentPosts from "../components/RecentPosts";
 import { connect } from 'react-redux';
 import PropTypes, { func } from 'prop-types';
 import { getPost } from '../actions/post';
-import { loadUser, getAllUsers } from '../actions/auth';
+import { loadUser, getAllUsers, getUserById} from '../actions/auth';
 import "./Blog.css";
 import { useLocation, useHistory} from 'react-router-dom'
 import PostDetail from "../components/PostDetail";
 
-function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
+function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost, getUserById}) {
     let history = useHistory();
     let { username } = useParams();
     let { postId } = useParams();
@@ -53,9 +53,11 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
     useEffect(() => {
         console.log("in use effect blog to set data user")
         if (isAuthenticated){
-            //GET USER HERE!!!!!
+           
             if ( username == user.alias ){
-                setDataUser(user) 
+                getUserById(user._id).then(res => {
+                    setDataUser(res) 
+                })
             }
             else {
                 getAllUsers().then(res => {
@@ -63,8 +65,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
                         if (element.alias === username){
                             setDataUser(element);
                         }
-                    });
-                    
+                    }); 
                 }) //todo filter for actual user
             }
             
@@ -103,6 +104,7 @@ function Blog({isAuthenticated, auth:{user}, getAllUsers, getPost}) {
 
 Blog.propTypes = {
     getAllUsers: PropTypes.func.isRequired,
+    getUserById: PropTypes.func.isRequired,
     getPost: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
 };
@@ -112,4 +114,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps,{loadUser, getAllUsers, getPost})(Blog);
+export default connect(mapStateToProps,{loadUser, getAllUsers, getPost, getUserById})(Blog);
