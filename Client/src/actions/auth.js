@@ -10,7 +10,10 @@ import {
     AUTH_ERROR,
     SET_ALERT,
     REMOVE_ALERT,
-    LOGOUT
+    LOGOUT,
+    TWO_FACTOR_ATTEMPTED,
+    TWO_FACTOR_SUCCESS,
+    TWO_FACTOR_FAILED,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -63,14 +66,18 @@ export const register = (
     alias,
     password,
     phoneNumber,
-    idNum
+    idNum,
+    instagram,
+    facebook,
+    other
   ) => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
+    var socials = { instagram, facebook, other };
+    var body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum, socials });
     // if (idNum) {
     //   body = JSON.stringify({ firstName, lastName, alias, email, password, phoneNumber, idNum });
     // } else {
@@ -158,6 +165,26 @@ export const addCategory = (category) => async (dispatch) => {
     }
 };
 
+// Update a User
+export const updateUser = (bio, socials) => async (dispatch) => {
+  var body = JSON.stringify({ bio: bio, socials: socials });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/update', body, config);
+    // const res = await axios.post('/api/auth', body);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 // Update a User's Bio
 export const updateBio = (bio) => async (dispatch) => {
   var body = JSON.stringify({ bio: bio });
@@ -194,7 +221,7 @@ export const logout = () => async (dispatch) => {
   });
 };
 
-export const uploadProfilePicture = (file, id) => async (dispatch) => {
+export const uploadProfilePicture = (file) => async (dispatch) => {
   try {
     console.log("in profile upload")
     console.log(file)
@@ -216,3 +243,114 @@ export const uploadProfilePicture = (file, id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const uploadPostPicture = (file, postId) => async (dispatch) => {
+  try {
+    console.log("in post upload")
+    console.log(file)
+    var result = await axios.get(getDevPrefix() + '/api/postimage/' + postId);
+    console.log(result.data);
+    const response = await fetch(result.data, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+      'Cache-Control': 'no-store max-age=0',
+      'Content-Type': file.type,
+      'x-ms-date': new Date().toUTCString(),
+      'x-ms-version': '2020-04-08',
+      'x-ms-blob-type': 'BlockBlob'
+      },
+      body: file, // body data type must match "Content-Type" header
+    });
+    await axios.post(getDevPrefix() + '/api/postimage/' + postId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const twoFactorAuth = (email, phoneNumber) => async (dispatch) => {
+  const body = { email: email, phoneNumber: phoneNumber };
+
+  dispatch({
+    type: TWO_FACTOR_ATTEMPTED,
+  });
+  try {
+    await axios.post('/api/twofa', body);
+    dispatch({
+      // type: CONTACT_MESSAGE_SENT,
+    });
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+  }
+};
+
+export const twoFactorAuthCheck = (email, code) => async (dispatch) => {
+  const body = { email, code };
+
+  try {
+    await axios.post('/api/twofa/verify', body);
+    dispatch({
+      type: TWO_FACTOR_SUCCESS,
+    });
+    return true;
+
+    // dispatch(setAlert('Text message sent'));
+  } catch (err) {
+    dispatch({
+      type: TWO_FACTOR_FAILED,
+    });
+    return false;
+    // const errors = err.response.data.errors;
+  }
+};
+
+// Add a User Following
+export const addFollowing = (followId) => async (dispatch) => {
+  var body = JSON.stringify({ followId: followId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Add a User Favorite Post
+export const addFavorite = (postId) => async (dispatch) => {
+  var body = JSON.stringify({ postId: postId });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(getDevPrefix() + '/api/users/following', body, config);
+    console.log(res);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+// Get all users a user is following
+//   **dont think we need this function... should be able to access through users.following as other 
+//     variables are accessed... leaving it here just in case... uncomment if we need it.
+// export const getFollowing = () => async (dispatch) => {
+//   try {
+//     const res = await axios.get(getDevPrefix() + '/api/users/following');
+//     return res.data;
+//   } catch (err) {
+//     console.log(err.msg);
+//   }
+// };
