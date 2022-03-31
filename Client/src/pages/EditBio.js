@@ -71,7 +71,7 @@ function EditBio({isAuthenticated, updateUser, uploadProfilePicture, auth: { use
     return(
         <>
         {
-            isAuthenticated ? 
+            isAuthenticated && user ? 
             <Container>
                 <h2>Edit {user.firstName} {user.lastName}'s Profile</h2>
                 <Form>
