@@ -1,3 +1,4 @@
+/* global chrome */
 import { Container, Row, Col} from 'react-bootstrap';
 import { setAlert } from '../actions/alert';
 import React from 'react';
@@ -17,17 +18,35 @@ function ExtensionPopUp({
     auth: { user } 
   }){
 
+    function sendMessage(g) {
+      console.log("in sendMessage")
+      //for connection to extension
+      // extension id
+      const extId = "mophplpadcdmninlhmbnkhpdohgfodlh";
+      // "http://localhost:3000/extension-login"
+      // "https://myreaddev-ext-logins-duhpcboow.herokuapp.com/extension-login"
+      // "https://my-read-08.herokuapp.com/extension-login"
+      chrome.runtime.sendMessage(extId, { url: "https://my-read-08.herokuapp.com/extension-login", openUrlInEditorEmail: g.getEmail(), openUrlInEditorPword: g.getId() }, 
+        function(response) {
+          if(!response)
+            return;
+          console.log("from myread");
+    });
+    }
+ 
+
+
     async function handleGoogleSubmit(g) {
-        console.log('inside handleGoogleSubmit');
-        console.log("in app: ", g);
+        console.log('inside of handleGoogleSubmit');
         await login(g.getEmail(), g.getId());
+        await sendMessage(g);
       }
         
       async function handleFacebookSubmit(fb) {
         console.log('inside handleFacebookSubmit');
-        console.log('in app: ', fb);
         //set email and password
         await login(fb.email, fb.id);
+        sendMessage();
       }
 
     const responseFacebook = (response) => {
@@ -40,7 +59,7 @@ function ExtensionPopUp({
         }
         
         console.log('FACEBOOK login successful: ', response)
-        handleFacebookSubmit(response); //this is the problem child rn
+        handleFacebookSubmit(response); 
       };
 
 
@@ -50,7 +69,7 @@ function ExtensionPopUp({
             <Row className="align-items-center text-center justify-content-center" style={{paddingTop:"5rem"}}>
                
             <h1 className="ext-h1" style={{paddingBottom:"1rem"}}>MyRead</h1>
-            <p>Click below to log into MyRead via facebook or google</p>
+            <p>Click below to log into MyRead via Facebook or Google</p>
             <Row className="justify-content-center">
                 <Col className="col-sm-auto">
                 <FacebookLogin
