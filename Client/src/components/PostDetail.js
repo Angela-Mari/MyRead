@@ -55,7 +55,7 @@ function PostDetail({post, currator, addLike, getPost, isAuthenticated}) {
                     <Row>
                     <Col xs={6}>
                     <h1>{post.title}</h1>
-                    <h3 style={{color:"dimgrey"}}><i>Currated by: </i>{currator.firstName} {currator.lastName}</h3>
+                    <h3 style={{color:"dimgrey"}}><i>Curated by: </i>{currator.firstName} {currator.lastName}</h3>
                     <p>{post.description}</p>
                     <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
                         Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
