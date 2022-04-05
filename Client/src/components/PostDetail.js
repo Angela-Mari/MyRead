@@ -34,18 +34,17 @@ function PostDetail({post, currator, addLike, getPost, isAuthenticated}) {
     }
 
     function getSource(){
-        if (post.url !== undefined) {
+        if (post && post.url != undefined && post.url != null) {
         let arr1 = post.url.split(":")
-        if (arr1.length > 1) {
-            let arr2 = arr1[1].split("/")
-            if (arr2.length > 2) {
+            if(arr1.length >= 2){
+                let arr2 = arr1[1].split("/")
                 return arr2[2]
             }
-        }
+            else return post.url
         }
         else {
             return ""
-            }
+        }
     }
 
    return (
@@ -57,7 +56,7 @@ function PostDetail({post, currator, addLike, getPost, isAuthenticated}) {
                     <h1>{post.title}</h1>
                     <h3 style={{color:"dimgrey"}}><i>Curated by: </i>{currator.firstName} {currator.lastName}</h3>
                     <p>{post.description}</p>
-                    <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>
+                    <div style={{marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.open(post.url, "_blank")}}>
                         Source: <span style={{color:"#437eb6", textDecoration:"underline"}}>{getSource()}</span>
                     </div>
                     {
@@ -91,7 +90,7 @@ function PostDetail({post, currator, addLike, getPost, isAuthenticated}) {
                             }
                         </Col>
                         <Col xs={2}>
-                        <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.link}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
+                        <Button variant="Link" style={{width:"40px"}} onClick={e => {window.open(post.url, "_blank")}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
                         </Col>
                     </Row>
                     :
