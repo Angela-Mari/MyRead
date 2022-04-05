@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar,Nav, NavDropdown, Button, Row, Container} from 'react-bootstrap';
+import { Navbar,Nav, Button, Row, Container} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser, logout } from '../actions/auth';
@@ -13,7 +13,7 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
 
     async function frontlogout(e){
         e.preventDefault()
-        await logout().then(history.push("/home")); //this is redirecting but user is not logged out thus still authenticated and redirects to here
+        await logout().then(history.push("/home"));
     }
 
     function login(){
@@ -43,9 +43,9 @@ function MyNav({logout, auth: { user }, isAuthenticated}) {
                     </Navbar.Text>
                     
                     <Nav.Link>
-                    <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.3rem", fontWeight:"bold"}}>
-                        Explore
-                    </Link>
+                        <Link key="explore" to="/explore" style={{textDecoration:"none",color:"white", fontSize:"1.3rem", fontWeight:"bold"}}>
+                            Explore
+                        </Link>
                     </Nav.Link>
                     <Nav.Link>
                         <Link to="/create-post" style={{textDecoration:"none",color:"white", fontSize:"1.3rem", fontWeight:"bold"}}>
