@@ -8,12 +8,15 @@ import { useHistory } from "react-router-dom";
 function SmallPost({ key, post}) {
 
     let history = useHistory();
-
+    
     function getSource(){
-        if (post.link !== undefined) {
-        let arr1 = post.link.split(":")
-        let arr2 = arr1[1].split("/")
-        return arr2[2]
+        if (post && post.url != undefined && post.url != null) {
+        let arr1 = post.url.split(":")
+            if(arr1.length >= 2){
+                let arr2 = arr1[1].split("/")
+                return arr2[2]
+            }
+            else return post.url
         }
         else {
             return ""
