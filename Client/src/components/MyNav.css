@@ -2,6 +2,7 @@
     background-image: url("../pages/Carousel/nav-cropped.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
+    padding-right: 1rem;
 }
 
 .my-brand {

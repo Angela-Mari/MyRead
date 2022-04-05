@@ -12,8 +12,8 @@ function ExtensionInfo(){
         </Col>
         <Col md={4}>
         <h1> <img src={Chrome} alt="chrome logo" height={"50px"} width={"50px"}></img> MyRead browser button for Chrome </h1>
-        <p> Load the browser extension in your preferred browser and <b>blog as you surf.</b></p>
-        <Button disabled>Get the browser button now</Button>
+        <p> Load the browser extension in your chrome browser and <b>blog as you surf.</b></p>
+        <Button onClick={e=> window.open("https://chrome.google.com/webstore/detail/myread-browser-extension/nlimpfenamaljjgolngpfmdikickookj", "_blank")}>Get the browser button now</Button>
         </Col>
         </Row>
         </div>
