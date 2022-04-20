@@ -70,3 +70,46 @@ Contains schema of what variables map to either private keys in Heroku or in the
 ##### db.js
 Runs server connection 
 
+### Backend Documentation
+#### Server.js
+Main file containing the server definition and all associated routes.
+##### Server/middleware
+###### auth.js
+Middleware for determining whether or not the user is authenticated. If the request from the backend requires authentication, the middleware auth file will check whether or not the request should be allowed by checking whether or not their JSON token is valid.
+##### Server/models
+###### Post.js
+Post Schema that represents a post object. Each post field will have a type associated with it, along with if it is required. Post is typed as a mongoose model and exported as ‘PostSchema.’
+###### TwoFAUser.js
+TwoFAUser Schema that represents a TwoFaUser object. These users include the email and associated current two factor authentication code sent to a user. Each TwoFAUser field will have a type associated with it, along with if it is required. TwoFAUser is typed as a mongoose model and exported as ‘TwoFAUser Schema.’
+###### User.js
+User Schema that represents a user object. Each user field will have a type associated with it, along with if it is required. User is typed as a mongoose model and exported as ‘UserSchema.’
+#### Server/routes
+All routes associated with their given name and define the making of the API. Contains all the end points for requests the frontend is making for the specified information.
+###### Auth.js
+###### Image.js
+
+###### PostImage.js
+###### Posts.js
+###### TwpFA.js
+###### Users.js
+### Third Party Integrations 
+#### Google
+To allow for access to Google libraries and authentication, first create a Google developer account. Create a new project and navigate to APIs and Services. Under credentials, create a new OAuth 2.0 Client ID for google authentication. Add all URLs of locations that will use the Google button and the npm library ‘react-google-login’, under the section “Authorized Javascript Origins”. This includes links to all heroku branches, the main site, extension URL,  and localhost. With the new Client ID, replace the one in GoogleBtn.js. 
+#### Google Chrome Extension
+Add the URL from the Chrome extension to the authorized javascript origins (e.g. https://[extension_id_here].chromiumapp.org). To develop the extension, a Chrome developer account is needed (different than Google developer account). When ready to publish, create a new item and fill out all sections with the required information. 
+
+To run and test the extension, go to chrome://extensions/ to upload locally. Choose “load unpacked” and upload the folder containing the extension (if prompted to upload a single file, choose the manifest.json file). A new ID value may be given. Replace all instances of the old ID with the new one. 
+Facebook
+Similar to Google, create a Facebook developers account. Create a new app for MyRead. Under Facebook Login/Settings, add all Javascript origins here that use the Facebook button and npm library ‘react-facebook-login’. With the new App ID, replace all instances of the old one with the new one in facebooklogin.component.js. 
+
+#### Files
+##### Client/external-logins
+Contains components for Google and Facebook Authentication processes. Used for Login/Register on MyRead home page and Login page on the extension. 
+
+##### Client/external-logins/GoogleBtn.js
+Class component for implementation of the Google sign in button, as required by the npm library ‘react-google-login’. Allows for connection to Google account to fetch email and login information. 
+
+##### Client/external-logins/facebooklogin.component.js
+Traditional react component to allow for the use of Facebook login button. Similar to GoogleBtn.js in functionality. 
+
+
