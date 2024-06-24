@@ -1,9 +1,9 @@
 import React from 'react';
-import { Container, Card, Row, Col, Button, Badge, ButtonGroup} from 'react-bootstrap';
+import { Container, Card, Row, Col, Button, Badge} from 'react-bootstrap';
 import "./Post.css"
 import { deletePost } from "../actions/post"
 import { addLike } from "../actions/post"
-
+import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes, { func } from 'prop-types';
 import { loadUser } from '../actions/auth';
@@ -27,14 +27,13 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
     }
 
     function getSource(){
-        if (post.url !== undefined) {
+        if (post && post.url != undefined && post.url != null) {
         let arr1 = post.url.split(":")
-        if (arr1.length > 1) {
-            let arr2 = arr1[1].split("/")
-            if (arr2.length > 2) {
+            if(arr1.length >= 2){
+                let arr2 = arr1[1].split("/")
                 return arr2[2]
             }
-        }
+            else return post.url
         }
         else {
             return ""
@@ -73,7 +72,7 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                 </Row>
                 <Row>
                 <div >
-                    Source: <span style={{color:"#437eb6", textDecoration:"underline", marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.location.href = post.url}}>{getSource()}</span>
+                    Source: <span style={{color:"#437eb6", textDecoration:"underline", marginTop:"0.5rem", cursor:"pointer"}} onClick={e => {window.open(post.url, "_blank")}}>{getSource()}</span>
                 </div>
                 </Row>
                 <Row className="bottom justify-content-end">
@@ -100,8 +99,10 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                         <Button onClick = {() => handleClick(post)} variant="Link" style={{width:"40px", marginLeft:"1rem"}}> <img src="https://img.icons8.com/ios/50/000000/resize-diagonal--v1.png" height="25px" weight="25px"/> </Button>
                     </Col>
                     <Col xs={2}>
-                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.location.href = post.url}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>
-                        </Col>
+                            
+                            <Button variant="Link" style={{width:"40px"}} onClick={e => {window.open(post.url, "_blank")}}><img src="https://img.icons8.com/ios/96/000000/link--v1.png" height="25px" weight="25px"/></Button>  
+
+                    </Col>
                         
                     <Col xs={2}>
                         {
@@ -123,6 +124,7 @@ function Post({post, handleClick, dataUser, deletePost, addLike, updatePosts, se
                     </Row>
                     } 
                 </Row>
+                
             </Col>
             </Row>
             </Card> 
